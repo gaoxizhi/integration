@@ -2,20 +2,29 @@ server:
   port: 12501
 
 spring:
+  # 配置Redis
   redis:
     host: 127.0.0.1
     port: 6379
+    jedis:
+      pool:
+        max-active: 8
+        max-idle: 8
+        min-idle: 0
+        max-wait: 1ms
+    timeout: 0ms
+  # 配置MySQL
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: root
     url: jdbc:mysql://localhost:3306/iot?serverTimezone=GMT%2B8&characterEncoding=utf-8&useSSL=false&useUnicode=true
-# 开启驼峰命名法
+# 开启mybatis驼峰命名法
 mybatis:
   configuration:
     map-underscore-to-camel-case: true
 
-#控制日志级别
+#控制mybatis日志级别
 logging:
   level:
     net:
