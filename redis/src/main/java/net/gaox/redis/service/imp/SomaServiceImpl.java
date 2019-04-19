@@ -17,10 +17,11 @@ import java.util.List;
  * @ClassName SomaServiceImp
  * @Author: gaox·Eric
  * @Date: 2019/4/14 10:51
+ * 类全局配置cacheConfig
  */
 //@CacheConfig(cacheManager = "somaCacheManager")
 @Service
-public class SomaServiceImp implements SomaService {
+public class SomaServiceImpl implements SomaService {
     @Resource
     SomaMapper somaMapper;
 
@@ -28,6 +29,11 @@ public class SomaServiceImp implements SomaService {
     RedisTemplate<Object, SomaTempLog> somaRedisTemplate;
 
     @Cacheable(value = "soma", key = "#id"/*,cacheManager = "gaoxCacheManager"*/)
+    /**
+     * 通过id查询
+     * @param id
+     * @return
+     */
     @Override
     public SomaTempLog getSomaByid(Long id) {
         System.out.println("查询id：" + id);
@@ -38,7 +44,7 @@ public class SomaServiceImp implements SomaService {
 
     @CacheEvict(value = "soma")
     @Override
-    public List<SomaTempLog> SomaList() {
+    public List<SomaTempLog> somaList() {
         return null;
     }
 }

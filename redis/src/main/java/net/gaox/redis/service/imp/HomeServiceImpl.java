@@ -15,16 +15,17 @@ import javax.annotation.Resource;
 import java.time.LocalDateTime;
 import java.util.List;
 
+//对类进行配置缓存组件名
+//@CacheConfig(cacheNames = "home")
+
 /**
- * @Description: <p>  </p>
+ * @Description: <p> 缓存查询实现类 </p>
  * @ClassName HomeServiceImp
  * @Author: gaox·Eric
  * @Date: 2019/4/13 14:41
  */
-//对类进行配置缓存组件名
-//@CacheConfig(cacheNames = "home")
 @Service
-public class HomeServiceImp implements HomeService {
+public class HomeServiceImpl implements HomeService {
     @Resource
     HomeMapper homeMapper;
 
@@ -35,6 +36,9 @@ public class HomeServiceImp implements HomeService {
      */
 //    @Autowired
 //    RedisTemplate redisTemplate;
+    /**
+     * 配置过的Redis模板
+     */
     @Autowired
     RedisTemplate<Object, Home> homeRedisTemplate;
 
@@ -63,28 +67,32 @@ public class HomeServiceImp implements HomeService {
      * //对类进行配置缓存组件名
      * //@CacheConfig(cacheNames = "home")
      * **************************************************************************
-     * @Cacheable
-     * @param id
-     * @return
      */
 //    @Cacheable(cacheNames = {"home"})
 //    @Cacheable(cacheNames = "home", key = "#id")
 //    @Cacheable(value = {"home"},keyGenerator = "myKeyGenerator"}
 //    @Cacheable(value = {"home"}, keyGenerator = "myKeyGenerator", condition = "#id>=2")
+
+    /**
+     * 查询home
+     *
+     * @param id
+     * @return
+     */
     @Override
     public Home getHomeByid(Long id) {
-        System.out.println("查询开始："+LocalDateTime.now());
+        System.out.println("查询开始：" + LocalDateTime.now());
         final Home home1 = homeRedisTemplate.opsForValue().get("home" + id);
         if (null != home1) {
-            System.out.println("查询redis："+ LocalDateTime.now());
+            System.out.println("查询redis：" + LocalDateTime.now());
             System.out.println(home1);
             return home1;
         }
         System.out.println("查询home id：" + id);
         final Home home = homeMapper.getHome(id);
-        System.out.println("查询数据库："+ LocalDateTime.now());
+        System.out.println("查询数据库：" + LocalDateTime.now());
         homeRedisTemplate.opsForValue().set("home" + id, home);
-        System.out.println("存入redis："+LocalDateTime.now());
+        System.out.println("存入redis：" + LocalDateTime.now());
         return home;
     }
 

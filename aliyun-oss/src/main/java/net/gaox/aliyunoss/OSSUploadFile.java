@@ -35,8 +35,9 @@ public class OSSUploadFile {
     public static void main(String[] args) throws IOException {
         //测试上传文件
         Resource resource = new ClassPathResource("banner.txt");
-        File file =  resource.getFile();
-        if (uploadFile(file, "ss")) {
+        File file = resource.getFile();
+        final String fileName = "test_file_name.txt";
+        if (uploadFile(file, fileName)) {
             System.out.println("ok");
         } else {
             System.out.println("失败");
@@ -50,6 +51,7 @@ public class OSSUploadFile {
         deleteFile("banner.txt");
 
     }
+
     /**
      * 上传文件到阿里云OSS
      *

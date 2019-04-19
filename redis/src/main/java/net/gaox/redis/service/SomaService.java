@@ -12,9 +12,19 @@ import java.util.List;
  * @Date: 2019/4/14 10:49
  */
 public interface SomaService {
-
+    /**
+     * 通过id查询信息
+     *
+     * @param id
+     * @return
+     */
     SomaTempLog getSomaByid(Long id);
 
-    List<SomaTempLog> SomaList();
+    /**
+     * 查询历史信息列表
+     *
+     * @return
+     */
+    List<SomaTempLog> somaList();
 
 }

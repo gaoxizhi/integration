@@ -8,16 +8,16 @@ import java.util.Map;
 
 /**
  * @Description: <p>  </p>
- * @Auther: gaox·Eric
+ * @Author: gaox·Eric
  * @Date: 2019/1/25 11:03
  */
 @Controller
-public class index {
-    @GetMapping(value = {"/","/index.html","/index"})
-    public String index(Map<String,Object> map){
-        map.put("msg",0);
+public class Index {
+    @GetMapping(value = {"/", "/index.html", "/index"})
+    public String index(Map<String, Object> map) {
+        map.put("msg", 0);
         map.put("time", LocalDateTime.now());
         System.out.println(1111);
-        return "index";
+        return "Index";
     }
 }

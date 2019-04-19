@@ -27,6 +27,6 @@ public class SomaController {
     }
     @GetMapping("/soma/list")
     public List<SomaTempLog> getList() {
-        return somaService.SomaList();
+        return somaService.somaList();
     }
 }
