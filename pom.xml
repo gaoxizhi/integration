@@ -24,6 +24,9 @@
     <!--子模块列表-->
     <modules>
         <module>redis</module>
+        <module>aliyun-oss</module>
+        <module>thymeleaf</module>
+        <module>excel</module>
 
     </modules>
 
@@ -57,9 +60,9 @@
 
         <!--mybatis-plus依赖-->
         <dependency>
-        <groupId>com.baomidou</groupId>
-        <artifactId>mybatis-plus-boot-starter</artifactId>
-        <version>3.1.0</version>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>3.1.0</version>
         </dependency>
         <!-- *************** fastJson依赖 国内较为常用 ***************************************-->
         <dependency>
