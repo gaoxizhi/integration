@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="zh-cn" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>光而不耀</title>
+    <script src="webjars/jquery/3.3.1/jquery.min.js"></script>
+    <!--<script src="webjars/popper.js"></script>-->
+    <!--<script th:src="@{webjars/popper.js}"></script>-->
+
+    <!--<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.slim.min.js"-->
+            <!--integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"-->
+            <!--crossorigin="anonymous"></script>-->
+    <script src="https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+    <script src="asserts/js/Md5.js"></script>
+    <link rel="stylesheet" href="webjars/bootstrap/4.2.1/css/bootstrap.min.css"/>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#"><b>光而不耀</b></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+            </li>
+
+            <!--<div class=" dropdown">-->
+            <!--<button type=" button" class=" btn btn-primary dropdown-toggle" data-toggle="dropdown">-->
+            <!--Dropdown button-->
+            <!--</button>-->
+            <!--<div class="dropdown-menu">-->
+            <!--<a class="dropdown-item" href="#">Link 1</a>-->
+            <!--<a class="dropdown-item" href="#">Link 2</a>-->
+            <!--<a class="dropdown-item" href="#">Link 3</a>-->
+            <!--</div>-->
+            <!--</div>-->
+
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Dropdown
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="html/register2.html">Action</a>
+                    <a class="dropdown-item" href="html/regrster.html">Another action</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link disabled" href="#">Disabled</a>
+            </li>
+
+        </ul>
+
+        <li><a data-toggle="modal" data-target="#login" href="#"><span
+                class="glyphicon dropdown-toggle"></span>登录</a>
+        </li>
+
+        <li></li>
+
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </div>
+</nav>
+
+
+<div class="jumbotron">
+    <div class="container">
+        <div class="jumbotron">
+            <h1>欢迎来到科学世界！</h1>
+            </br>
+            <p>人不成功的原因，因为缺乏饥饿感，长期没有饥饿感等于梦想的死亡。</p>
+            <p class="text-right">安东尼 罗宾</p>
+            <p><a class="btn btn-primary btn-lg" data-toggle="modal" data-target="#login" href="#" role="button">登&nbsp;陆</a>
+            </p>
+        </div>
+    </div>
+</div>
+
+<ul class="list-group">
+    <li class="list-group-item active">Cras justo odio</li>
+    <li class="list-group-item">Dapibus ac facilisis in</li>
+    <li class="list-group-item">Morbi leo risus</li>
+    <li class="list-group-item">Porta ac consectetur ac</li>
+    <li class="list-group-item">Vestibulum at eros</li>
+</ul>
+<!-- 注册窗口 -->
+<div id="register" class="modal fade" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-title">
+                <h1 class="text-center">注册</h1>
+            </div>
+            <div class="modal-body">
+                <form class="form-group" action="">
+                    <div class="form-group">
+                        <label for="">用户名</label>
+                        <input class="form-control" type="text" placeholder="6-15位字母或数字">
+                    </div>
+                    <div class="form-group">
+                        <label for="">密码</label>
+                        <input class="form-control" type="password" placeholder="至少6位字母或数字">
+                    </div>
+                    <div class="form-group">
+                        <label for="">再次输入密码</label>
+                        <input class="form-control" type="password" placeholder="至少6位字母或数字">
+                    </div>
+                    <div class="form-group">
+                        <label for="">邮箱</label>
+                        <input class="form-control" type="email" placeholder="例如:123@123.com">
+                    </div>
+                    <div class="text-right">
+                        <button class="btn btn-primary" type="submit">提交</button>
+                        <button class="btn btn-danger" data-dismiss="modal">取消</button>
+                    </div>
+                    <a href="" data-toggle="modal" data-dismiss="modal" data-target="#login">已有账号？点我登录</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 登录窗口 -->
+<div id="login" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-title">
+                <h1 class="text-center">登录</h1>
+            </div>
+            <div class="modal-body">
+                <form class="form-group" action="/user">
+                    <div class="form-group">
+                        <label for="">用户名</label>
+                        <input id="user-name-label" name="userName" class="form-control" type="text" placeholder="">
+                    </div>
+                    <div class="form-group">
+                        <label for="">密码</label>
+                        <input id="password-label" class="form-control" type="" placeholder="">
+                    </div>
+                    <input type="hidden" name="passWord" id="pass" value="12">
+                    <div class="text-right">
+                        <button class="btn btn-primary" onclick="add()">登录</button>
+                        <script>
+                            function add() {
+                                var pass = document.getElementById("password-label").value;
+                                var str1 = hex_md5(pass);
+                                alert(pass + "-----" + str1);
+                                $("#pass").val(str1);
+                            }
+                        </script>
+
+                        <button class="btn btn-danger" data-dismiss="modal">取消</button>
+                    </div>
+                    <a href="" data-toggle="modal" data-dismiss="modal" data-target="#register">还没有账号？点我注册</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
