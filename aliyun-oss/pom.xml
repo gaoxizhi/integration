@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>net.gaox</groupId>
+        <artifactId>integration</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    <groupId>net.gaox</groupId>
+    <artifactId>aliyun-oss</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>aliyun-oss</name>
+    <description>阿里云OSS应用</description>
+
+
+    <dependencies>
+        <!--提供网络服务模块-->
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.4.1</version>
+        </dependency>
+        <!--操作XML（标准通用标记语言下的一个子集） 的独特 Java 工具包-->
+        <dependency>
+            <groupId>org.jdom</groupId>
+            <artifactId>jdom</artifactId>
+            <version>1.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.codehaus.jettison</groupId>
+            <artifactId>jettison</artifactId>
+            <version>1.1</version>
+        </dependency>
+        <!--oss-SDK-->
+        <dependency>
+            <groupId>com.aliyun.oss</groupId>
+            <artifactId>aliyun-sdk-oss</artifactId>
+            <version>3.3.0</version>
+        </dependency>
+
+        <dependency>
+            <!--Java SDK 公共部分和 RAM 部分，公共部分依赖aliyun-java-sdk-core, RAM 部分依赖aliyun-java-sdk-ram-->
+            <groupId>com.aliyun</groupId>
+            <artifactId>aliyun-java-sdk-ram</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+        <!--<dependency>-->
+            <!--&lt;!&ndash;STS临时安全凭证token&ndash;&gt;-->
+            <!--<groupId>com.aliyun</groupId>-->
+            <!--<artifactId>aliyun-java-sdk-sts</artifactId>-->
+            <!--<version>3.0.0</version>-->
+        <!--</dependency>-->
+        <!--&lt;!&ndash;阿里云服务器ecs&ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>com.aliyun</groupId>-->
+            <!--<artifactId>aliyun-java-sdk-ecs</artifactId>-->
+            <!--<version>4.2.0</version>-->
+        <!--</dependency>-->
+    </dependencies>
+
+</project>
