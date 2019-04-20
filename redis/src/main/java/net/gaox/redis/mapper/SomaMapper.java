@@ -1,6 +1,5 @@
 package net.gaox.redis.mapper;
 
-import net.gaox.redis.entity.Home;
 import net.gaox.redis.entity.SomaTempLog;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -30,5 +29,5 @@ public interface SomaMapper {
      * @return
      */
     @Select("SELECT * FROM `soma_temp_log`")
-    List<Home> somaList();
+    List<SomaTempLog> somaList();
 }

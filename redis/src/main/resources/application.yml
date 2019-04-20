@@ -4,15 +4,27 @@ server:
 spring:
   # 配置Redis
   redis:
+    # 服务器地址
     host: 127.0.0.1
+    # 服务器端口
     port: 6379
+    # 验证码
+    # password: ******
     jedis:
       pool:
+        # 最大连接数（负数表示没有限制）
         max-active: 8
+        # 最大空闲连接
         max-idle: 8
+        # 最小空闲链接
         min-idle: 0
+        # 最大阻塞等待时间（负数表示没有限制）
         max-wait: 1ms
-    timeout: 0ms
+    # 链接超时时间（毫秒）
+    # 此参数设置过小导致的，将这个参数设值得更大些，如200或以上！
+    #  timeout 这个在实际的生产环境中非常有用
+    timeout: 50ms
+
   # 配置MySQL
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -30,4 +42,4 @@ logging:
     net:
       gaox:
         redis:
-          mapper: error
+          mapper: debug
