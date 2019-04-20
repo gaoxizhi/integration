@@ -1,0 +1,18 @@
+server:
+  port: 12506
+spring:
+  data:
+    mongodb:
+      # 配置url就不要再配置host、port等内容了
+      # uri: mongodb://localhost:27017/gaox
+      # --------------------------------------------------
+      # MongoDB所在的服务器地址
+      host: localhost
+      # MongoDB所在的服务器开启的端口，不配置此项默认27017
+      port: 27017
+      # 使用的库
+      database: gaox
+      # 连接远程服务时需要的数据库用户名，本地也可以不填写
+      # username: gaox
+      # 连接远程服务时需要的数据库密码，本地也可以不填写
+      # password: passwd

@@ -4,8 +4,12 @@
 springboot、redis、mybatis、mybatisplus、MongoDB...技术整合项目
 
 #### 软件架构
-软件架构说明
-
+项目合计：
+Redis应用：12501
+AliyunOSS：12502
+thymeleaf：12503
+Excel    ：12505
+MongoDB  ：12506
 
 #### 安装教程
 
