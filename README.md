@@ -10,6 +10,7 @@ AliyunOSS：12502
 thymeleaf：12503
 Excel    ：12505
 MongoDB  ：12506
+JPA      : 12507
 
 #### 安装教程
 

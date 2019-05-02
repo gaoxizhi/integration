@@ -29,6 +29,7 @@
         <module>excel</module>
         <module>util</module>
         <module>mongodb</module>
+        <module>springboot-jpa</module>
     </modules>
 
     <!--依赖管理-->
@@ -43,6 +44,12 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+        <!-- 热部署 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <optional>true</optional>
         </dependency>
         <!-- *************** fastJson依赖 国内较为常用 ***************************************-->
         <dependency>
