@@ -43,6 +43,8 @@
         <module>springboot-jpa</module>
         <module>shiro-jwt</module>
         <module>model</module>
+        <module>page</module>
+        <module>mybatis-relation</module>
     </modules>
 
     <!--依赖管理-->
