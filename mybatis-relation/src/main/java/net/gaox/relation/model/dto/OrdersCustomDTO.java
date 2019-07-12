@@ -16,6 +16,6 @@ public class OrdersCustomDTO extends Orders {
      * 添加用户的属性
      */
     private String userName;
-    private String sex;
+    private Boolean sex;
     private String address;
 }

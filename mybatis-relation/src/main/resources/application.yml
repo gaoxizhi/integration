@@ -36,4 +36,4 @@ logging:
   level:
     net:
       gaox:
-        page: debug
+        relation: debug

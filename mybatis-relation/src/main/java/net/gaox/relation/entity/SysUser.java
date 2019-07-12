@@ -39,7 +39,7 @@ public class SysUser {
     /**
      * 性别
      */
-    private String sex;
+    private Boolean sex;
 
     /**
      * 地址

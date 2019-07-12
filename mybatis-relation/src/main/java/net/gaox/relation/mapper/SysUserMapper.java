@@ -1,7 +1,7 @@
 package net.gaox.relation.mapper;
 
 import net.gaox.relation.entity.SysUser;
-import org.mapstruct.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -16,4 +16,6 @@ import java.util.List;
 public interface SysUserMapper {
 
     List<SysUser> list();
+
+    int insert(@Param("map") SysUser map);
 }
