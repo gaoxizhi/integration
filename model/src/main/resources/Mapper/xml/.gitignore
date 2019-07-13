@@ -1,5 +1,0 @@
-# Ignore everything in this directory
-# 提交空目录
-*
-# Except this file
-!.gitignore

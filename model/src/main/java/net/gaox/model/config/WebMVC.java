@@ -4,6 +4,7 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
@@ -12,6 +13,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * @Author: gaox·Eric
  * @Date: 2019/4/18 22:20
  */
+@Configuration
 public class WebMVC implements WebMvcConfigurer {
 
     /**
@@ -19,13 +21,22 @@ public class WebMVC implements WebMvcConfigurer {
      */
     @Bean
     public FastJsonHttpMessageConverter jsonConverter() {
+
+
         FastJsonHttpMessageConverter converter = new FastJsonHttpMessageConverter();
         FastJsonConfig config = new FastJsonConfig();
-        config.setSerializerFeatures(SerializerFeature.WriteNullBooleanAsFalse, SerializerFeature.WriteNullNumberAsZero,
-                SerializerFeature.WriteNullStringAsEmpty, SerializerFeature.WriteMapNullValue,
-                SerializerFeature.WriteNonStringKeyAsString, SerializerFeature.DisableCircularReferenceDetect);
+        config.setSerializerFeatures(
+                SerializerFeature.WriteNullBooleanAsFalse
+                , SerializerFeature.WriteNullNumberAsZero
+                , SerializerFeature.WriteNullStringAsEmpty
+                , SerializerFeature.WriteMapNullValue
+                , SerializerFeature.WriteNonStringKeyAsString
+                , SerializerFeature.DisableCircularReferenceDetect
+                //设置WriteEnumUsingToString
+                , SerializerFeature.WriteEnumUsingName
+//                ,SerializerFeature.WriteEnumUsingToString
+        );
         converter.setFastJsonConfig(config);
         return converter;
     }
-
 }
