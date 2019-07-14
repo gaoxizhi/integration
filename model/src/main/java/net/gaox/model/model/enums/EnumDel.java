@@ -28,7 +28,7 @@ public enum EnumDel implements IEnum {
     }
 
     /**
-     * 可有可无
+     * 重写ToString收字段字面值
      */
     @Override
     public String toString() {

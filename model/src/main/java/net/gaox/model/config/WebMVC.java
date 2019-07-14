@@ -32,9 +32,9 @@ public class WebMVC implements WebMvcConfigurer {
                 , SerializerFeature.WriteMapNullValue
                 , SerializerFeature.WriteNonStringKeyAsString
                 , SerializerFeature.DisableCircularReferenceDetect
-                //设置WriteEnumUsingToString
-                , SerializerFeature.WriteEnumUsingName
-//                ,SerializerFeature.WriteEnumUsingToString
+//                , SerializerFeature.WriteEnumUsingName
+                //设置Enum输出ToString内容
+                , SerializerFeature.WriteEnumUsingToString
         );
         converter.setFastJsonConfig(config);
         return converter;

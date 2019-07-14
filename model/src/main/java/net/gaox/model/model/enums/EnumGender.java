@@ -8,7 +8,8 @@ public enum EnumGender implements IEnum {
      * 被删除
      */
     FEMALE(false, "女人"),
-    MALE(true, "男人");
+    MALE(true, "男人"),
+    UN_KNOW(null,"未知");
 
     private Boolean value;
     private String desc;
@@ -25,5 +26,13 @@ public enum EnumGender implements IEnum {
 
     public String getDesc() {
         return this.desc;
+    }
+    /**
+     * 重写ToString收字段字面值
+     */
+    @Override
+    public String toString() {
+//        return null == this ? "UN_KNOW" : this.name();
+        return desc;
     }
 }
