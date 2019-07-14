@@ -3,7 +3,7 @@ package net.gaox.relation.mapper;
 
 /**
  * <p>
- * 商品表 Mapper 接口
+ * 商品表 mapper 接口
  * </p>
  *
  * @author gaox·Eric

@@ -28,7 +28,7 @@ mybatis:
   # 配置扫描xml
   mapper-locations: classpath:/mybatis/**/*Mapper.xml
   # 实体扫描，多个package用逗号或者分号分隔
-  type-aliases-package: net.gaox.relation
+  type-aliases-package: net.gaox.relation.entity
 
 
   # 控制项目日志级别

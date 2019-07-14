@@ -12,7 +12,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 
 @SpringBootApplication
-@MapperScan({"net.gaox.relation"})
+@MapperScan({"net.gaox.relation.mapper"})
 public class App {
     public static void main(String[] args) {
         SpringApplication.run(App.class, args);

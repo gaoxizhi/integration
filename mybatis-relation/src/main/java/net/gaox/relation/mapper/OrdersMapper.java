@@ -6,7 +6,7 @@ import java.util.List;
 
 /**
  * <p>
- * 订单表 Mapper 接口
+ * 订单表 mapper 接口
  * </p>
  *
  * @author gaox·Eric

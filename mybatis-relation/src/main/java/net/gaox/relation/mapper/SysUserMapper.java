@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  * <p>
- * 用户表 Mapper 接口
+ * 用户表 mapper 接口
  * </p>
  *
  * @author gaox·Eric
@@ -18,4 +18,6 @@ public interface SysUserMapper {
     List<SysUser> list();
 
     int insert(@Param("map") SysUser map);
+
+    SysUser selectById(@Param("map") SysUser map);
 }

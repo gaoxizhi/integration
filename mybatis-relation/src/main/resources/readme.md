@@ -21,3 +21,5 @@
 为了方便查询遍历关联信息可以使用collection将关联信息映射到list集合中，比如：查询用户权限范围模块及模块下的菜单，可使用collection将模块映射到模块list中，将菜单列表映射到模块对象的菜单list属性中，这样的作的目的也是方便对查询结果集进行遍历查询。
 
 >*如果使用resultType无法将查询结果映射到list集合中。*
+
+>参考 https://www.cnblogs.com/selene/p/4627446.html#_label0

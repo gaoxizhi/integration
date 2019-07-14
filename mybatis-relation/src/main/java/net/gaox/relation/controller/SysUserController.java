@@ -6,6 +6,7 @@ import net.gaox.relation.entity.SysUser;
 import net.gaox.relation.mapper.OrdersCustomMapper;
 import net.gaox.relation.mapper.SysUserMapper;
 import net.gaox.relation.model.dto.OrdersCustomDTO;
+import net.gaox.relation.model.enums.EnumSex;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -62,12 +63,14 @@ public class SysUserController {
     public Object insert() {
         SysUser user = new SysUser();
         user.setUserName("高羲之");
-        user.setSex(true);
+        user.setSex(EnumSex.MALE);
         user.setBirthday(LocalDate.now());
         user.setAddress("山东省曹县梁堤头镇杨集村");
         int insert = userMapper.insert(user);
-        logger.info("插入数量{}个，成功{}个。", insert, insert);
+        logger.info("插入数量{}个，成功{}个。", 1, insert);
         //这里取值除了设置的，多的只有id
+        logger.debug(user.toString());
+        user = userMapper.selectById(user);
         logger.debug(user.toString());
         return user;
     }

@@ -46,7 +46,7 @@
             -->
             <id column="user_id" property="id"/>
             <result column="username" property="userName"/>
-            <result column="sex" property="sex"/>
+            <result column="sex" property="sex" typeHandler="org.apache.ibatis.type.EnumOrdinalTypeHandler"/>
             <result column="address" property="address"/>
         </association>
     </resultMap>

@@ -3,6 +3,8 @@ package net.gaox.relation.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+import net.gaox.relation.model.enums.EnumDelFlag;
+import net.gaox.relation.model.enums.EnumSex;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -40,7 +42,7 @@ public class SysUser {
     /**
      * 性别
      */
-    private Boolean sex;
+    private EnumSex sex;
 
     /**
      * 地址
@@ -63,7 +65,7 @@ public class SysUser {
     /**
      * 删除标志：删除0；正常1（默认）
      */
-    private Boolean delFlag;
+    private EnumDelFlag delFlag;
 
     /**
      * 用户创建的订单列表
