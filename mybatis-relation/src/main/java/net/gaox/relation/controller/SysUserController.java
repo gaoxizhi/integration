@@ -5,20 +5,18 @@ import net.gaox.relation.entity.Orders;
 import net.gaox.relation.entity.SysUser;
 import net.gaox.relation.mapper.OrdersCustomMapper;
 import net.gaox.relation.mapper.SysUserMapper;
+import net.gaox.relation.model.dto.OrderDetailCustomDTO;
 import net.gaox.relation.model.dto.OrdersCustomDTO;
+import net.gaox.relation.model.dto.OrdersCustomTypeDTO;
 import net.gaox.relation.model.enums.EnumSex;
 import org.slf4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -45,7 +43,7 @@ public class SysUserController {
     }
 
     @GetMapping("/findOrdersUser")
-    public List<OrdersCustomDTO> findOrdersUser() {
+    public List<OrdersCustomTypeDTO> findOrdersUser() {
         return ocMapper.findOrdersUser();
     }
 
@@ -55,7 +53,7 @@ public class SysUserController {
     }
 
     @GetMapping("/findOrdersAndOrderDetailResultMap")
-    public List<OrderDetail> findOrdersAndOrderDetailResultMap() {
+    public List<OrderDetailCustomDTO> findOrdersAndOrderDetailResultMap() {
         return ocMapper.findOrdersAndOrderDetailResultMap();
     }
 

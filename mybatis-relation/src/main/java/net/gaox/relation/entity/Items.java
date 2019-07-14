@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import lombok.Data;
+import net.gaox.relation.model.enums.EnumDelFlag;
 
 import java.time.LocalDateTime;
 
@@ -64,6 +65,6 @@ public class Items {
     /**
      * 删除标志：删除0；正常1（默认）
      */
-    private Boolean delFlag;
+    private EnumDelFlag delFlag;
 
 }

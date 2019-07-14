@@ -27,7 +27,7 @@ public class SysUser {
      * id
      */
 //    @TableId(value = "id", type = IdType.AUTO)
-    private Integer id;
+    private Long id;
 
     /**
      * 用户名称

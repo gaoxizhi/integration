@@ -1,28 +1,19 @@
-package net.gaox.relation.entity;
+package net.gaox.relation.model.dto;
 
 import lombok.Data;
+import net.gaox.relation.entity.Items;
 import net.gaox.relation.model.enums.EnumDelFlag;
 
 import java.time.LocalDateTime;
-import java.io.Serializable;
 
 /**
- * <p>
- * 订单详情
- * </p>
- *
- * @author gaox·Eric
- * @since 2019-07-10
+ * @Description: <p>  </p>
+ * @ClassName: OrderDetailCustomDTO
+ * @Author: gaox·Eric
+ * @Date: 2019/7/14 20:30
  */
 @Data
-public class OrderDetail {
-
-    private static final long serialVersionUID = 1L;
-
-    /**
-     * id
-     */
-//         @TableId(value = "id", type = IdType.AUTO)
+public class OrderDetailCustomDTO {
     private Long id;
 
     /**
@@ -58,5 +49,6 @@ public class OrderDetail {
      * 商品详情
      */
     private Items item;
+
 
 }

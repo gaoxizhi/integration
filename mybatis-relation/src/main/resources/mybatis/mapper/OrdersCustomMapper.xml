@@ -9,7 +9,7 @@
 <!-- d.resultMap可以实现延迟加载，resultType无法实现延迟加载。-->
 <mapper namespace="net.gaox.relation.mapper.OrdersCustomMapper">
     <!-- 1&1查询订单，关联查询用户信息 -->
-    <select id="findOrdersUser" resultType="net.gaox.relation.model.dto.OrdersCustomDTO">
+    <select id="findOrdersUser" resultType="net.gaox.relation.model.dto.OrdersCustomTypeDTO">
         SELECT o.*,
                u.user_name,
                u.sex,
@@ -33,7 +33,7 @@
         <result column="note" property="note"/>
         <result column="create_time" property="createTime"/>
         <result column="update_time" property="updateTime"/>
-        <result column="del_flag" property="delFlag"/>
+        <result column="del_flag" property="delFlag" typeHandler="org.apache.ibatis.type.EnumOrdinalTypeHandler"/>
         <!-- 配置映射的关联用户信息 -->
 
         <!--association:用于映射关联查询单个对象的信息
@@ -107,7 +107,7 @@
         <!-- 用户信息 -->
         <id column="user_id" property="id"/>
         <result column="user_name" property="userName"/>
-        <result column="sex" property="sex"/>
+        <result column="sex" property="sex"  typeHandler="org.apache.ibatis.type.EnumOrdinalTypeHandler"/>
         <result column="address" property="address"/>
         <!-- 订单信息
             一个用户对应多个订单，使用collection映射 -->

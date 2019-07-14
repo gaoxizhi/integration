@@ -2,9 +2,8 @@ package net.gaox.relation.model.dto;
 
 import lombok.Data;
 import net.gaox.relation.entity.OrderDetail;
-import net.gaox.relation.entity.SysUser;
+import net.gaox.relation.model.enums.EnumSex;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -20,7 +19,7 @@ public class OrdersUserDTO {
      * 添加用户的属性
      */
     private String userName;
-    private Boolean sex;
+    private EnumSex sex;
     private String address;
     /**
      * 订单明细
