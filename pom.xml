@@ -45,6 +45,7 @@
         <module>model</module>
         <module>page</module>
         <module>mybatis-relation</module>
+        <module>live-chat-netty</module>
     </modules>
 
     <!--依赖管理-->

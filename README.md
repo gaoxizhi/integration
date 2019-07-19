@@ -14,6 +14,7 @@ springboot、redis、mybatis、mybatisplus、MongoDB...技术整合项目
 * shiro-jwt: 12508
 * page     ：12509
 * Mybattis-relation   : 12510
+* live-chat-netty   ：12511
 
 #### 安装教程
 
