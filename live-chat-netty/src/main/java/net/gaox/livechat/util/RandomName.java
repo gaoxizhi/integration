@@ -1,4 +1,4 @@
-package net.gaox.livechatnetty.util;
+package net.gaox.livechat.util;
 
 import java.util.Random;
 

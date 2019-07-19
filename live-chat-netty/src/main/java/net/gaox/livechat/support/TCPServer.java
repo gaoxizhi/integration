@@ -1,4 +1,4 @@
-package net.gaox.livechatnetty;
+package net.gaox.livechat.support;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.Channel;
@@ -23,7 +23,7 @@ public class TCPServer {
      * 获得Been
      */
     @Autowired
-    @Qualifier("live-chat.serverBootstrap")
+    @Qualifier("serverBootstrap")
     private ServerBootstrap serverBootstrap;
 
     @Autowired

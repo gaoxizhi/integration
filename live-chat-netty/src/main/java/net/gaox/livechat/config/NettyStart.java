@@ -1,4 +1,4 @@
-package net.gaox.livechatnetty;
+package net.gaox.livechat.config;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelOption;
@@ -6,23 +6,26 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
-import net.gaox.livechatnetty.handler.NettyWebSocketChannelInitializer;
+import net.gaox.livechat.handler.NettyWebSocketChannelInitializer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.PropertySource;
+import org.springframework.stereotype.Component;
 
 import java.net.InetSocketAddress;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-@SpringBootApplication
-public class LiveChatApp {
+/**
+ * @Description: <p>  </p>
+ * @ClassName: nettyStart
+ * @Author: gaox·Eric
+ * @Date: 2019/7/19 22:09
+ */
+@Component
+public class NettyStart {
 
     @Value("${live-chat.tcp.port}")
     private int tcpPort;
@@ -39,7 +42,7 @@ public class LiveChatApp {
     @Value("${live-chat.so.backlog}")
     private int backlog;
 
-    @Bean(name = "live-chat.serverBootstrap")
+    @Bean(name = "serverBootstrap")
     public ServerBootstrap bootstrap() {
         ServerBootstrap b = new ServerBootstrap();
         b.group(bossGroup(), workerGroup())
@@ -79,13 +82,6 @@ public class LiveChatApp {
     @Bean(name = "tcpSocketAddress")
     public InetSocketAddress tcpPort() {
         return new InetSocketAddress(tcpPort);
-    }
-
-    public static void main(String[] args) throws Exception {
-        ConfigurableApplicationContext context = SpringApplication.run(LiveChatApp.class, args);
-
-        TCPServer tcpServer = context.getBean(TCPServer.class);
-        tcpServer.start();
     }
 
 }

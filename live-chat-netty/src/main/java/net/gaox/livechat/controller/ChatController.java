@@ -1,4 +1,4 @@
-package net.gaox.livechatnetty.controller;
+package net.gaox.livechat.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class ChatController {
     @RequestMapping("/")
-    public String WebsocketChatClient() {
+    public String webSocketChatClient() {
         return "/WebsocketChatClient";
     }
 }

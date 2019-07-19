@@ -1,4 +1,4 @@
-package net.gaox.livechatnetty.handler;
+package net.gaox.livechat.handler;
 
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandler;
@@ -8,10 +8,11 @@ import io.netty.channel.group.ChannelGroup;
 import io.netty.channel.group.DefaultChannelGroup;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import io.netty.util.concurrent.GlobalEventExecutor;
-import net.gaox.livechatnetty.util.RandomName;
+import net.gaox.livechat.util.RandomName;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -40,6 +41,7 @@ public class TextWebSocketFrameHandler extends SimpleChannelInboundHandler<TextW
                 channel.writeAndFlush(new TextWebSocketFrame("[" + uName + "]" + msg.text()));
             } else {
                 channel.writeAndFlush(new TextWebSocketFrame("[you]" + msg.text()));
+                System.out.println(String.format("%s  User[%s]: %s", LocalDateTime.now().toString(), uName, msg.text()));
             }
         }
     }
