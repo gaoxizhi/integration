@@ -12,15 +12,15 @@
     }
     if (window.WebSocket) {
         socket = new WebSocket("ws://192.168.0.187:8090/ws");
-        socket.onmessage = function(event) {
+        socket.onmessage = function (event) {
             var ta = document.getElementById('responseText');
             ta.value = ta.value + '\n' + event.data
         };
-        socket.onopen = function(event) {
+        socket.onopen = function (event) {
             var ta = document.getElementById('responseText');
             ta.value = "连接开启!";
         };
-        socket.onclose = function(event) {
+        socket.onclose = function (event) {
             var ta = document.getElementById('responseText');
             ta.value = ta.value + "连接被关闭";
         };
@@ -32,21 +32,27 @@
         if (!window.WebSocket) {
             return;
         }
-        if (socket.readyState == WebSocket.OPEN) {
+        if (socket.readyState === WebSocket.OPEN) {
             socket.send(message);
         } else {
             alert("连接没有开启.");
         }
     }
-    window.onbeforeunload = function(event) {
+
+    window.onbeforeunload = function (event) {
         event.returnValue = "刷新提醒";
     };
+    document.onkeydown = function (event) {
+        var e = event || window.event;
+        if (e && 13 === e.keyCode)
+            send(form.message.value);
+    };
 </script>
-<form onsubmit="return false;">
+<form onsubmit="return false;" name="form">
     <h3>netty 聊天室：</h3>
     <textarea id="responseText" style="width: 300px; height: 400px;"></textarea>
     <br/>
-    <input type="text" name="message"  style="width: 300px" value="测试数据"/><br/>
+    <input type="text" name="message" style="width: 300px" value="测试数据"/><br/>
     <input type="button" value="发送消息" onclick="send(this.form.message.value)"/>
 </form>
 <br/>
