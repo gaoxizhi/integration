@@ -26,11 +26,13 @@ public class MyRedisConfig {
 //    boot 版本  1.5.19.RELEASE
 
     //
-//    /**
-//     * @param redisConnectionFactory
-//     * @return
-//     * @throws UnknownHostException
-//     */
+
+    /**
+     * Priamry 主要模板
+     * home类型模板
+     *
+     * @param redisConnectionFactory
+     */
     @Primary
     @Bean
     public RedisTemplate<Object, Home> homeRedisTemplate(RedisConnectionFactory redisConnectionFactory) {
@@ -57,6 +59,13 @@ public class MyRedisConfig {
 //        return cacheManager;
 //    }
 //
+
+    /**
+     * 类型模型
+     *
+     * @param redisConnectionFactory
+     * @return
+     */
     @Bean
     public RedisTemplate<Object, SomaTempLog> somaRedisTemplate(RedisConnectionFactory redisConnectionFactory) {
         RedisTemplate<Object, SomaTempLog> template = new RedisTemplate<Object, SomaTempLog>();

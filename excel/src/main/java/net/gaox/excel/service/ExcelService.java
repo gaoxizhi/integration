@@ -22,8 +22,8 @@ import java.util.List;
 @Service
 public class ExcelService {
 
-    final static String XLS = ".XLS";
-    final static String XLSX = ".XLSX";
+    final static String XLS = ".xls";
+    final static String XLSX = ".xlsx";
 
     /**
      * 处理上传的文件

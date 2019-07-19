@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.gaox.relation.mapper.SysUserMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="net.gaox.relation.entity.SysUser">
+        <id column="id" property="id"/>
+        <result column="user_name" property="userName"/>
+        <result column="birthday" property="birthday"/>
+        <result column="sex" property="sex" typeHandler="org.apache.ibatis.type.EnumOrdinalTypeHandler"/>
+        <result column="address" property="address"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="del_flag" property="delFlag" typeHandler="org.apache.ibatis.type.EnumOrdinalTypeHandler"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, user_name, birthday, sex, address, create_time, update_time, del_flag
+    </sql>
+
+    <!--    <select id="list" resultType="net.gaox.relation.entity.SysUser">-->
+    <select id="list" resultMap="BaseResultMap">
+        SELECT *
+        from sys_user
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="net.gaox.relation.entity.SysUser">
+        insert into sys_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="map.userName != null">
+                user_name,
+            </if>
+            <if test="map.birthday != null">
+                birthday,
+            </if>
+            <if test="map.sex != null">
+                sex,
+            </if>
+            <if test="map.address != null">
+                address,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="map.userName != null">
+                #{map.userName,jdbcType=VARCHAR},
+            </if>
+            <if test="map.birthday != null">
+                #{map.birthday,jdbcType=DATE},
+            </if>
+            <if test="map.sex != null">
+                #{map.sex,jdbcType=BIT},
+            </if>
+            <if test="map.address != null">
+                #{map.address,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="selectById" resultMap="BaseResultMap">
+        select * from sys_user where id = #{map.id}
+    </select>
+</mapper>

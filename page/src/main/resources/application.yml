@@ -1,0 +1,39 @@
+server:
+  # 设置服务器端口
+  port: 12509
+
+spring:
+  # 配置MySQL
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: page
+    password: 2183ac6cd59c237b
+    url: jdbc:mysql://localhost:3306/gao_page?serverTimezone=GMT%2B8&characterEncoding=utf-8&useSSL=false&useUnicode=true
+    # Hikari 数据源专用配置
+    hikari:
+      maximum-pool-size: 20
+      minimum-idle: 5
+# 配置mybatis-plus
+#mybatis-plus:
+#  global-config:
+#    # 逻辑删除配置
+#    logic-delete-value: 0
+#    logic-not-delete-value: 1
+#    sql-injector: com.baomidou.mybatisplus.mapper.LogicSqlInjector
+
+mybatis:
+  configuration:
+    # 开启mybatis驼峰命名法
+    map-underscore-to-camel-case: true
+  # 配置扫描xml
+  mapper-locations: classpath:/mybatis/**/*Mapper.xml
+  # 实体扫描，多个package用逗号或者分号分隔
+  type-aliases-package: net.gaox.page.entity
+
+
+  # 控制项目日志级别
+logging:
+  level:
+    net:
+      gaox:
+        page: debug

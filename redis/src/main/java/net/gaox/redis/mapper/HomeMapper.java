@@ -26,6 +26,8 @@ public interface HomeMapper {
     Integer instHome(Home home);
 
     /**
+     * 删除一个家庭
+     *
      * @param id
      * @return
      */
@@ -33,6 +35,8 @@ public interface HomeMapper {
     int deleteByid(Long id);
 
     /**
+     * 更新家庭
+     *
      * @param home
      * @return
      */
@@ -40,6 +44,8 @@ public interface HomeMapper {
     int updates(@Param("home") Home home);
 
     /**
+     * 通过id查询家庭
+     *
      * @param id
      * @return
      */
