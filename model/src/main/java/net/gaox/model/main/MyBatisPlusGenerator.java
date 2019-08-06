@@ -45,7 +45,6 @@ public class MyBatisPlusGenerator {
                 .setIdType(IdType.AUTO)
                 // 设置生成的service接口的名字的首字母是否为I
                 .setServiceName("%sService")
-
                 // IEmployeeService
                 // 生成基本的resultMap
                 .setBaseResultMap(true)
@@ -73,11 +72,14 @@ public class MyBatisPlusGenerator {
         stConfig.setCapitalMode(true)
                 // 数据库表映射到实体的命名策略
                 .setNaming(NamingStrategy.underline_to_camel)
+                .setEntityLombokModel(true)
+                .setRestControllerStyle(true)
+                .setEntityBuilderModel(true)
+                .entityTableFieldAnnotationEnable(true)
                 // 生成的表
                 .setInclude(models);
 
         // 4. 包名策略配置
-
         PackageConfig pkConfig = new PackageConfig();
 
         pkConfig.setParent("net.gaox.erp")
@@ -87,6 +89,7 @@ public class MyBatisPlusGenerator {
                 .setService("service")
                 // controller
                 .setController("controller")
+
 
                 .setEntity("entity");
        /*// mapper.xml

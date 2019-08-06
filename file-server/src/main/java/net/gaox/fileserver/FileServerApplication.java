@@ -1,18 +1,18 @@
-package net.gaox.shirojwt;
+package net.gaox.fileserver;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.scheduling.annotation.EnableScheduling;
-
 /**
- * <p>  </p>
+ * <p> 启动类 </p>
  *
  * @author gaox·Eric
+ * @date 2019/8/4 19:45
  */
-@EnableScheduling
 @SpringBootApplication
-public class ShiroJwtApplication {
+public class FileServerApplication {
+
     public static void main(String[] args) {
-        SpringApplication.run(ShiroJwtApplication.class, args);
+        SpringApplication.run(FileServerApplication.class, args);
     }
+
 }

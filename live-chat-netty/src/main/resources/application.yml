@@ -20,6 +20,22 @@ spring:
     encoding: UTF-8
     servlet:
       content-type: text/html
+  # 配置MySQL
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: root
+    url: jdbc:mysql://localhost:3306/jpa?serverTimezone=GMT%2B8&characterEncoding=utf-8&useSSL=false&useUnicode=true
+    # Hikari 数据源专用配置
+    hikari:
+      maximum-pool-size: 20
+      minimum-idle: 5
+  # JPA 相关配置
+  jpa:
+    show-sql: true
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    hibernate:
+      ddl-auto: update
 live-chat:
   tcp:
     port: 8090

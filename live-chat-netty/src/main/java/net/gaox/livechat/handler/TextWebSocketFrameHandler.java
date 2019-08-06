@@ -8,12 +8,17 @@ import io.netty.channel.group.ChannelGroup;
 import io.netty.channel.group.DefaultChannelGroup;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import io.netty.util.concurrent.GlobalEventExecutor;
+import net.gaox.livechat.entity.User;
+import net.gaox.livechat.service.UserService;
 import net.gaox.livechat.util.RandomName;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -31,6 +36,9 @@ public class TextWebSocketFrameHandler extends SimpleChannelInboundHandler<TextW
 
     public static Map<String, String> map = new HashMap<>(100);
 
+    @Autowired
+    private UserService userService;
+
     @Override
     protected void channelRead0(ChannelHandlerContext ctx,
                                 TextWebSocketFrame msg) throws Exception {
@@ -40,6 +48,7 @@ public class TextWebSocketFrameHandler extends SimpleChannelInboundHandler<TextW
             if (channel != incoming) {
                 channel.writeAndFlush(new TextWebSocketFrame("[" + uName + "]" + msg.text()));
             } else {
+                System.out.println("66666666");
                 channel.writeAndFlush(new TextWebSocketFrame("[you]" + msg.text()));
                 System.out.println(String.format("%s  User[%s]: %s", LocalDateTime.now().toString(), uName, msg.text()));
             }
@@ -50,8 +59,11 @@ public class TextWebSocketFrameHandler extends SimpleChannelInboundHandler<TextW
     public void handlerAdded(ChannelHandlerContext ctx) throws Exception {
         System.out.println(ctx.channel().remoteAddress());
         String uName = new RandomName().getRandomName();
-
+        BigDecimal decimal = new BigDecimal("0");
         Channel incoming = ctx.channel();
+        System.out.println("333333333333333333333");
+        List<User> twoName = userService.findTwoName("小红", "笑话");
+        twoName.forEach(s -> System.out.println(s.toString()+"1111111111111111111111111111111111111"));
         for (Channel channel : channels) {
             channel.writeAndFlush(new TextWebSocketFrame("[新用户] - " + uName + " 加入"));
         }
