@@ -4,8 +4,7 @@ import net.gaox.shirojwt.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- * @Description: <p>  </p>
- * @ClassName UserDao
+ UserDao
  * @author gaox·Eric
  * @date 2019/5/4 00:58
  */

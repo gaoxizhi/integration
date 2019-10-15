@@ -1,19 +1,7 @@
 package net.gaox.model.entity;
 
-import java.math.BigDecimal;
-
-import com.alibaba.fastjson.annotation.JSONField;
-import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.baomidou.mybatisplus.annotation.IdType;
-
-import java.time.LocalDate;
-
 import com.baomidou.mybatisplus.annotation.TableId;
-
-import java.time.LocalDateTime;
-import java.io.Serializable;
-
-import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -21,12 +9,17 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 import net.gaox.model.model.enums.EnumDel;
 
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 /**
  * <p>
  * 商品表
  * </p>
  *
- * @author gaoxÂ·Eric
+ * @author gaox·Eric
  * @since 2019-07-13
  */
 @Data

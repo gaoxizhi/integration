@@ -11,8 +11,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * @Description: <p> 联合主键示例 </p>
- * @ClassName UserClothesService
+ * <p> 联合主键示例 </p>
+  UserClothesService
  * @author gaox·Eric
  * @date 2019/5/2 23:42
  */

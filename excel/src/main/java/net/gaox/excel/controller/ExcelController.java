@@ -31,7 +31,6 @@ public class ExcelController {
     public ExcelController(ExcelService importService) {
         this.importService = importService;
     }
-
     /**
      * 表单方式提交Excel文件并解析
      *
@@ -72,7 +71,6 @@ public class ExcelController {
         printDataLine(list);
         return "上传成功";
     }
-
     public void printData(List list) {
         if (0 < list.size()) {
             for (Object o : list) {
@@ -84,7 +82,6 @@ public class ExcelController {
             }
         }
     }
-
     public void printDataLine(List list) {
         if (0 < list.size()) {
             for (Object o : list) {
@@ -101,5 +98,4 @@ public class ExcelController {
             }
         }
     }
-
 }

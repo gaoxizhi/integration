@@ -40,7 +40,6 @@ public class OSSUploadFile {
         } else {
             System.out.println("失败");
         }
-
         //列举文件
 //        listFiles();
         //测试获取文件
@@ -49,7 +48,6 @@ public class OSSUploadFile {
         deleteFile("banner.txt");
 
     }
-
     /**
      * 上传文件到阿里云OSS
      *
@@ -90,7 +88,6 @@ public class OSSUploadFile {
 //        }
         return false;
     }
-
     public static void listFiles() {
         /**
          * 列举文件。
@@ -102,10 +99,7 @@ public class OSSUploadFile {
         for (OSSObjectSummary s : sums) {
             System.out.println("\t" + s.getKey());
         }
-
-
     }
-
     /**
      * 删除阿里云OSS上文件
      *
@@ -125,7 +119,6 @@ public class OSSUploadFile {
         }
         return false;
     }
-
     public static boolean getFile(String fileName, String addressFile) {
         try {
             OSS client = new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret);

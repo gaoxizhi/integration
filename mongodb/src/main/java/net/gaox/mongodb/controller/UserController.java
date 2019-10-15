@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * @Description: <p>  </p>
  * @author gaox·Eric
  * @date 2019/1/22 08:54
  */
@@ -38,7 +37,7 @@ public class UserController {
      * @param user
      * @return
      */
-    @PostMapping("")
+    @PostMapping()
     public User save(@RequestBody User user) {
         userServer.saveUser(user);
         return user;
@@ -50,7 +49,7 @@ public class UserController {
      * @param user
      * @return
      */
-    @PatchMapping("")
+    @PatchMapping()
     public User upDate(@RequestBody User user) {
         System.out.println(user);
         return userServer.update(user);

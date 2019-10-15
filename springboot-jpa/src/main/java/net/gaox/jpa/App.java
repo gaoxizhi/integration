@@ -15,7 +15,6 @@ public class App {
     public static void main(String[] args) {
         SpringApplication.run(App.class, args);
     }
-
     /**
      * JSON序列化 用于将controller返回的实体类转换成json串
      */

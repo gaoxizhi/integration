@@ -108,5 +108,4 @@ public class MyBatisPlusGenerator {
         // 6. 执行
         ag.execute();
     }
-
 }

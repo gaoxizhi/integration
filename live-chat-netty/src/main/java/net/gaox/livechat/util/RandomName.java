@@ -3,8 +3,6 @@ package net.gaox.livechat.util;
 import java.util.Random;
 
 /**
- * @Description: <p>  </p>
- * @ClassName: RandomName
  * @author gaox·Eric
  * @date 2019/7/19 20:23
  */

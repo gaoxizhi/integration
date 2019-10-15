@@ -7,12 +7,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
- * @Description: <p>  </p>
- * @ClassName WebMVC
  * @author gaox·Eric
  * @date 2019/4/18 22:20
  */
-public class WebMVC implements WebMvcConfigurer {
+public class WebMvc implements WebMvcConfigurer {
 
     /**
      * JSON序列化 用于将controller返回的实体类转换成json串
@@ -32,5 +30,4 @@ public class WebMVC implements WebMvcConfigurer {
         converter.setFastJsonConfig(config);
         return converter;
     }
-
 }

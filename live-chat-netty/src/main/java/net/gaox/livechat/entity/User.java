@@ -6,9 +6,8 @@ import javax.persistence.*;
 
 
 /**
- * @Description: <p> 用户表 </p>
- * @ClassName User
  * @author gaox·Eric
+ * <p> 用户表 </p>
  * @date 2019/5/2 15:01
  * <p>
  * Entity 声明这个类对应了一个数据库表。必选

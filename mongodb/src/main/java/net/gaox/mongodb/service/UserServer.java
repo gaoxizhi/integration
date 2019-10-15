@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 /**
- * @Description: <p>  </p>
  * @author gaox·Eric
  * @date 2019/1/21 22:55
  */
@@ -92,5 +91,4 @@ public class UserServer {
         }
         return false;
     }
-
 }

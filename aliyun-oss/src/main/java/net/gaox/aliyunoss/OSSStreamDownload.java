@@ -28,7 +28,6 @@ public class OSSStreamDownload {
     {
 //        client = new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret);
     }
-
     /**
      * <p> 获得文件 </p>
      *
@@ -48,7 +47,6 @@ public class OSSStreamDownload {
         writeToLocal("I://" + fileName, inputStream);
         ossObject.close();
     }
-
     /**
      * 将InputStream写入本地文件
      *
@@ -70,7 +68,6 @@ public class OSSStreamDownload {
         downloadFile.close();
 
     }
-
     public static void main(String[] args) throws IOException {
         getFiles("mmexport1544249585987.jpg");
     }

@@ -8,8 +8,6 @@ import java.lang.reflect.Method;
 import java.util.Arrays;
 
 /**
- * @Description: <p>  </p>
- * @ClassName MyCacheGenerator
  * @author gaox·Eric
  * @date 2019/4/13 19:02
  */

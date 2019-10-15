@@ -7,7 +7,6 @@ public class OApiException extends Exception {
     public OApiException(String field) {
         this(ERR_RESULT_RESOLUTION, "Cannot resolve field " + field + " from oapi resonpse");
     }
-
 	public OApiException(int errCode, String errMsg) {
 		super("error code: " + errCode + ", error message: " + errMsg);
 	}

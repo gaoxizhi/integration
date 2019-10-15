@@ -5,8 +5,6 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 /**
- * @Description: <p>  </p>
- * @ClassName: OrderTypeDTO
  * @author gaox·Eric
  * @date 2019/7/14 20:26
  */
@@ -43,5 +41,4 @@ public class OrderTypeDTO {
      * 删除标志：删除0；正常1（默认）
      */
     private Boolean delFlag;
-
 }

@@ -19,8 +19,8 @@ import java.util.List;
 //@CacheConfig(cacheNames = "home")
 
 /**
- * @Description: <p> 缓存查询实现类 </p>
- * @ClassName HomeServiceImp
+ * <p> 缓存查询实现类 </p>
+ *
  * @author gaox·Eric
  * @date 2019/4/13 14:41
  */

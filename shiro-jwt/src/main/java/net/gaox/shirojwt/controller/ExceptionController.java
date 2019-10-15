@@ -11,8 +11,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * @Description: <p>  </p>
- * @ClassName ExceptionController
+ ExceptionController
  * @author gaox·Eric
  * @date 2019/5/4 01:21
  */
@@ -31,7 +30,6 @@ public class ExceptionController {
     public ApiResponse handle401(ShiroException e) {
         return ApiResponse.fail().error(e.getMessage());
     }
-
     /**
      * 捕捉UnauthorizedException
      *
@@ -43,7 +41,6 @@ public class ExceptionController {
         return ApiResponse.fail().and("code", 401).error("Unauthorized");
 
     }
-
     /**
      * 捕捉其他所有异常
      *
@@ -56,7 +53,6 @@ public class ExceptionController {
     public ApiResponse globalException(HttpServletRequest request, Throwable ex) {
         return ApiResponse.fail().and("code", getStatus(request).value()).error(ex.getMessage());
     }
-
     /**
      * 获取HTTP状态码
      *
@@ -70,5 +66,4 @@ public class ExceptionController {
         }
         return HttpStatus.valueOf(statusCode);
     }
-
 }

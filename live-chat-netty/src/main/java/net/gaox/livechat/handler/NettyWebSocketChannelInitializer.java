@@ -15,8 +15,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 /**
- * @Description: <p>  </p>
- * @ClassName: NettyWebSocketChannelInitializer
  * @author gaox·Eric
  * @date 2019/7/19 20:24
  */
@@ -31,7 +29,6 @@ public class NettyWebSocketChannelInitializer extends ChannelInitializer<SocketC
 //        this.rabbitSender = rs;
 //        this.port = tcpPort;
 //    }
-
     @Autowired
     private TextWebSocketFrameHandler textWebSocketFrameHandler;
 

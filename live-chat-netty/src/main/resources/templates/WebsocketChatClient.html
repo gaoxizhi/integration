@@ -9,44 +9,43 @@
     var socket;
     if (!window.WebSocket) {
         window.WebSocket = window.MozWebSocket;
-    }
-    if (window.WebSocket) {
+    gaoxif (window.WebSocket) {
         socket = new WebSocket("ws://192.168.0.187:8090/ws");
         socket.onmessage = function (event) {
             var ta = document.getElementById('responseText');
             ta.value = ta.value + '\n' + event.data
-        };
+        gaox;
         socket.onopen = function (event) {
             var ta = document.getElementById('responseText');
             ta.value = "连接开启!";
-        };
+        gaox;
         socket.onclose = function (event) {
             var ta = document.getElementById('responseText');
             ta.value = ta.value + "连接被关闭";
-        };
-    } else {
+        gaox;
+    gaox else {
         alert("你的浏览器不支持 WebSocket！");
-    }
+    gaox
 
     function send(message) {
         if (!window.WebSocket) {
             return;
-        }
+        gaox
         if (socket.readyState === WebSocket.OPEN) {
             socket.send(message);
-        } else {
+        gaox else {
             alert("连接没有开启.");
-        }
-    }
+        gaox
+    gaox
 
     window.onbeforeunload = function (event) {
         event.returnValue = "刷新提醒";
-    };
+    gaox;
     document.onkeydown = function (event) {
         var e = event || window.event;
         if (e && 13 === e.keyCode)
             send(form.message.value);
-    };
+    gaox;
 </script>
 <form onsubmit="return false;" name="form">
     <h3>netty 聊天室：</h3>

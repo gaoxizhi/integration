@@ -1,11 +1,10 @@
 package net.gaox.relation.entity;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
-
 import lombok.Data;
 import net.gaox.relation.model.enums.EnumDelFlag;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**

@@ -21,8 +21,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * @Description: <p>  </p>
- * @ClassName UserController
+ UserController
  * @author gaox·Eric
  * @date 2019/5/2 15:34
  */
@@ -37,13 +36,11 @@ public class UserController {
     public void setService(UserService userService) {
         this.userService = userService;
     }
-
     @GetMapping("/")
     public String hello() {
 
         return "Hello from <a href = \"http://gaox.net!\">gaox.net</a>";
     }
-
     @PostMapping("/user/login")
     public ApiResponse login(@RequestParam("username") String username,
                              @RequestParam("password") String password) {
@@ -61,20 +58,17 @@ public class UserController {
             throw new UnauthorizedException();
         }
     }
-
     @RequestMapping(path = "/401")
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public ApiResponse unauthorized() {
         return ApiResponse.fail().and("code", 401).error("Unauthorized");
     }
-
     @GetMapping("/user/{id}")
     @RequiresAuthentication
     public User getUser(@PathVariable Long id) {
         logger.debug("查询用户" + id);
         return userService.getOne(id);
     }
-
     @GetMapping("/user/get1")
     @RequiresRoles("admin")
     public User getUser1() {
@@ -86,14 +80,12 @@ public class UserController {
         }
         return user;
     }
-
     @GetMapping("/user/all")
     @RequiresRoles("admin")
     public ApiResponse getAllUser() {
         final List<User> all = userService.findAll();
         return ApiResponse.success().data(all);
     }
-
     /**
      * 通过jwt获取当前登录用户
      *
@@ -109,7 +101,6 @@ public class UserController {
         final User user = userService.getUserByName(username);
         return ApiResponse.success().data(user);
     }
-
     /**
      * 权限鉴定
      * RequiresPermissions logical.and 权限都存在
@@ -125,6 +116,4 @@ public class UserController {
         final User getUser = userService.save(user);
         return ApiResponse.success().and("data", getUser);
     }
-
-
 }

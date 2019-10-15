@@ -1,8 +1,6 @@
 package net.gaox.relation.model.enums;
 
 /**
- * @Description: <p>  </p>
- * @ClassName: EnumDelFlag
  * @author gaox·Eric
  * @date 2019/7/13 00:21
  */

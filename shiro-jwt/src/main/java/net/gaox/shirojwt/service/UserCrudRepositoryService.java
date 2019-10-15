@@ -4,8 +4,7 @@ import net.gaox.shirojwt.entity.User;
 import org.springframework.data.repository.CrudRepository;
 
 /**
- * @Description: <p>  </p>
- * @ClassName UserCrudRepositoryService
+ UserCrudRepositoryService
  * @author gaox·Eric
  * @date 2019/5/4 21:02
  */

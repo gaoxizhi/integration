@@ -5,8 +5,8 @@ import lombok.Data;
 import javax.persistence.*;
 
 /**
- * @Description: <p> 用户表 </p>
- * @ClassName User
+ * <p> 用户表 </p>
+  User
  * @author gaox·Eric
  * @date 2019/5/2 15:01
  * <p>

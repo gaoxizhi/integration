@@ -4,8 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * @Description: <p>  </p>
- * @ClassName FileUtil
+ FileUtil
  * @author gaox·Eric
  * @date 2019/4/20 14:46
  */
@@ -31,7 +30,6 @@ public class FileUtil {
         }
         return f;
     }
-
     /**
      * 获得项目路径
      *
@@ -52,7 +50,6 @@ public class FileUtil {
          * return System.getProperty("user.dir");
          */
     }
-
     /**
      * 获得文件名后缀
      *
@@ -62,7 +59,6 @@ public class FileUtil {
     public static String getSuffix(String name) {
         return name.substring(name.lastIndexOf('.') + 1);
     }
-
     /**
      * 获得文件名
      *
@@ -74,7 +70,6 @@ public class FileUtil {
         String tempName = tempFile.getName();
         return tempName.replaceAll(tempName.substring(tempName.lastIndexOf(".")), "");
     }
-
     /**
      * 获得文件路径
      *
@@ -92,7 +87,6 @@ public class FileUtil {
         }
         return path;
     }
-
     /**
      * 判断是否是绝对路径
      *
@@ -125,7 +119,6 @@ public class FileUtil {
         }
         return false;
     }
-
     /**
      * 是否windows系统
      */

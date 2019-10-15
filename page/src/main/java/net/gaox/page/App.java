@@ -1,18 +1,17 @@
-package net.gaox.shirojwt;
+package net.gaox.page;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
- * <p>  </p>
- *
  * @author gaox·Eric
+ * @date 2019/7/14 22:32
  */
-@EnableScheduling
 @SpringBootApplication
-public class ShiroJwtApplication {
+@MapperScan("net.gaox.page.mapper")
+public class App {
     public static void main(String[] args) {
-        SpringApplication.run(ShiroJwtApplication.class, args);
+        SpringApplication.run(App.class, args);
     }
 }

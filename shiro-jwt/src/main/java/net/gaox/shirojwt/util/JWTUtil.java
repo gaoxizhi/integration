@@ -10,8 +10,8 @@ import java.io.UnsupportedEncodingException;
 import java.util.Date;
 
 /**
- * @Description: <p> JWT工具类 </p>
- * @ClassName JWTUtil
+ * <p> JWT工具类 </p>
+  JWTUtil
  * @author gaox·Eric
  * @date 2019/5/4 00:41
  */
@@ -41,7 +41,6 @@ public class JWTUtil {
             return false;
         }
     }
-
     /**
      * 获得token中的信息无需secret解密也能获得
      *
@@ -55,7 +54,6 @@ public class JWTUtil {
             return null;
         }
     }
-
     /**
      * 生成签名,5min后过期
      *

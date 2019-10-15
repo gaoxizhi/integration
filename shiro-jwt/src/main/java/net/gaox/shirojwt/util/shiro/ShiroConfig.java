@@ -16,8 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @Description: <p>  </p>
- * @ClassName ShiroConfig
+ ShiroConfig
  * @author gaox·Eric
  * @date 2019/5/4 00:49
  */
@@ -42,7 +41,6 @@ public class ShiroConfig {
 
         return manager;
     }
-
     @Bean("shiroFilter")
     public ShiroFilterFactoryBean factory(DefaultWebSecurityManager securityManager) {
         ShiroFilterFactoryBean factoryBean = new ShiroFilterFactoryBean();
@@ -69,7 +67,6 @@ public class ShiroConfig {
         factoryBean.setFilterChainDefinitionMap(filterRuleMap);
         return factoryBean;
     }
-
     /**
      * 下面的代码是添加注解支持
      */
@@ -82,12 +79,10 @@ public class ShiroConfig {
         defaultAdvisorAutoProxyCreator.setProxyTargetClass(true);
         return defaultAdvisorAutoProxyCreator;
     }
-
     @Bean
     public LifecycleBeanPostProcessor lifecycleBeanPostProcessor() {
         return new LifecycleBeanPostProcessor();
     }
-
     @Bean
     public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(DefaultWebSecurityManager securityManager) {
         AuthorizationAttributeSourceAdvisor advisor = new AuthorizationAttributeSourceAdvisor();

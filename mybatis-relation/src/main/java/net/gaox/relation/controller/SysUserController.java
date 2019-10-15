@@ -1,15 +1,13 @@
 package net.gaox.relation.controller;
 
-import net.gaox.relation.entity.OrderDetail;
+import lombok.extern.log4j.Log4j2;
 import net.gaox.relation.entity.Orders;
 import net.gaox.relation.entity.SysUser;
 import net.gaox.relation.mapper.OrdersCustomMapper;
 import net.gaox.relation.mapper.SysUserMapper;
 import net.gaox.relation.model.dto.OrderDetailCustomDTO;
-import net.gaox.relation.model.dto.OrdersCustomDTO;
 import net.gaox.relation.model.dto.OrdersCustomTypeDTO;
 import net.gaox.relation.model.enums.EnumSex;
-import org.slf4j.Logger;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,11 +25,10 @@ import java.util.List;
  * @author gaox·Eric
  * @since 2019-07-10
  */
+@Log4j2
 @RestController
 @RequestMapping("/user")
 public class SysUserController {
-
-    Logger logger = org.slf4j.LoggerFactory.getLogger(getClass());
     @Resource
     private SysUserMapper userMapper;
     @Resource
@@ -57,7 +54,7 @@ public class SysUserController {
         return ocMapper.findOrdersAndOrderDetailResultMap();
     }
 
-    @PostMapping("")
+    @PostMapping()
     public Object insert() {
         SysUser user = new SysUser();
         user.setUserName("高羲之");
@@ -65,11 +62,11 @@ public class SysUserController {
         user.setBirthday(LocalDate.now());
         user.setAddress("山东省曹县梁堤头镇杨集村");
         int insert = userMapper.insert(user);
-        logger.info("插入数量{}个，成功{}个。", 1, insert);
+        log.info("插入数量{}个，成功{}个。", 1, insert);
         //这里取值除了设置的，多的只有id
-        logger.debug(user.toString());
+        log.debug(user.toString());
         user = userMapper.selectById(user);
-        logger.debug(user.toString());
+        log.debug(user.toString());
         return user;
     }
 
@@ -77,6 +74,4 @@ public class SysUserController {
     public List<SysUser> findUserAndItemsResultMap() {
         return ocMapper.findUserAndItemsResultMap();
     }
-
 }
-

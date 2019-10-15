@@ -47,13 +47,13 @@ public class FileUtil {
         }
         return true;
     }
-
     /**
      * 查找一个目录下所有的文件
+     *
      * @param dir 目录
      * @throws IllegalArgumentException 目录不存在，或者不是目录
      */
-    public static void findAllFile (File dir) throws IllegalArgumentException {
+    public static void findAllFile(File dir) throws IllegalArgumentException {
         if (!dir.exists()) {
             throw new IllegalArgumentException("目录：" + dir + " 不存在");
         }

@@ -7,8 +7,6 @@ import net.gaox.relation.model.enums.EnumSex;
 import java.util.List;
 
 /**
- * @Description: <p>  </p>
- * @ClassName: OrdersUserDTO
  * @author gaox·Eric
  * @date 2019/7/12 23:48
  */

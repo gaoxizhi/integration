@@ -8,13 +8,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
- * @Description: <p>  </p>
- * @ClassName WebMVC
  * @author gaox·Eric
  * @date 2019/4/18 22:20
  */
 @Configuration
-public class WebMVC implements WebMvcConfigurer {
+public class Mvc implements WebMvcConfigurer {
 
     /**
      * JSON序列化 用于将controller返回的实体类转换成json串

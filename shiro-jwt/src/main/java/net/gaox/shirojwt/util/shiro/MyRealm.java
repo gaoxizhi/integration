@@ -20,8 +20,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * @Description: <p>  </p>
- * @ClassName MyRealm
+ MyRealm
  * @author gaox·Eric
  * @date 2019/5/4 00:55
  */
@@ -34,7 +33,6 @@ public class MyRealm extends AuthorizingRealm {
     public void setUserService(UserService userService) {
         this.userService = userService;
     }
-
     /**
      * 大坑！，必须重写此方法，不然Shiro会报错
      */
@@ -42,7 +40,6 @@ public class MyRealm extends AuthorizingRealm {
     public boolean supports(AuthenticationToken token) {
         return token instanceof JWTToken;
     }
-
     /**
      * 只有当需要检测用户权限的时候才会调用此方法，例如checkRole,checkPermission之类的
      */
@@ -57,7 +54,6 @@ public class MyRealm extends AuthorizingRealm {
         simpleAuthorizationInfo.addStringPermissions(permission);
         return simpleAuthorizationInfo;
     }
-
     /**
      * 默认使用此方法进行用户名正确与否验证，错误抛出异常即可。
      */
@@ -69,16 +65,13 @@ public class MyRealm extends AuthorizingRealm {
         if (username == null) {
             throw new AuthenticationException("token invalid");
         }
-
         User user = userService.getUserByName(username);
         if (user == null) {
             throw new AuthenticationException("User didn't existed!");
         }
-
         if (! JWTUtil.verify(token, username, user.getPassword())) {
             throw new AuthenticationException("Username or password error");
         }
-
         return new SimpleAuthenticationInfo(token, token, "my_realm");
     }
 }

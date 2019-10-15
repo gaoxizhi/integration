@@ -32,5 +32,4 @@ public class WebMVC implements WebMvcConfigurer {
         converter.setFastJsonConfig(config);
         return converter;
     }
-
 }

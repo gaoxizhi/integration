@@ -14,8 +14,6 @@ import org.springframework.data.redis.serializer.RedisSerializationContext;
 import java.time.Duration;
 
 /**
- * @Description: <p>  </p>
- * @ClassName MyRedisConfig
  * @author gaox·Eric
  * @date 2019/4/14 01:22
  */
@@ -42,7 +40,6 @@ public class MyRedisConfig {
         template.setDefaultSerializer(homeJson);
         return template;
     }
-
     //
 //    /**
 //     * CachemMnagerCustoizers 可以定制缓存的一些规则
@@ -83,7 +80,6 @@ public class MyRedisConfig {
 //        cacheManager.setUsePrefix(true);
 //        return cacheManager;
 //    }
-
     //使用fastjson作为默认序列化器
 
     /**
@@ -108,6 +104,4 @@ public class MyRedisConfig {
         RedisCacheManager.RedisCacheManagerBuilder builder = RedisCacheManager.builder(redisConnectionFactory).cacheDefaults(redisCacheConfiguration);
         return builder.build();
     }
-
-
 }

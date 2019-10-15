@@ -15,22 +15,18 @@ public class ApiError {
 
         return code;
     }
-
     public void setCode(Integer code) {
 
         this.code = code;
     }
-
     public String getMsg() {
 
         return msg;
     }
-
     public void setMsg(String msg) {
 
         this.msg = msg;
     }
-
     /**
      * 构造器，包含异常码和异常信息
      *
@@ -42,5 +38,4 @@ public class ApiError {
         this.code = code;
         this.msg = msg;
     }
-
 }

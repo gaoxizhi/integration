@@ -1,6 +1,5 @@
 package net.gaox.relation.mapper;
 
-import net.gaox.relation.entity.OrderDetail;
 import net.gaox.relation.entity.Orders;
 import net.gaox.relation.entity.SysUser;
 import net.gaox.relation.model.dto.OrderDetailCustomDTO;
@@ -9,8 +8,8 @@ import net.gaox.relation.model.dto.OrdersCustomTypeDTO;
 import java.util.List;
 
 /**
- * @Description: <p>  </p>
- * @ClassName: OrdersCustomMapper
+ * per
+ *
  * @author gaox·Eric
  * @date 2019/7/10 21:35
  */

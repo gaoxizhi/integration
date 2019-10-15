@@ -7,8 +7,6 @@ import net.gaox.relation.model.enums.EnumDelFlag;
 import java.time.LocalDateTime;
 
 /**
- * @Description: <p>  </p>
- * @ClassName: OrderDetailCustomDTO
  * @author gaox·Eric
  * @date 2019/7/14 20:30
  */
@@ -49,6 +47,4 @@ public class OrderDetailCustomDTO {
      * 商品详情
      */
     private Items item;
-
-
 }

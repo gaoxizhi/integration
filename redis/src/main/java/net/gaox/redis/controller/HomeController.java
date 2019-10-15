@@ -2,21 +2,21 @@ package net.gaox.redis.controller;
 
 import net.gaox.redis.entity.Home;
 import net.gaox.redis.service.HomeService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 /**
- * @Description: <p>  </p>
- * @ClassName HomeController
  * @author gaox·Eric
  * @date 2019/4/13 14:35
  */
 @RestController
 public class HomeController {
-    @Autowired
-    HomeService homeService;
+    private final HomeService homeService;
+
+    public HomeController(HomeService homeService) {
+        this.homeService = homeService;
+    }
 
     @GetMapping("/home/{id}")
     public Home getHome(@PathVariable String id) {

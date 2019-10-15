@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Optional;
 
 /**
- * @Description: <p>  </p>
- * @ClassName UserController
  * @author gaox·Eric
  * @date 2019/5/2 15:34
  */
@@ -27,7 +25,6 @@ public class UserController {
         logger.debug("查询用户" + id);
         return userService.getOne(id);
     }
-
     @GetMapping("/user/get1")
     public User getUser1() {
         Optional<User> userDOOptional = userService.findById(1L);

@@ -16,5 +16,4 @@ public class YamlApplication {
     public static void main(String[] args) {
         SpringApplication.run(YamlApplication.class, args);
     }
-
 }

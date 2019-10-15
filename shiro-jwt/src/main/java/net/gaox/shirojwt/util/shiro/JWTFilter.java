@@ -12,8 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * @Description: <p>  </p>
- * @ClassName JWTFilter
+ JWTFilter
  * @author gaox·Eric
  * @date 2019/5/4 00:50
  */
@@ -31,7 +30,6 @@ public class JWTFilter extends BasicHttpAuthenticationFilter {
         String authorization = req.getHeader("gaox-to");
         return authorization != null;
     }
-
     /**
      *
      */
@@ -46,7 +44,6 @@ public class JWTFilter extends BasicHttpAuthenticationFilter {
         // 如果没有抛出异常则代表登入成功，返回true
         return true;
     }
-
     /**
      * 这里我们详细说明下为什么最终返回的都是true，即允许访问
      * 例如我们提供一个地址 GET /article
@@ -67,7 +64,6 @@ public class JWTFilter extends BasicHttpAuthenticationFilter {
         }
         return true;
     }
-
     /**
      * 对跨域提供支持
      */
@@ -85,7 +81,6 @@ public class JWTFilter extends BasicHttpAuthenticationFilter {
         }
         return super.preHandle(request, response);
     }
-
     /**
      * 将非法请求跳转到 /401
      */

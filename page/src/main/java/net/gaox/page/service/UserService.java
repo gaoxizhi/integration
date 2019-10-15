@@ -9,13 +9,14 @@ import java.util.List;
  * 基础用户表 服务类
  * </p>
  *
- * @author GengYun
+ * @author gaox·Eric
  * @since 2019-07-09
  */
 public interface UserService {
 
     /**
      * 分页查询
+     *
      * @param page
      * @param limit
      * @return

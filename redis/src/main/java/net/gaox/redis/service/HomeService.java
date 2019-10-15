@@ -5,8 +5,6 @@ import net.gaox.redis.entity.Home;
 import java.util.List;
 
 /**
- * @Description: <p>  </p>
- * @ClassName HomeService
  * @author gaox·Eric
  * @date 2019/4/13 14:41
  */
