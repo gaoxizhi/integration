@@ -3,8 +3,8 @@ package net.gaox.aliyunoss.config;
 /**
  * @Description: <p>  </p>
  * @ClassName ParamConfig
- * @Author: gaox·Eric
- * @Date: 2019/4/18 23:02
+ * @author gaox·Eric
+ * @date 2019/4/18 23:02
  */
 public class ParamConfig {
     /**

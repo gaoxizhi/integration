@@ -13,10 +13,8 @@ import java.io.InputStream;
 import java.util.List;
 
 /**
- * @Description: <p>  </p>
- * @ClassName OSSUploadFile
- * @Author: gaox·Eric
- * @Date: 2019/3/28 11:11
+ * @author gaox·Eric
+ * @date 2019/3/28 11:11
  * 查看图片示例
  * XXXX.oss-cn-beijing.aliyuncs.com/mmexport1544249585987.jpg
  */
