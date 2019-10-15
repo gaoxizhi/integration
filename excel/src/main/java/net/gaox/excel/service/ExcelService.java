@@ -9,15 +9,17 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.NoSuchFileException;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * <p> 实现层 </p>
  *
- * @author: gaox·Eric
- * @date: 2019-03-16 20:20:00
+ * @author gaox·Eric
+ * @date 2019-03-16 20:20:00
  */
 @Service
 public class ExcelService {
@@ -28,17 +30,24 @@ public class ExcelService {
     /**
      * 处理上传的文件
      *
-     * @param in
-     * @param fileName
-     * @return
-     * @throws Exception
+     * @param in       输入流
+     * @param fileName 文件名
+     * @return 二维数据List集合
      */
-    public List getBankListByExcel(InputStream in, String fileName) throws Exception {
+    public List getBankListByExcel(InputStream in, String fileName) {
         List list = new ArrayList<>();
         //创建Excel工作薄
-        Workbook work = this.getWorkbook(in, fileName);
-        if (null == work) {
-            throw new Exception("创建Excel工作薄为空！");
+        Workbook work;
+        try {
+            work = this.getWorkbook(in, fileName);
+
+            if (null == work) {
+                System.out.println("创建Excel工作薄为空！");
+                return null;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
         }
         //表、行、单元格
         Sheet sheet;
@@ -69,19 +78,25 @@ public class ExcelService {
                 list.add(li);
             }
         }
-        work.close();
-        return list;
+        //关闭资源，并返回读取得到的List
+        try {
+            work.close();
+            return list;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     /**
      * 判断文件格式
      *
-     * @param inStr
-     * @param fileName
-     * @return
-     * @throws Exception
+     * @param inStr    文件输入流
+     * @param fileName 文件名
+     * @return Excel工作表
+     * @throws IOException IO异常
      */
-    public Workbook getWorkbook(InputStream inStr, String fileName) throws Exception {
+    public Workbook getWorkbook(InputStream inStr, String fileName) throws IOException {
         Workbook workbook;
         String fileType = fileName.substring(fileName.lastIndexOf("."));
         if (XLS.equals(fileType)) {
@@ -89,7 +104,7 @@ public class ExcelService {
         } else if (XLSX.equals(fileType)) {
             workbook = new XSSFWorkbook(inStr);
         } else {
-            throw new Exception("请上传excel文件！");
+            throw new NoSuchFileException("请上传excel文件！");
         }
         return workbook;
     }
