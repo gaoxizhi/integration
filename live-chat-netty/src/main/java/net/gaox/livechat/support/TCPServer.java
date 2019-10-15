@@ -12,8 +12,8 @@ import java.net.InetSocketAddress;
 /**
  * @Description: <p>  </p>
  * @ClassName: TCPServer
- * @Author: gaox·Eric
- * @Date: 2019/7/19 20:21
+ * @author gaox·Eric
+ * @date 2019/7/19 20:21
  */
 
 @Component

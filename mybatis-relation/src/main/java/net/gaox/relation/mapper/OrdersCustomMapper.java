@@ -11,8 +11,8 @@ import java.util.List;
 /**
  * @Description: <p>  </p>
  * @ClassName: OrdersCustomMapper
- * @Author: gaox·Eric
- * @Date: 2019/7/10 21:35
+ * @author gaox·Eric
+ * @date 2019/7/10 21:35
  */
 public interface OrdersCustomMapper {
 

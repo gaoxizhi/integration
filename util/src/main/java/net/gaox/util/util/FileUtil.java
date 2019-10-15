@@ -6,8 +6,8 @@ import java.io.IOException;
 /**
  * @Description: <p>  </p>
  * @ClassName FileUtil
- * @Author: gaox·Eric
- * @Date: 2019/4/20 14:46
+ * @author gaox·Eric
+ * @date 2019/4/20 14:46
  */
 public class FileUtil {
     /**

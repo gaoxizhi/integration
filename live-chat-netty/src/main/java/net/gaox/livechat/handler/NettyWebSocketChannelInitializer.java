@@ -17,8 +17,8 @@ import org.springframework.stereotype.Component;
 /**
  * @Description: <p>  </p>
  * @ClassName: NettyWebSocketChannelInitializer
- * @Author: gaox·Eric
- * @Date: 2019/7/19 20:24
+ * @author gaox·Eric
+ * @date 2019/7/19 20:24
  */
 
 @Component

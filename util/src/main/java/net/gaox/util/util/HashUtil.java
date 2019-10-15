@@ -12,8 +12,8 @@ import javax.crypto.spec.SecretKeySpec;
 /**
  * @Description: <p>  </p>
  * @ClassName: HashUtil
- * @Author: gaox·Eric
- * @Date: 2019/7/21 15:31
+ * @author gaox·Eric
+ * @date 2019/7/21 15:31
  */
 public class HashUtil {
 

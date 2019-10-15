@@ -22,8 +22,8 @@ import java.util.Set;
 /**
  * @Description: <p>  </p>
  * @ClassName MyRealm
- * @Author: gaox·Eric
- * @Date: 2019/5/4 00:55
+ * @author gaox·Eric
+ * @date 2019/5/4 00:55
  */
 @Service
 public class MyRealm extends AuthorizingRealm {

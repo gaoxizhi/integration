@@ -10,8 +10,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 /**
  * @Description: <p>  </p>
  * @ClassName WebMVC
- * @Author: gaox·Eric
- * @Date: 2019/4/18 22:20
+ * @author gaox·Eric
+ * @date 2019/4/18 22:20
  */
 @Configuration
 public class WebMVC implements WebMvcConfigurer {

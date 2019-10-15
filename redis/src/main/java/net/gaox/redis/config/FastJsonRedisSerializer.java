@@ -15,8 +15,8 @@ import java.nio.charset.Charset;
  * 同时需要在spring boot中全局设置 ParserConfig.getGlobalInstance().setAutoTypeSupport(true);
  *
  * @ClassName FastJsonRedisSerializer
- * @Author: gaox·Eric
- * @Date: 2019/4/14 11:37
+ * @author gaox·Eric
+ * @date 2019/4/14 11:37
  */
 @Configuration
 public class FastJsonRedisSerializer<T> implements RedisSerializer<T> {

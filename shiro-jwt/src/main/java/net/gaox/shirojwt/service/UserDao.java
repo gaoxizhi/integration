@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 /**
  * @Description: <p>  </p>
  * @ClassName UserDao
- * @Author: gaox·Eric
- * @Date: 2019/5/4 00:58
+ * @author gaox·Eric
+ * @date 2019/5/4 00:58
  */
 //@Service
 public class UserDao {

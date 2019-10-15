@@ -7,8 +7,8 @@ import java.util.GregorianCalendar;
 /**
  * @Description: <p> 时间工具类 </p>
  * @ClassName DateUtil
- * @Author: gaox·Eric
- * @Date: 2019/4/20 14:12
+ * @author gaox·Eric
+ * @date 2019/4/20 14:12
  */
 public class DateUtil {
 

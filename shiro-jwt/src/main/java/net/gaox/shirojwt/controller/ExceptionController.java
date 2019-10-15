@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * @Description: <p>  </p>
  * @ClassName ExceptionController
- * @Author: gaox·Eric
- * @Date: 2019/5/4 01:21
+ * @author gaox·Eric
+ * @date 2019/5/4 01:21
  */
 @RestControllerAdvice
 public class ExceptionController {

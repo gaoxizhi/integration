@@ -18,8 +18,8 @@ import java.util.Map;
 /**
  * @Description: <p>  </p>
  * @ClassName ShiroConfig
- * @Author: gaox·Eric
- * @Date: 2019/5/4 00:49
+ * @author gaox·Eric
+ * @date 2019/5/4 00:49
  */
 @Configuration
 public class ShiroConfig {

@@ -19,7 +19,7 @@ import java.util.List;
  * 基础用户表 前端控制器
  * </p>
  *
- * @author: gaox·Eric
+ * @author gaox·Eric
  * @since : 2019/7/9
  */
 @RestController

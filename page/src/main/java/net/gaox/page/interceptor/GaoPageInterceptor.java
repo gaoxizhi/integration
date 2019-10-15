@@ -16,8 +16,8 @@ import java.util.Properties;
 /**
  * @Description: <p>  </p>
  * @ClassName: GaoPageInterceptor
- * @Author: gaox·Eric
- * @Date: 2019/7/14 22:12
+ * @author gaox·Eric
+ * @date 2019/7/14 22:12
  * @Intercepts 说明是一个拦截器
  * @Signature 拦截器的签名
  * type 拦截的类型 四大对象之一( Executor,ResultSetHandler,ParameterHandler,StatementHandler)

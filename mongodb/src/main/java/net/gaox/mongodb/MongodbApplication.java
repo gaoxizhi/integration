@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
  * @Description: <p> MongoDB启动类</p>
- * @Author: gaox·Eric
- * @Date: 2019/1/21 23:40
+ * @author gaox·Eric
+ * @date 2019/1/21 23:40
  */@SpringBootApplication
 public class MongodbApplication {
 

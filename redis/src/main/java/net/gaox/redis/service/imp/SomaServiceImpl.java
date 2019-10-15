@@ -18,8 +18,8 @@ import java.util.stream.Collectors;
 /**
  * @Description: <p>  </p>
  * @ClassName SomaServiceImp
- * @Author: gaox·Eric
- * @Date: 2019/4/14 10:51
+ * @author gaox·Eric
+ * @date 2019/4/14 10:51
  * 类全局配置cacheConfig
  */
 //@CacheConfig(cacheManager = "somaCacheManager")

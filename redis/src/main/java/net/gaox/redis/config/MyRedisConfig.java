@@ -16,8 +16,8 @@ import java.time.Duration;
 /**
  * @Description: <p>  </p>
  * @ClassName MyRedisConfig
- * @Author: gaox·Eric
- * @Date: 2019/4/14 01:22
+ * @author gaox·Eric
+ * @date 2019/4/14 01:22
  */
 @Configuration
 public class MyRedisConfig {

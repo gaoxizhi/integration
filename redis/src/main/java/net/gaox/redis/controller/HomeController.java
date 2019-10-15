@@ -10,8 +10,8 @@ import java.util.List;
 /**
  * @Description: <p>  </p>
  * @ClassName HomeController
- * @Author: gaox·Eric
- * @Date: 2019/4/13 14:35
+ * @author gaox·Eric
+ * @date 2019/4/13 14:35
  */
 @RestController
 public class HomeController {

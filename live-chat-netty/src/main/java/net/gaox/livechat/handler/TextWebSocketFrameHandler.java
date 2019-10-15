@@ -24,8 +24,8 @@ import java.util.Map;
 /**
  * @Description: <p>  </p>
  * @ClassName: TextWebSocketFrameHandler
- * @Author: gaox·Eric
- * @Date: 2019/7/19 20:25
+ * @author gaox·Eric
+ * @date 2019/7/19 20:25
  */
 @Component
 @Qualifier("textWebSocketFrameHandler")
@@ -34,7 +34,7 @@ public class TextWebSocketFrameHandler extends SimpleChannelInboundHandler<TextW
 
     public static ChannelGroup channels = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
 
-    public static Map<String, String> map = new HashMap<>(100);
+    public static Map<String, String> map = new HashMap<>(128);
 
     @Autowired
     private UserService userService;

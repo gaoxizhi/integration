@@ -9,8 +9,8 @@ import java.time.LocalDateTime;
 /**
  * @Description: <p>  </p>
  * @ClassName: OrderDetailCustomDTO
- * @Author: gaox·Eric
- * @Date: 2019/7/14 20:30
+ * @author gaox·Eric
+ * @date 2019/7/14 20:30
  */
 @Data
 public class OrderDetailCustomDTO {

@@ -6,8 +6,8 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 /**
  * @Description: <p> MongoDB自定义存储结构 </p>
- * @Author: gaox·Eric
- * @Date: 2019/1/21 23:40
+ * @author gaox·Eric
+ * @date 2019/1/21 23:40
  */
 @Configuration
 public interface UserRepository extends MongoRepository<User, String> {

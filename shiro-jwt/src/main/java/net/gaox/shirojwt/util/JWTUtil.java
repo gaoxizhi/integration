@@ -12,8 +12,8 @@ import java.util.Date;
 /**
  * @Description: <p> JWT工具类 </p>
  * @ClassName JWTUtil
- * @Author: gaox·Eric
- * @Date: 2019/5/4 00:41
+ * @author gaox·Eric
+ * @date 2019/5/4 00:41
  */
 public class JWTUtil {
 

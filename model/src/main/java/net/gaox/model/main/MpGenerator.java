@@ -16,8 +16,8 @@ import java.util.ResourceBundle;
 /**
  * @Description: <p> mybaits-plus代码生成器 </p>
  * @ClassName: MpGenerator
- * @Author: gaox·Eric
- * @Date: 2019/7/13 12:09
+ * @author gaox·Eric
+ * @date 2019/7/13 12:09
  */
 public class MpGenerator {
 

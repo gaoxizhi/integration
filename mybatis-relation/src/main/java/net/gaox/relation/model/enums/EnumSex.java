@@ -3,8 +3,8 @@ package net.gaox.relation.model.enums;
 /**
  * @Description: <p>  </p>
  * @ClassName: EnumSex
- * @Author: gaox·Eric
- * @Date: 2019/7/13 00:32
+ * @author gaox·Eric
+ * @date 2019/7/13 00:32
  */
 
 public enum EnumSex {

@@ -13,8 +13,8 @@ import java.util.Optional;
 /**
  * @Description: <p>  </p>
  * @ClassName UserController
- * @Author: gaox·Eric
- * @Date: 2019/5/2 15:34
+ * @author gaox·Eric
+ * @date 2019/5/2 15:34
  */
 @RestController
 public class UserController {

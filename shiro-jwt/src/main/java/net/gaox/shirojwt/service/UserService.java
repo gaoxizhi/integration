@@ -11,8 +11,8 @@ import java.util.List;
 /**
  * @Description: <p> 服务类接口 </p>
  * @ClassName UserService
- * @Author: gaox·Eric
- * @Date: 2019/5/2 15:31
+ * @author gaox·Eric
+ * @date 2019/5/2 15:31
  */
 @Repository
 public interface UserService extends JpaRepository<User, Long> {

@@ -33,8 +33,8 @@ import org.slf4j.LoggerFactory;
 /**
  * @Description: <p>  </p>
  * @ClassName: KeyID
- * @Author: gaox·Eric
- * @Date: 2019/7/21 15:17
+ * @author gaox·Eric
+ * @date 2019/7/21 15:17
  */
 public class KeyID {
     /**
@@ -42,7 +42,7 @@ public class KeyID {
      * 时间戳减去一个固定值，此方案最高可支持到2106年。
      * 如果每秒65万个序列号不够怎么办？没关系，可以继续递增时间戳，向前“借”下一秒的65万个序列号。
      *
-     * @author: gaox·Eric
+     * @author gaox·Eric
      * @since : 2019/7/21 15:22
      */
     private static final Logger logger = LoggerFactory.getLogger(KeyID.class);

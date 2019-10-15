@@ -13,8 +13,8 @@ import java.util.Map;
 /**
  * @Description: <p> response包装类 </p>
  * @ClassName dfd
- * @Author: gaox·Eric
- * @Date: 2019/5/4 00:27
+ * @author gaox·Eric
+ * @date 2019/5/4 00:27
  */
 public class ApiResponse extends HashMap<String, Object> {
 

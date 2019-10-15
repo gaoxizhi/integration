@@ -5,8 +5,8 @@ import java.util.Random;
 /**
  * @Description: <p>  </p>
  * @ClassName: RandomName
- * @Author: gaox·Eric
- * @Date: 2019/7/19 20:23
+ * @author gaox·Eric
+ * @date 2019/7/19 20:23
  */
 
 public class RandomName {

@@ -10,8 +10,8 @@ import java.util.Arrays;
 /**
  * @Description: <p>  </p>
  * @ClassName MyCacheGenerator
- * @Author: gaox·Eric
- * @Date: 2019/4/13 19:02
+ * @author gaox·Eric
+ * @date 2019/4/13 19:02
  */
 @Configuration
 public class MyCacheGenerator {

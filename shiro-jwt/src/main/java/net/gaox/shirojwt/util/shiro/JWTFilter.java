@@ -14,8 +14,8 @@ import java.io.IOException;
 /**
  * @Description: <p>  </p>
  * @ClassName JWTFilter
- * @Author: gaox·Eric
- * @Date: 2019/5/4 00:50
+ * @author gaox·Eric
+ * @date 2019/5/4 00:50
  */
 public class JWTFilter extends BasicHttpAuthenticationFilter {
 

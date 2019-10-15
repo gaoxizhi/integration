@@ -7,8 +7,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 /**
  * @Description: <p>  </p>
  * @ClassName: App
- * @Author: gaox·Eric
- * @Date: 2019/7/10 17:20
+ * @author gaox·Eric
+ * @date 2019/7/10 17:20
  */
 
 @SpringBootApplication

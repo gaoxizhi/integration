@@ -10,8 +10,8 @@ import java.util.List;
 
 /**
  * @Description: <p>  </p>
- * @Author: gaox·Eric
- * @Date: 2019/1/22 08:54
+ * @author gaox·Eric
+ * @date 2019/1/22 08:54
  */
 @RestController
 @RequestMapping("/user")

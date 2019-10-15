@@ -3,10 +3,8 @@ package net.gaox.util.util;
 import java.util.regex.Pattern;
 
 /**
- * @Description: <p>  </p>
- * @ClassName: ByteUtil
- * @Author: gaox·Eric
- * @Date: 2019/7/21 15:32
+ * @author gaox·Eric
+ * @date 2019/7/21 15:32
  */
 public class ByteUtil {
 
@@ -63,7 +61,7 @@ public class ByteUtil {
     public static String toHex(byte b) {
         int hi = (b & 0xf0) >> 4;
         int lo = b & 0x0f;
-        char[] cs = { HEX_CHARS[hi], HEX_CHARS[lo] };
+        char[] cs = {HEX_CHARS[hi], HEX_CHARS[lo]};
         return new String(cs);
     }
 

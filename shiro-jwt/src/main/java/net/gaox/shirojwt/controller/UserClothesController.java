@@ -16,8 +16,8 @@ import java.util.List;
 /**
  * @Description: <p>  </p>
  * @ClassName UserClothesController
- * @Author: gaox·Eric
- * @Date: 2019/5/2 23:47
+ * @author gaox·Eric
+ * @date 2019/5/2 23:47
  */
 @RestController
 public class UserClothesController {
