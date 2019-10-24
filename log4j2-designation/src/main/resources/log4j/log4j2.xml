@@ -76,24 +76,49 @@
         <!-- 这个会打印出所有的info及以下级别的信息，每次大小超过size，
         则这size大小的日志会自动存入按年份-月份建立的文件夹下面并进行压缩，作为存档
         fileName 中支持通配符 ${sys:user.home} 表示用户home目录-->
+
+        <!--
+           循环日志文件配置：日志文件大于阀值的时候，就开始写一个新的日志文件
+           这个会打印出所有的信息，每次大小超过size，则这size大小的日志会自动存入按年份-月份建立的文件夹下面并进行压缩，作为存档
+           fileName    : 指定当前日志文件的位置和文件名称
+           filePattern : 指定当发生Rolling时，文件的转移和重命名规则
+           SizeBasedTriggeringPolicy : 指定当文件体积大于size指定的值时，触发Rolling
+           DefaultRolloverStrategy : 指定最多保存的文件个数
+           TimeBasedTriggeringPolicy : 这个配置需要和filePattern结合使用
+               注意filePattern中配置的文件重命名规则是${FILE_NAME}_%d{yyyy-MM-dd}_%i，最小的时间粒度是dd，即天，
+               TimeBasedTriggeringPolicy指定的size是1，结合起来就是每1天生成一个新文件
+       -->
+
+        <!-- 另一个循环日志配置方式： 日志出现不同步，谨慎使用。
+        RollingRandomAccessFile 默认日志文件写入策略为异步刷盘，引出一个缓冲区（buffer）的概念。
+        将日志信息先写入到缓冲区，然后缓冲区满后刷到磁盘，并清空缓冲区，默认缓冲区的大小在8-256kb，具体大小需要自己设置。
+        -->
+
         <RollingFile name="RollingFileInfo" fileName="${LOG_HOME}/info.log"
                      filePattern="${LOG_HOME}/$${date:yyyy-MM}/info-%d{yyyy-MM-dd}-%i.log">
             <Filters>
+                <!-- 这里的日志类似流一样的进入 RollingFileInfo ， 然后经过 ThresholdFilter 进行过滤。
+                    ps:这里就是坑了，如果ThresholdFilter的顺序不一样的话，输入的结果是不一样的！！！
+                    因为经过ThresholdFilter的时候，如果有匹配项，则直接打印日志了，所以需要把高等级的日志级别放在前面
+                    并且，onMatch属性设置为DENY，过滤掉高等级的日志；onMismatch设置为NEUTRAL，把低等级的日志放行，
+                    到我们想要的级别后，onMache设为ACCEPT，获取到日志，并onMismatch设置为DENY，丢弃低等级日志，并执行结束
+                -->
+                <ThresholdFilter level="WARN" onMatch="DENY" onMismatch="NEUTRAL"/>
                 <ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
-                <ThresholdFilter level="WARN" onMatch="DENY" onMismatch="DENY"/>
             </Filters>
             <PatternLayout pattern="${info_pattern}"/>
             <Policies>
                 <TimeBasedTriggeringPolicy/>
                 <SizeBasedTriggeringPolicy size="500 KB"/>
+                <DefaultRolloverStrategy max="20"/>
             </Policies>
         </RollingFile>
 
         <RollingFile name="RollingFileWarn" fileName="${LOG_HOME}/warn.log"
                      filePattern="${LOG_HOME}/$${date:yyyy-MM}/warn-%d{yyyy-MM-dd}-%i.log">
             <Filters>
+                <ThresholdFilter level="ERROR" onMatch="DENY" onMismatch="NEUTRAL"/>
                 <ThresholdFilter level="WARN" onMatch="ACCEPT" onMismatch="DENY"/>
-                <ThresholdFilter level="ERROR" onMatch="DENY" onMismatch="DENY"/>
             </Filters>
             <PatternLayout pattern="${warn_pattern}"/>
             <Policies>
@@ -117,7 +142,15 @@
         </RollingFile>
 
     </appenders>
-    <!--然后定义logger，只有定义了logger并引入的appender，appender才会生效-->
+    <!--然后定义logger，只有定义了logger并引入的appender，appender才会生效
+        Logger节点用来单独指定日志的形式，比如要为指定包下的class指定不同的日志级别等。
+        level:日志输出级别，共有8个级别，按照从低到高为：All < Trace < Debug < Info < Warn < Error < Fatal < OFF.
+        name:用来指定该Logger所适用的类或者类所在的包全路径,继承自Root节点.
+
+        AppenderRef：Logger的子节点，用来指定该日志输出到哪个Appender,如果没有指定，就会默认继承自Root.
+        如果指定了，那么会在指定的这个Appender和Root的Appender中都会输出，
+        此时我们可以设置Logger的additivity="false"只在自定义的Appender中进行输出。
+    -->
     <loggers>
         <!--过滤掉spring和hibernate的一些无用的debug信息-->
         <logger name="org.springframework" level="INFO">
@@ -125,7 +158,7 @@
         <logger name="org.mybatis" level="INFO">
         </logger>
         <logger name="net.gaox.designation" level="all">
-<!--            <AppenderRef ref="log"/>-->
+            <!--            <AppenderRef ref="log"/>-->
         </logger>
         <root level="all">
             <appender-ref ref="Console"/>
