@@ -6,6 +6,50 @@
     当设置成trace时，你会看到log4j2内部各种详细输出-->
 <!--monitorInterval：Log4j能够自动检测修改配置 文件和重新配置本身，设置间隔秒数-->
 <configuration status="warn" monitorInterval="30">
+
+
+    <!-- 参数配置 -->
+    <Properties>
+        <!-- 项目名称 -->
+        <property name="project_name">designation</property>
+        <!-- 配置日志文件输出目录 -->
+        <Property name="LOG_HOME">logs/${project_name}</Property>
+
+        <!-- 日志格式化 -->
+        <property name="console_pattern_layout">
+            %d{HH:mm:ss.SSS} %-5level %class{36} %L %M - %msg%xEx%n
+        </property>
+        <!-- info 级别格式 -->
+        <property name="info_pattern">
+            [%d{HH:mm:ss:SSS}] [%p] - %l - %m%n
+        </property> <!-- warn 级别格式 -->
+        <property name="warn_pattern">
+            [%d{HH:mm:ss:SSS}] [%p] - %l - %m%n
+        </property> <!-- error 级别格式 -->
+        <property name="error_pattern">
+            [%d{HH:mm:ss:SSS}] [%p] - %l - %m%n
+        </property>
+
+        <!-- 日志输出的格式
+           %d{yyyy-MM-dd HH:mm:ss, SSS} : 日志生产时间,输出到毫秒的时间
+           %-5p (level) : 输出日志级别，-5表示左对齐并且固定输出5个字符，如果不足在右边补0
+           %c (logger) : logger的名称(%logger)
+           %t (thread) : 输出当前线程名称
+           %m : 日志内容，即 logger.info("message")
+           %n : 换行符
+           %C : Java类名(%F)
+           %L : 行号
+           %M : 方法名
+           %l : 输出语句所在的行数, 包括类名、方法名、文件名、行数
+           hostName : 本地机器名
+           hostAddress : 本地ip地址
+        -->
+
+        <!-- 示例 -->
+        <!-- %highlight{%d{yyyy-MM-dd HH:mm:ss.SSS} [%5level][%logger{36}]-(%t)} %m%n-->
+    </Properties>
+
+
     <!--先定义所有的appender-->
     <appenders>
         <!--这个输出控制台的配置-->
@@ -13,21 +57,11 @@
             <!--输出日志的格式
             %highlight 高亮
             -->
-            <PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%p] - %l - %m%n"/>
+            <PatternLayout pattern="${console_pattern_layout}"/>
         </console>
         <!--文件会打印出所有信息，这个log每次运行程序会自动清空，由append属性决定，这个也挺有用的，适合临时测试用-->
-        <File name="log" fileName="logs/designation.log" append="false">
-            <PatternLayout pattern="%d{HH:mm:ss.SSS} %-5level %class{36} %L %M - %msg%xEx%n"/>
-            <Filters>
-                <!--控制台只输出设置的level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch）-->
-                <ThresholdFilter level="TRACE" onMatch="ACCEPT"/>
-            </Filters>
-        </File>
-        <!-- 这个会打印出所有的info及以下级别的信息，每次大小超过size，
-        则这size大小的日志会自动存入按年份-月份建立的文件夹下面并进行压缩，作为存档
-        fileName 中支持通配符 ${sys:user.home} 表示用户home目录-->
-        <RollingFile name="RollingFileInfo" fileName="logs/designation/info.log"
-                     filePattern="logs/designation/$${date:yyyy-MM}/info-%d{yyyy-MM-dd}-%i.log">
+        <File name="log" fileName="logs/${project_name}.log" append="false">
+            <PatternLayout pattern="${console_pattern_layout}"/>
             <Filters>
                 <!-- 配置的日志过滤
                 如果要输出的日志级别在当前级别及以上，则为match，否则走mismatch
@@ -36,40 +70,35 @@
                 NEUTRAL ： 不执行日志输出，执行下一个过滤器
                 -->
                 <!--控制台只输出设置的level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch）-->
-
-                <ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
-                <ThresholdFilter level="WARN" onMatch="DENY" onMismatch="NEUTRAL"/>
-                <ThresholdFilter level="ERROR" onMatch="DENY" onMismatch="NEUTRAL"/>
+                <ThresholdFilter level="TRACE" onMatch="ACCEPT"/>
             </Filters>
-            <!-- 日志输出的格式
-               %d{yyyy-MM-dd HH:mm:ss, SSS} : 日志生产时间,输出到毫秒的时间
-               %-5p (level) : 输出日志级别，-5表示左对齐并且固定输出5个字符，如果不足在右边补0
-               %c (logger) : logger的名称(%logger)
-               %t (thread) : 输出当前线程名称
-               %m : 日志内容，即 logger.info("message")
-               %n : 换行符
-               %C : Java类名(%F)
-               %L : 行号
-               %M : 方法名
-               %l : 输出语句所在的行数, 包括类名、方法名、文件名、行数
-               hostName : 本地机器名
-               hostAddress : 本地ip地址
-            -->
-            <PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%p] - %l - %m%n"/>
+        </File>
+        <!-- 这个会打印出所有的info及以下级别的信息，每次大小超过size，
+        则这size大小的日志会自动存入按年份-月份建立的文件夹下面并进行压缩，作为存档
+        fileName 中支持通配符 ${sys:user.home} 表示用户home目录-->
+        <RollingFile name="RollingFileInfo" fileName="${LOG_HOME}/info.log"
+                     filePattern="${LOG_HOME}/$${date:yyyy-MM}/info-%d{yyyy-MM-dd}-%i.log">
+            <Filters>
+                <ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
+                <ThresholdFilter level="WARN" onMatch="DENY" onMismatch="DENY"/>
+            </Filters>
+            <PatternLayout pattern="${info_pattern}"/>
             <Policies>
                 <TimeBasedTriggeringPolicy/>
                 <SizeBasedTriggeringPolicy size="500 KB"/>
             </Policies>
         </RollingFile>
 
-        <RollingFile name="RollingFileWarn" fileName="logs/designation/warn.log"
-                     filePattern="logs/designation/$${date:yyyy-MM}/warn-%d{yyyy-MM-dd}-%i.log">
+        <RollingFile name="RollingFileWarn" fileName="${LOG_HOME}/warn.log"
+                     filePattern="${LOG_HOME}/$${date:yyyy-MM}/warn-%d{yyyy-MM-dd}-%i.log">
             <Filters>
                 <ThresholdFilter level="WARN" onMatch="ACCEPT" onMismatch="DENY"/>
-                <ThresholdFilter level="ERROR" onMatch="DENY" onMismatch="NEUTRAL"/>
+                <ThresholdFilter level="ERROR" onMatch="DENY" onMismatch="DENY"/>
             </Filters>
-            <PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%p] - %l - %m%n"/>
+            <PatternLayout pattern="${warn_pattern}"/>
             <Policies>
+                <!-- interval表示多久滚动一次，默认是1 hour。
+                modulate=true用来调整时间，如果interval=4，将时间调整到4的整倍数，否则以项目启动的时间计算-->
                 <TimeBasedTriggeringPolicy/>
                 <SizeBasedTriggeringPolicy size="100 MB"/>
             </Policies>
@@ -77,10 +106,10 @@
             <DefaultRolloverStrategy max="20"/>
         </RollingFile>
 
-        <RollingFile name="RollingFileError" fileName="logs/designation/error.log"
-                     filePattern="logs/designation/$${date:yyyy-MM}/error-%d{yyyy-MM-dd}-%i.log">
+        <RollingFile name="RollingFileError" fileName="${LOG_HOME}/error.log"
+                     filePattern="${LOG_HOME}/$${date:yyyy-MM}/error-%d{yyyy-MM-dd}-%i.log">
             <ThresholdFilter level="ERROR"/>
-            <PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%p] - %l - %m%n"/>
+            <PatternLayout pattern="${error_pattern}"/>
             <Policies>
                 <TimeBasedTriggeringPolicy/>
                 <SizeBasedTriggeringPolicy size="200 KB"/>
@@ -96,7 +125,7 @@
         <logger name="org.mybatis" level="INFO">
         </logger>
         <logger name="net.gaox.designation" level="all">
-            <AppenderRef ref="log"/>
+<!--            <AppenderRef ref="log"/>-->
         </logger>
         <root level="all">
             <appender-ref ref="Console"/>

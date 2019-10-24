@@ -24,6 +24,7 @@ public class LogController {
     }
 
     @GetMapping("/eq")
+//    @Scheduled(cron = "*/1 * * * * ?")
     public JSONPObject eqLogging() {
         log.info("新请求访问：{eq}");
         return new JSONPObject("meg", "访问eq成功！");
@@ -33,7 +34,8 @@ public class LogController {
      * 17-20点每分钟
      * 在每天下午17:00点到下午19:59期间的每1分钟触发
      */
-    @Scheduled(cron = "0 * 17-19 * * ?")
+    @Scheduled(cron = "0 * 0-8 * * ?")
+    @Scheduled(cron = "0 * 17-23 * * ?")
     private void trace1() {
         log.error("正分钟播报！");
     }
