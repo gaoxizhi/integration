@@ -27,7 +27,7 @@ Configuration:
         value: debug
       # 日志格式1
       - name: log.pattern
-        value: "%d{yyyy-MM-dd HH:mm:ss.SSS} -%5p ${PID:-} [%15.15t] %-30.30C{1.} : %m%n"
+        value: "%d{HH:mm:ss.SSS} -%5p ${PID:-} [%15.15t] %-30.30C{1.} : %m%n"
 
   Appenders:
     # 输出到控制台
@@ -138,11 +138,12 @@ Configuration:
         AppenderRef:
           - ref: ERROR_ROLLING_FILE
       # 数据库
-      - name: db
+      - name: org.mybatis
         level: info
         additivity: false
         AppenderRef:
           - ref: DB_ROLLING_FILE
+          - ref: ERROR_ROLLING_FILE
       # 监听具体包下面的日志
       # 为net.gaox包配置特殊的Log级别，方便调试
       - name: net.gaox.designation.controller.LogController
@@ -151,6 +152,7 @@ Configuration:
         AppenderRef:
           - ref: CONSOLE
           - ref: ROLLING_FILE
+          - ref: ERROR_ROLLING_FILE
       # 指定控制器类
       - name: net.gaox.designation.controller.EquipmentController
         additivity: false
@@ -159,3 +161,4 @@ Configuration:
           - ref: CONSOLE
           - ref: ROLLING_FILE
           - ref: EQ_ROLLING_FILE
+          - ref: ERROR_ROLLING_FILE
