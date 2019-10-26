@@ -20,7 +20,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: root
-    url: jdbc:mysql://localhost:3306/cron?serverTimezone=GMT%2B8&characterEncoding=utf-8&useSSL=false&useUnicode=true
+    url: jdbc:mysql://localhost:3306/cron?serverTimezone=GMT%2B8&characterEncoding=utf-8&useSSL=false&useUnicode=true&tinyInt1isBit=false
     # Hikari 数据源专用配置
     hikari:
       maximum-pool-size: 20
