@@ -1,0 +1,161 @@
+# 共有8个级别，按照从低到高为：ALL < TRACE < DEBUG < INFO < WARN < ERROR < FATAL < OFF。
+# https://blog.csdn.net/u010598111/article/details/80556437
+Configuration:
+  status: warn
+  monitorInterval: 30
+  Properties: # 定义全局变量
+    Property: # 缺省配置（用于开发环境）。其他环境需要在VM参数中指定，如下：
+      #测试：-Dlog.level.console=warn -Dlog.level.xjj=trace
+      #生产：-Dlog.level.console=warn -Dlog.level.xjj=info
+
+      # 控制台输出等级
+      - name: log.level.console
+        value: all
+
+      # 日志目录
+      - name: log.path
+        value: logs
+      # 项目名称
+      - name: project.name
+        value: designation
+
+      # start级别日志
+      - name: log.level.gaox
+        value: info
+        # info级别
+      - name: log.level.eq
+        value: debug
+      # 日志格式1
+      - name: log.pattern
+        value: "%d{yyyy-MM-dd HH:mm:ss.SSS} -%5p ${PID:-} [%15.15t] %-30.30C{1.} : %m%n"
+
+  Appenders:
+    # 输出到控制台
+    Console:
+      name: CONSOLE
+      target: SYSTEM_OUT
+      PatternLayout:
+        pattern: ${log.pattern}
+
+    # 启动日志
+    RollingFile:
+      - name: ROLLING_FILE
+        # 重启后清空
+        append: false
+        fileName: ${log.path}/${project.name}.log
+        filePattern: "${log.path}/${project.name}/$${date:yyyy-MM}/log-%d{yyyy-MM-dd}-%i.log.gz"
+        PatternLayout:
+          pattern: ${log.pattern}
+        Filters:
+          # 一定要先去除不接受的日志级别，然后获取需要接受的日志级别 ！！
+          ThresholdFilter:
+            - level: error
+              onMatch: DENY
+              onMismatch: NEUTRAL
+            - level: trace
+              onMatch: ACCEPT
+              onMismatch: DENY
+        Policies:
+          # 按天分类
+          TimeBasedTriggeringPolicy:
+            # 调整时间
+            modulate: true
+            # 滚动周期，6小时
+            interval: 6
+        # 文件最多100个
+        DefaultRolloverStrategy:
+          max: 100
+
+      # 错误日志
+      - name: ERROR_ROLLING_FILE
+        ignoreExceptions: false
+        fileName: ${log.path}/${project.name}/error.log
+        filePattern: "${log.path}/${project.name}/$${date:yyyy-MM}/error-%d{yyyy-MM-dd}-%i.log.gz"
+        ThresholdFilter:
+          level: error
+          onMatch: ACCEPT
+          onMismatch: DENY
+        PatternLayout:
+          pattern: ${log.pattern}
+        Policies:
+          TimeBasedTriggeringPolicy:
+            modulate: true
+            interval: 1
+        DefaultRolloverStrategy:
+          max: 100
+
+      #   DB 日志
+      - name: DB_ROLLING_FILE
+        ignoreExceptions: false
+        fileName: ${log.path}/${project.name}/db.log
+        filePattern: "${log.path}/${project.name}/$${date:yyyy-MM}/db-%d{yyyy-MM-dd}-%i.log.gz"
+        PatternLayout:
+          pattern: ${log.pattern}
+        Policies:
+          TimeBasedTriggeringPolicy:
+            modulate: true
+            interval: 1
+        DefaultRolloverStrategy:
+          max: 100
+      #   设备 日志
+      - name: EQ_ROLLING_FILE
+        ignoreExceptions: false
+        fileName: ${log.path}/${project.name}/equipment.log
+        filePattern: "${log.path}/${project.name}/$${date:yyyy-MM}/equipment-%d{yyyy-MM-dd}-%i.log.gz"
+        PatternLayout:
+          pattern: ${log.pattern}
+        Policies:
+          TimeBasedTriggeringPolicy:
+            modulate: true
+            interval: 1
+        DefaultRolloverStrategy:
+          max: 100
+
+  # 配置日志文件指向
+  Loggers:
+    # Root节点，未配置的默认继承Root节点
+    Root:
+      # 最低日志等级
+      level: trace
+      # 指定输出源
+      AppenderRef:
+        - ref: CONSOLE
+        - ref: ROLLING_FILE
+        - ref: ERROR_ROLLING_FILE
+    # 日志节点
+    Logger:
+      # 运行日志
+      - name: start
+        level: info
+        additivity: false
+        AppenderRef:
+          - ref: CONSOLE
+          - ref: ROLLING_FILE
+      # 异常日志
+      - name: error
+        level: error
+        additivity: true
+        AppenderRef:
+          - ref: ERROR_ROLLING_FILE
+      # 数据库
+      - name: db
+        level: info
+        additivity: false
+        AppenderRef:
+          - ref: DB_ROLLING_FILE
+      # 监听具体包下面的日志
+      # 为net.gaox包配置特殊的Log级别，方便调试
+      - name: net.gaox.designation.controller.LogController
+        additivity: false
+        level: ${sys:log.level.gaox}
+        AppenderRef:
+          - ref: CONSOLE
+          - ref: ROLLING_FILE
+      # 指定控制器类
+      - name: net.gaox.designation.controller.EquipmentController
+        additivity: false
+        level: ${sys:log.level.eq}
+        AppenderRef:
+          - ref: CONSOLE
+          - ref: ROLLING_FILE
+          - ref: EQ_ROLLING_FILE
