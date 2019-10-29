@@ -41,9 +41,7 @@ public class IpUtil {
         String urlStr = "http://ip.taobao.com/service/getIpInfo2.php";
         String returnStr = getResult(urlStr, "ip=" + content, encoding);
         if (null != returnStr) {
-            // 处理返回的详细信息
-            System.out.println(decodeUnicode(returnStr));
-            return JSONObject.parseObject(returnStr).getObject("data", Addresses.class);
+            return JSONObject.parseObject(decodeUnicode(returnStr)).getObject("data", Addresses.class);
         }
         return null;
     }

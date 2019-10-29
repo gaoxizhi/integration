@@ -18,6 +18,9 @@ public class XmlUtil {
     }
 
     public static String convertToXml(Object obj, boolean standalone) {
+        if (null == obj) {
+            return "";
+        }
         StringWriter sw = new StringWriter();
         try {
             JAXBContext context = JAXBContext.newInstance(obj.getClass());

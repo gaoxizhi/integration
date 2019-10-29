@@ -1,0 +1,7 @@
+server:
+  port: 12515
+logging:
+  file:
+    name: logs/ip.log
+  level:
+    root: info

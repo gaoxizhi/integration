@@ -5,17 +5,21 @@ springboot、redis、mybatis、mybatisplus、MongoDB...技术整合项目
 
 #### 软件架构
 项目合计：
-* Redis应用：12501
-* AliyunOSS：12502
-* thymeleaf：12503
-* Excel    ：12505
-* MongoDB  ：12506
-* JPA      : 12507
-* shiro-jwt: 12508
-* page     ：12509
-* Mybattis-relation : 12510
-* live-chat-netty   ：12511
-* file-server       : 12512
+
+| 应用 |                  端口 |
+| :--- |                 :--- |
+| Redis               | 12501 |
+| AliyunOSS           | 12502 |
+| thymeleaf           | 12503 |
+| Excel               | 12505 |
+| MongoDB             | 12506 |
+| JPA                 | 12507 |
+| shiro-jwt           | 12508 |
+| page                | 12509 |
+| Mybattis-relation   | 12510 |
+| live-chat-netty     | 12511 |
+| file-server         | 12512 |
+| ip                  | 12515 |
 
 #### 安装教程
 
