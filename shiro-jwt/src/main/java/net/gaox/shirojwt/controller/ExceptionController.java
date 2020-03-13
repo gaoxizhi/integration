@@ -1,7 +1,7 @@
 package net.gaox.shirojwt.controller;
 
-import net.gaox.shirojwt.util.api.ApiResponse;
-import net.gaox.shirojwt.util.exception.UnauthorizedException;
+import net.gaox.util.api.ApiResponse;
+import net.gaox.util.exception.UnauthorizedException;
 import org.apache.shiro.ShiroException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;

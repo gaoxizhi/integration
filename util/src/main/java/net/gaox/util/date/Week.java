@@ -1,4 +1,4 @@
-package net.gaox.util.util.date;
+package net.gaox.util.date;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -66,6 +66,7 @@ public class Week {
         System.out.println(BigDecimal.valueOf(Duration.between(localDateTime, LocalDateTime.now().withMonth(12).withDayOfMonth(31)).toDays() + 1).divide(BigDecimal.valueOf(7), 0, RoundingMode.UP).longValue());
 
     }
+
     private static LocalDate getDateByYearAndWeekNumAndDayOfWeek(Integer year, Integer num, DayOfWeek dayOfWeek) {
         //周数小于10在前面补个0
         String numStr = num < 10 ? "0" + String.valueOf(num) : String.valueOf(num);

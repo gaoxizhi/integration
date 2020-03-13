@@ -1,5 +1,6 @@
 package net.gaox.shirojwt.util.shiro;
 
+import net.gaox.shirojwt.util.jwt.JwtToken;
 import org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter;
 import org.slf4j.Logger;
 import org.springframework.http.HttpStatus;
@@ -12,11 +13,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- JWTFilter
+ * <p> 登陆过滤器 </p>
+ *
  * @author gaox·Eric
  * @date 2019/5/4 00:50
  */
-public class JWTFilter extends BasicHttpAuthenticationFilter {
+public class ShiroAuthenticationFilter extends BasicHttpAuthenticationFilter {
 
     Logger logger = org.slf4j.LoggerFactory.getLogger(getClass());
 
@@ -30,6 +32,7 @@ public class JWTFilter extends BasicHttpAuthenticationFilter {
         String authorization = req.getHeader("gaox-to");
         return authorization != null;
     }
+
     /**
      *
      */
@@ -38,12 +41,13 @@ public class JWTFilter extends BasicHttpAuthenticationFilter {
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
         String authorization = httpServletRequest.getHeader("gaox-to");
 
-        JWTToken token = new JWTToken(authorization);
+        JwtToken token = new JwtToken(authorization);
         // 提交给realm进行登入，如果错误他会抛出异常并被捕获
         getSubject(request, response).login(token);
         // 如果没有抛出异常则代表登入成功，返回true
         return true;
     }
+
     /**
      * 这里我们详细说明下为什么最终返回的都是true，即允许访问
      * 例如我们提供一个地址 GET /article
@@ -64,6 +68,7 @@ public class JWTFilter extends BasicHttpAuthenticationFilter {
         }
         return true;
     }
+
     /**
      * 对跨域提供支持
      */
@@ -81,6 +86,7 @@ public class JWTFilter extends BasicHttpAuthenticationFilter {
         }
         return super.preHandle(request, response);
     }
+
     /**
      * 将非法请求跳转到 /401
      */

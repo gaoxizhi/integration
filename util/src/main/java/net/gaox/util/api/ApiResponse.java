@@ -1,4 +1,4 @@
-package net.gaox.shirojwt.util.api;
+package net.gaox.util.api;
 
 import com.alibaba.fastjson.JSON;
 
@@ -12,7 +12,7 @@ import java.util.Map;
 
 /**
  * <p> response包装类 </p>
-  dfd
+ *
  * @author gaox·Eric
  * @date 2019/5/4 00:27
  */
@@ -31,6 +31,7 @@ public class ApiResponse extends HashMap<String, Object> {
         apiResult.put("success", true);
         return apiResult;
     }
+
     /**
      * 错误消息封装
      *
@@ -41,6 +42,7 @@ public class ApiResponse extends HashMap<String, Object> {
         apiResult.put("success", false);
         return apiResult;
     }
+
     /**
      * 添加消息体
      *
@@ -52,6 +54,7 @@ public class ApiResponse extends HashMap<String, Object> {
         this.put(key, object);
         return this;
     }
+
     /**
      * 异常信息放入
      *
@@ -62,6 +65,7 @@ public class ApiResponse extends HashMap<String, Object> {
         this.put("msg", msg);
         return this;
     }
+
     /**
      * 异常信息，包含异常码及异常信息
      *
@@ -73,6 +77,7 @@ public class ApiResponse extends HashMap<String, Object> {
         this.put("code", error.getCode());
         return this;
     }
+
     /**
      * tostring方法
      *
@@ -82,8 +87,10 @@ public class ApiResponse extends HashMap<String, Object> {
     public String toString() {
         return JSON.toJSONString(this);
     }
+
     /**
      * 放入一个包含data属性的内容
+     *
      * @param data
      * @return
      */
@@ -91,6 +98,7 @@ public class ApiResponse extends HashMap<String, Object> {
         this.put("data", data);
         return this;
     }
+
     /**
      * 封装response的response
      *
@@ -107,6 +115,7 @@ public class ApiResponse extends HashMap<String, Object> {
         }
         return this;
     }
+
     /**
      * 封装集合类型消息
      * 会覆盖之前相同项消息
@@ -120,6 +129,7 @@ public class ApiResponse extends HashMap<String, Object> {
         }
         return this;
     }
+
     /**
      * 消息模型
      *

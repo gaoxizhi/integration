@@ -11,8 +11,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  */
 @EnableScheduling
 @SpringBootApplication
-public class ShiroJwtApplication {
+public class App {
     public static void main(String[] args) {
-        SpringApplication.run(ShiroJwtApplication.class, args);
+        SpringApplication.run(App.class, args);
     }
 }
