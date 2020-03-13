@@ -21,20 +21,21 @@ public class OSSStreamDownload {
     public static String bucketName = ParamConfig.bucketName;
     public static String folder = ParamConfig.folder;
 
-    public static OSS client = new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret);
+    public static OSS client;
 
 
     // 创建OSSClient实例。    已过时
     {
-//        client = new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret);
+        client = new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret);
     }
+
     /**
      * <p> 获得文件 </p>
      *
      * @param:
      * @return:
      * @author gaox·Eric
-     * @date ${DATE} ${HOUR}:${MINUTE}
+     * @date 2019/3/28 11:11
      */
     public static void getFiles(String fileName) throws IOException {
 
@@ -47,6 +48,7 @@ public class OSSStreamDownload {
         writeToLocal("I://" + fileName, inputStream);
         ossObject.close();
     }
+
     /**
      * 将InputStream写入本地文件
      *
@@ -68,6 +70,7 @@ public class OSSStreamDownload {
         downloadFile.close();
 
     }
+
     public static void main(String[] args) throws IOException {
         getFiles("mmexport1544249585987.jpg");
     }

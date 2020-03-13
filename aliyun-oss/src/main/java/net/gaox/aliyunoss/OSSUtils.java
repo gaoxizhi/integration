@@ -7,6 +7,7 @@ import net.gaox.aliyunoss.config.ParamConfig;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -18,7 +19,7 @@ import java.util.List;
  * 查看图片示例
  * XXXX.oss-cn-beijing.aliyuncs.com/mmexport1544249585987.jpg
  */
-public class OSSUploadFile {
+public class OSSUtils {
     public static String endpoint = ParamConfig.endpoint;
     public static String accessKeyId = ParamConfig.accessKeyId;
     public static String accessKeySecret = ParamConfig.accessKeySecret;
@@ -48,6 +49,7 @@ public class OSSUploadFile {
         deleteFile("banner.txt");
 
     }
+
     /**
      * 上传文件到阿里云OSS
      *
@@ -88,6 +90,10 @@ public class OSSUploadFile {
 //        }
         return false;
     }
+
+    /**
+     * 列举文件
+     */
     public static void listFiles() {
         /**
          * 列举文件。
@@ -100,6 +106,7 @@ public class OSSUploadFile {
             System.out.println("\t" + s.getKey());
         }
     }
+
     /**
      * 删除阿里云OSS上文件
      *
@@ -119,7 +126,14 @@ public class OSSUploadFile {
         }
         return false;
     }
-    public static boolean getFile(String fileName, String addressFile) {
+
+    /**
+     * 判断文件是否存在
+     *
+     * @param fileName 文件名
+     * @return 存在否
+     */
+    public static boolean getFile(String fileName) {
         try {
             OSS client = new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret);
             final boolean exist = client.doesObjectExist(bucketName, fileName);
@@ -133,4 +147,45 @@ public class OSSUploadFile {
             return false;
         }
     }
+
+    /**
+     * 向OSS追加日志输出
+     *
+     * @param content 日志内容
+     * @return 追加状态
+     */
+    public static boolean writeFile(String content) {
+        String logFile = "dir/log.log";
+
+        // 创建OSSClient实例。
+        OSS ossClient = new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret);
+
+        //判断是否有该文件
+        if (!ossClient.doesObjectExist(bucketName, logFile)) {
+            PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName, logFile, new ByteArrayInputStream("创建追加日志记录文件：\n".getBytes()));
+            ossClient.putObject(putObjectRequest);
+        }
+
+        // 从OSS取文件，读其大小
+        Long position = ossClient.getSimplifiedObjectMeta(bucketName, logFile).getSize();
+
+        // 创建上传Object的Metadata，如不声明则写入OSS中文会乱码
+        ObjectMetadata meta = new ObjectMetadata();
+        meta.setContentType("text/plain; charset=utf-8");
+
+        // 通过AppendObjectRequest设置多个参数。
+        AppendObjectRequest appendObjectRequest = new AppendObjectRequest(bucketName, logFile, new ByteArrayInputStream((content + "\n").getBytes()), meta);
+
+        // nextPosition指明下一次请求中应当提供的Position，即文件当前的长度。
+        appendObjectRequest.setPosition(position);
+        ossClient.appendObject(appendObjectRequest);
+        //上次修改时间
+        long modTime = ossClient.getSimplifiedObjectMeta(bucketName, logFile).getLastModified().getTime();
+        // 关闭OSSClient。
+        ossClient.shutdown();
+
+        //是否更新
+        return Math.abs(System.currentTimeMillis() - modTime) < 20;
+    }
+
 }
