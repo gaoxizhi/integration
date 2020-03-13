@@ -19,10 +19,10 @@ import java.util.List;
 //@CacheConfig(cacheNames = "home")
 
 /**
- * @Description: <p> 缓存查询实现类 </p>
- * @ClassName HomeServiceImp
- * @Author: gaox·Eric
- * @Date: 2019/4/13 14:41
+ * <p> 缓存查询实现类 </p>
+ *
+ * @author gaox·Eric
+ * @date 2019/4/13 14:41
  */
 @Service
 public class HomeServiceImpl implements HomeService {

@@ -1,7 +1,7 @@
 package net.gaox.shirojwt.controller;
 
-import net.gaox.shirojwt.util.api.ApiResponse;
-import net.gaox.shirojwt.util.exception.UnauthorizedException;
+import net.gaox.util.api.ApiResponse;
+import net.gaox.util.exception.UnauthorizedException;
 import org.apache.shiro.ShiroException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -11,10 +11,9 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * @Description: <p>  </p>
- * @ClassName ExceptionController
- * @Author: gaox·Eric
- * @Date: 2019/5/4 01:21
+ ExceptionController
+ * @author gaox·Eric
+ * @date 2019/5/4 01:21
  */
 @RestControllerAdvice
 public class ExceptionController {
@@ -31,7 +30,6 @@ public class ExceptionController {
     public ApiResponse handle401(ShiroException e) {
         return ApiResponse.fail().error(e.getMessage());
     }
-
     /**
      * 捕捉UnauthorizedException
      *
@@ -43,7 +41,6 @@ public class ExceptionController {
         return ApiResponse.fail().and("code", 401).error("Unauthorized");
 
     }
-
     /**
      * 捕捉其他所有异常
      *
@@ -56,7 +53,6 @@ public class ExceptionController {
     public ApiResponse globalException(HttpServletRequest request, Throwable ex) {
         return ApiResponse.fail().and("code", getStatus(request).value()).error(ex.getMessage());
     }
-
     /**
      * 获取HTTP状态码
      *
@@ -70,5 +66,4 @@ public class ExceptionController {
         }
         return HttpStatus.valueOf(statusCode);
     }
-
 }

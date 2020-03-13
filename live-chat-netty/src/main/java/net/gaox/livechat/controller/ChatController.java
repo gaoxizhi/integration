@@ -4,10 +4,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
- * @Description: <p>  </p>
- * @ClassName: ChatController
- * @Author: gaox·Eric
- * @Date: 2019/7/19 20:26
+ * @author gaox·Eric
+ * @date 2019/7/19 20:26
  */
 @Controller
 public class ChatController {

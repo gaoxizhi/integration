@@ -7,10 +7,8 @@ import javax.persistence.Embeddable;
 import java.io.Serializable;
 
 /**
- * @Description: <p>  </p>
- * @ClassName UserClothes
- * @Author: gaox·Eric
- * @Date: 2019/5/2 23:35
+ * @author gaox·Eric
+ * @date 2019/5/2 23:35
  */
 @Embeddable
 @Data
@@ -19,7 +17,4 @@ public class UserClothesId implements Serializable {
     private Long userId;
     @Column(name = "clothesId")
     private Long clothesId;
-
-    public UserClothesId() {
-    }
 }

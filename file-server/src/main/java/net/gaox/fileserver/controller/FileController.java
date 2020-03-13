@@ -19,7 +19,7 @@ public class FileController {
 
     private FileUtil fileUtil = new FileUtil();
 
-    @PostMapping("")
+    @PostMapping()
     public String uploadFile(@RequestParam("file") MultipartFile file) {
         Boolean uploadFile = fileUtil.uploadFile(file);
         return uploadFile ? "上传成功！" : "上传失败！";

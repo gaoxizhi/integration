@@ -7,10 +7,8 @@ import org.apache.ibatis.annotations.Select;
 import java.util.List;
 
 /**
- * @Description: <p>  </p>
- * @ClassName SomaMapper
- * @Author: gaox·Eric
- * @Date: 2019/4/14 10:51
+ * @author gaox·Eric
+ * @date 2019/4/14 10:51
  */
 @Mapper
 public interface SomaMapper {

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.gaox.designation.mapper.CronMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="net.gaox.designation.entity.Cron">
+        <id column="id" property="id" />
+        <result column="cron" property="cron" />
+        <result column="name" property="name" />
+        <result column="cron_desc" property="cronDesc" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="able" property="able" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, cron, name, cron_desc, create_time, update_time, able
+    </sql>
+
+</mapper>

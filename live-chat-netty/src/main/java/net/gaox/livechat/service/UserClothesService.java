@@ -11,10 +11,10 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * @Description: <p> 联合主键示例 </p>
- * @ClassName UserClothesService
- * @Author: gaox·Eric
- * @Date: 2019/5/2 23:42
+ * <p> 联合主键示例 </p>
+ *
+ * @author gaox·Eric
+ * @date 2019/5/2 23:42
  */
 @Repository
 public interface UserClothesService extends JpaRepository<UserClothes, UserClothesId> {

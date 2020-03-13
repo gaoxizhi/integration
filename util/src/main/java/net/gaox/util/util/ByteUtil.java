@@ -3,10 +3,8 @@ package net.gaox.util.util;
 import java.util.regex.Pattern;
 
 /**
- * @Description: <p>  </p>
- * @ClassName: ByteUtil
- * @Author: gaox·Eric
- * @Date: 2019/7/21 15:32
+ * @author gaox·Eric
+ * @date 2019/7/21 15:32
  */
 public class ByteUtil {
 
@@ -22,7 +20,6 @@ public class ByteUtil {
         System.arraycopy(buf2, 0, buffer, offset, buf2.length);
         return buffer;
     }
-
     /**
      * Join three byte arrays to a new byte array.
      */
@@ -36,7 +33,6 @@ public class ByteUtil {
         System.arraycopy(buf3, 0, buffer, offset, buf3.length);
         return buffer;
     }
-
     /**
      * Convert bytes to hex string (all lower-case).
      *
@@ -53,7 +49,6 @@ public class ByteUtil {
         }
         return sb.toString().trim();
     }
-
     /**
      * Convert byte to hex string (all lower-case).
      *
@@ -63,10 +58,9 @@ public class ByteUtil {
     public static String toHex(byte b) {
         int hi = (b & 0xf0) >> 4;
         int lo = b & 0x0f;
-        char[] cs = { HEX_CHARS[hi], HEX_CHARS[lo] };
+        char[] cs = {HEX_CHARS[hi], HEX_CHARS[lo]};
         return new String(cs);
     }
-
     public static byte fromHex(String s) {
         if (s.length() != 2) {
             throw new IllegalArgumentException("Invalid length of string.");
@@ -84,7 +78,6 @@ public class ByteUtil {
         int n = (n1 << 4) + n2;
         return (byte) n;
     }
-
     public static byte[] fromHexString(String s) {
         if (s.length() % 2 == 1) {
             throw new IllegalArgumentException("Invalid length of string.");
@@ -106,15 +99,12 @@ public class ByteUtil {
         }
         return data;
     }
-
     public static boolean isSha1(String s) {
         return PATTERN_SHA1.matcher(s).matches();
     }
-
     public static boolean isSha256(String s) {
         return PATTERN_SHA256.matcher(s).matches();
     }
-
     private static final String HEX_STRING = "0123456789abcdef";
     private static final char[] HEX_CHARS = HEX_STRING.toCharArray();
 

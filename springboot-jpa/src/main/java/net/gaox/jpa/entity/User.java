@@ -5,10 +5,10 @@ import lombok.Data;
 import javax.persistence.*;
 
 /**
- * @Description: <p> 用户表 </p>
- * @ClassName User
- * @Author: gaox·Eric
- * @Date: 2019/5/2 15:01
+ * <p> 用户表 </p>
+  User
+ * @author gaox·Eric
+ * @date 2019/5/2 15:01
  * <p>
  * Entity 声明这个类对应了一个数据库表。必选
  * Table  声明了数据库实体对应的表信息。可选

@@ -7,10 +7,8 @@ import net.gaox.relation.model.enums.EnumSex;
 import java.util.List;
 
 /**
- * @Description: <p>  </p>
- * @ClassName: OrdersUserDTO
- * @Author: gaox·Eric
- * @Date: 2019/7/12 23:48
+ * @author gaox·Eric
+ * @date 2019/7/12 23:48
  */
 @Data
 public class OrdersUserDTO {

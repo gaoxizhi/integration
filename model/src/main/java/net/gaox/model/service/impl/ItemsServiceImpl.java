@@ -1,9 +1,9 @@
 package net.gaox.model.service.impl;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import net.gaox.model.entity.Items;
 import net.gaox.model.mapper.ItemsMapper;
 import net.gaox.model.service.ItemsService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
 /**
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
  * 商品表 服务实现类
  * </p>
  *
- * @author gaoxÂ·Eric
+ * @author gaox·Eric
  * @since 2019-07-13
  */
 @Service

@@ -11,12 +11,12 @@ import java.util.Map;
  * 基础用户表 mapper 接口
  * </p>
  *
- * @author GengYun
+ * @author gaox·Eric
  * @since 2019-07-09
  */
 public interface UserMapper {
 
-    List<User> listGaoPage(@Param("map") Map<String,Object> data);
+    List<User> listGaoPage(@Param("map") Map<String, Object> data);
 
     Integer insert();
 }

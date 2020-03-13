@@ -1,11 +1,12 @@
 package net.gaox.aliyunoss.config;
 
+import lombok.Data;
+
 /**
- * @Description: <p>  </p>
- * @ClassName ParamConfig
- * @Author: gaox·Eric
- * @Date: 2019/4/18 23:02
+ * @author gaox·Eric
+ * @date 2019/4/18 23:02
  */
+@Data
 public class ParamConfig {
     /**
      * 注意：这里记录的是自己的Oss账号信息

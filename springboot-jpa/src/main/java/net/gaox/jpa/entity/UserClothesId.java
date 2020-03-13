@@ -7,10 +7,9 @@ import javax.persistence.Embeddable;
 import java.io.Serializable;
 
 /**
- * @Description: <p>  </p>
- * @ClassName UserClothes
- * @Author: gaox·Eric
- * @Date: 2019/5/2 23:35
+ UserClothes
+ * @author gaox·Eric
+ * @date 2019/5/2 23:35
  */
 @Embeddable
 @Data

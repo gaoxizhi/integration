@@ -3,15 +3,13 @@ package net.gaox.livechat.entity;
 import lombok.Data;
 
 import javax.persistence.*;
-
 import java.time.LocalDateTime;
 
 /**
- * @Description: <p> 用户衣物关系表 </p>
+ * @author gaox·Eric
+ * <p> 用户衣物关系表 </p>
  * 用例：联合主键场景
- * @ClassName UserClothes
- * @Author: gaox·Eric
- * @Date: 2019/5/2 23:31
+ * @date 2019/5/2 23:31
  */
 @Data
 @Entity
@@ -33,5 +31,4 @@ public class UserClothes {
     private LocalDateTime createTime;
     @Column(name = "mod_time")
     private LocalDateTime modTime;
-
 }

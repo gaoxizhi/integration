@@ -14,10 +14,9 @@ import java.util.List;
 
 
 /**
- * @Description: <p>  </p>
- * @ClassName UserClothesController
- * @Author: gaox·Eric
- * @Date: 2019/5/2 23:47
+ UserClothesController
+ * @author gaox·Eric
+ * @date 2019/5/2 23:47
  */
 @RestController
 public class UserClothesController {
@@ -31,7 +30,6 @@ public class UserClothesController {
         logger.debug("查询衣服id： " + id);
         return userClothesService.findUsersByClothes(id);
     }
-
     @GetMapping("/userClothes")
     public UserClothes getone(){
         logger.debug("查询衣服人员绑定!");

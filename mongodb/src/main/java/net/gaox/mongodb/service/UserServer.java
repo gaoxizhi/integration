@@ -12,9 +12,8 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 /**
- * @Description: <p>  </p>
- * @Author: gaox·Eric
- * @Date: 2019/1/21 22:55
+ * @author gaox·Eric
+ * @date 2019/1/21 22:55
  */
 @Component
 public class UserServer {
@@ -92,5 +91,4 @@ public class UserServer {
         }
         return false;
     }
-
 }

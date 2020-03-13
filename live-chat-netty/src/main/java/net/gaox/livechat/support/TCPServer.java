@@ -10,10 +10,8 @@ import javax.annotation.PreDestroy;
 import java.net.InetSocketAddress;
 
 /**
- * @Description: <p>  </p>
- * @ClassName: TCPServer
- * @Author: gaox·Eric
- * @Date: 2019/7/19 20:21
+ * @author gaox·Eric
+ * @date 2019/7/19 20:21
  */
 
 @Component
@@ -35,25 +33,20 @@ public class TCPServer {
     public void start() throws Exception {
         serverChannel = serverBootstrap.bind(tcpPort).sync().channel().closeFuture().sync().channel();
     }
-
     @PreDestroy
     public void stop() throws Exception {
         serverChannel.close();
         serverChannel.parent().close();
     }
-
     public ServerBootstrap getServerBootstrap() {
         return serverBootstrap;
     }
-
     public void setServerBootstrap(ServerBootstrap serverBootstrap) {
         this.serverBootstrap = serverBootstrap;
     }
-
     public InetSocketAddress getTcpPort() {
         return tcpPort;
     }
-
     public void setTcpPort(InetSocketAddress tcpPort) {
         this.tcpPort = tcpPort;
     }

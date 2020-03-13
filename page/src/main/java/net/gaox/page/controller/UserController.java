@@ -4,7 +4,6 @@ package net.gaox.page.controller;
 import net.gaox.page.entity.User;
 import net.gaox.page.mapper.UserMapper;
 import net.gaox.page.service.UserService;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +18,7 @@ import java.util.List;
  * 基础用户表 前端控制器
  * </p>
  *
- * @author: gaox·Eric
+ * @author gaox·Eric
  * @since : 2019/7/9
  */
 @RestController
@@ -38,6 +37,4 @@ public class UserController {
 //        list.stream().forEach(s -> System.out.println(s.toString()));
         return list;
     }
-
 }
-

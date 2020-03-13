@@ -4,9 +4,8 @@ import lombok.Data;
 import org.springframework.data.annotation.Id;
 
 /**
- * @Description: <p>  </p>
- * @Author: gaox·Eric
- * @Date: 2019/1/21 22:50
+ * @author gaox·Eric
+ * @date 2019/1/21 22:50
  */
 @Data
 public class User {
@@ -15,5 +14,4 @@ public class User {
     private String name;
     private Integer age;
     private Integer grade;
-
 }

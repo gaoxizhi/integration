@@ -9,10 +9,10 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * @Description: <p> 服务类接口 </p>
- * @ClassName UserService
- * @Author: gaox·Eric
- * @Date: 2019/5/2 15:31
+ * <p> 服务类接口 </p>
+  UserService
+ * @author gaox·Eric
+ * @date 2019/5/2 15:31
  */
 @Repository
 public interface UserService extends JpaRepository<User, Long> {
@@ -45,6 +45,4 @@ public interface UserService extends JpaRepository<User, Long> {
      */
     @Query(nativeQuery = true, value = "SELECT * FROM user WHERE name = :name1  OR name = :name2 ")
     List<User> findSQL(@Param("name1") String name1, @Param("name2") String name2);
-
-
 }

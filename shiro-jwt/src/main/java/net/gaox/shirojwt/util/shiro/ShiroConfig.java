@@ -16,10 +16,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @Description: <p>  </p>
- * @ClassName ShiroConfig
- * @Author: gaox·Eric
- * @Date: 2019/5/4 00:49
+ * ShiroConfig
+ *
+ * @author gaox·Eric
+ * @date 2019/5/4 00:49
  */
 @Configuration
 public class ShiroConfig {
@@ -49,7 +49,7 @@ public class ShiroConfig {
 
         // 添加自己的过滤器并且取名为jwt
         Map<String, Filter> filterMap = new HashMap<>();
-        filterMap.put("jwt", new JWTFilter());
+        filterMap.put("jwt", new ShiroAuthenticationFilter());
         factoryBean.setFilters(filterMap);
 
         factoryBean.setSecurityManager(securityManager);

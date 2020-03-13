@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
  * 基础用户表
  * </p>
  *
- * @author GengYun
+ * @author gaox·Eric
  * @since 2019-07-09
  */
 @Data
@@ -68,5 +68,4 @@ public class User {
      * 删除标志：删除0；正常1（默认）
      */
     private Boolean delFlag;
-
 }

@@ -8,10 +8,10 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * @Description: <p> 衣物表 </p>
- * @ClassName Clothes
- * @Author: gaox·Eric
- * @Date: 2019/5/2 15:06
+ * <p> 衣物表 </p>
+ *
+ * @author gaox·Eric
+ * @date 2019/5/2 15:06
  */
 @Data
 @Entity

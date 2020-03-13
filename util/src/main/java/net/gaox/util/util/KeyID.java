@@ -31,10 +31,9 @@ import org.slf4j.LoggerFactory;
  */
 
 /**
- * @Description: <p>  </p>
- * @ClassName: KeyID
- * @Author: gaox·Eric
- * @Date: 2019/7/21 15:17
+
+ * @author gaox·Eric
+ * @date 2019/7/21 15:17
  */
 public class KeyID {
     /**
@@ -42,7 +41,7 @@ public class KeyID {
      * 时间戳减去一个固定值，此方案最高可支持到2106年。
      * 如果每秒65万个序列号不够怎么办？没关系，可以继续递增时间戳，向前“借”下一秒的65万个序列号。
      *
-     * @author: gaox·Eric
+     * @author gaox·Eric
      * @since : 2019/7/21 15:22
      */
     private static final Logger logger = LoggerFactory.getLogger(KeyID.class);
@@ -64,7 +63,6 @@ public class KeyID {
     public static long nextId() {
         return nextId(System.currentTimeMillis() / 1000);
     }
-
     private static synchronized long nextId(long epochSecond) {
         if (epochSecond < lastEpoch) {
             // warning: clock is turn back:
@@ -83,15 +81,12 @@ public class KeyID {
         }
         return generateId(epochSecond, next, SHARD_ID);
     }
-
     private static void reset() {
         offset = 0;
     }
-
     private static long generateId(long epochSecond, long next, long shardId) {
         return ((epochSecond - OFFSET) << 21) | (next << 5) | shardId;
     }
-
     private static long getServerIdAsLong() {
         try {
             String hostname = InetAddress.getLocalHost().getHostName();
@@ -108,7 +103,6 @@ public class KeyID {
         }
         return 0;
     }
-
     public static long stringIdToLongId(String stringId) {
         // a stringId id is composed as timestamp (15) + uuid (32) + serverId (000~fff).
         Matcher matcher = PATTERN_LONG_ID.matcher(stringId);

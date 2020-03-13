@@ -22,10 +22,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @Description: <p>  </p>
- * @ClassName: TextWebSocketFrameHandler
- * @Author: gaox·Eric
- * @Date: 2019/7/19 20:25
+ * @author gaox·Eric
+ * @date 2019/7/19 20:25
  */
 @Component
 @Qualifier("textWebSocketFrameHandler")
@@ -34,7 +32,7 @@ public class TextWebSocketFrameHandler extends SimpleChannelInboundHandler<TextW
 
     public static ChannelGroup channels = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
 
-    public static Map<String, String> map = new HashMap<>(100);
+    public static Map<String, String> map = new HashMap<>(128);
 
     @Autowired
     private UserService userService;
@@ -54,7 +52,6 @@ public class TextWebSocketFrameHandler extends SimpleChannelInboundHandler<TextW
             }
         }
     }
-
     @Override
     public void handlerAdded(ChannelHandlerContext ctx) throws Exception {
         System.out.println(ctx.channel().remoteAddress());
@@ -63,14 +60,13 @@ public class TextWebSocketFrameHandler extends SimpleChannelInboundHandler<TextW
         Channel incoming = ctx.channel();
         System.out.println("333333333333333333333");
         List<User> twoName = userService.findTwoName("小红", "笑话");
-        twoName.forEach(s -> System.out.println(s.toString()+"1111111111111111111111111111111111111"));
+        twoName.forEach(s -> System.out.println(s.toString() + "1111111111111111111111111111111111111"));
         for (Channel channel : channels) {
             channel.writeAndFlush(new TextWebSocketFrame("[新用户] - " + uName + " 加入"));
         }
         map.put(incoming.id() + "", uName);
         channels.add(ctx.channel());
     }
-
     @Override
     public void handlerRemoved(ChannelHandlerContext ctx) throws Exception {
         Channel incoming = ctx.channel();
@@ -83,20 +79,16 @@ public class TextWebSocketFrameHandler extends SimpleChannelInboundHandler<TextW
 
         channels.remove(ctx.channel());
     }
-
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         Channel incoming = ctx.channel();
         System.out.println("用户:" + map.get(incoming.id().toString()) + "在线");
     }
-
-
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
         Channel incoming = ctx.channel();
         System.out.println("用户:" + map.get(incoming.id().toString()) + "掉线");
     }
-
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause)
             throws Exception {
@@ -105,5 +97,4 @@ public class TextWebSocketFrameHandler extends SimpleChannelInboundHandler<TextW
         cause.printStackTrace();
         ctx.close();
     }
-
 }

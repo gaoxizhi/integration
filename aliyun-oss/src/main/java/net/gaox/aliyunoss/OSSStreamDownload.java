@@ -11,10 +11,8 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * @Description: <p>  </p>
- * @ClassName OSSStreamDownload
- * @Author: gaox·Eric
- * @Date: 2019/3/28 19:22
+ * @author gaox·Eric
+ * @date 2019/3/28 19:22
  */
 public class OSSStreamDownload {
     public static String endpoint = ParamConfig.endpoint;
@@ -23,12 +21,12 @@ public class OSSStreamDownload {
     public static String bucketName = ParamConfig.bucketName;
     public static String folder = ParamConfig.folder;
 
-    public static OSS client = new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret);
+    public static OSS client;
 
 
     // 创建OSSClient实例。    已过时
     {
-//        client = new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret);
+        client = new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret);
     }
 
     /**
@@ -36,18 +34,18 @@ public class OSSStreamDownload {
      *
      * @param:
      * @return:
-     * @author: gaox·Eric
-     * @date: ${DATE} ${HOUR}:${MINUTE}
+     * @author gaox·Eric
+     * @date 2019/3/28 11:11
      */
     public static void getFiles(String fileName) throws IOException {
 
         OSSObject ossObject = client.getObject(bucketName, fileName);
         InputStream inputStream = ossObject.getObjectContent();
 
-        for(String v :ossObject.getObjectMetadata().getUserMetadata().values()){
+        for (String v : ossObject.getObjectMetadata().getUserMetadata().values()) {
             System.out.println(v);
         }
-        writeToLocal("I://"+fileName, inputStream);
+        writeToLocal("I://" + fileName, inputStream);
         ossObject.close();
     }
 

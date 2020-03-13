@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 /**
  * <p> 启动类 </p>
  *
- * @author: gaox·Eric
- * @date: 2019-03-16 20:20:00
+ * @author gaox·Eric
+ * @date 2019-03-16 20:20:00
  */
 @SpringBootApplication
 public class ThymeleafApplication {
@@ -15,7 +15,6 @@ public class ThymeleafApplication {
     public static void main(String[] args) {
         SpringApplication.run(ThymeleafApplication.class, args);
     }
-
 //    @Bean
 //    public ViewResolver myViewReolver(){
 //        return new MyViewResolver();
@@ -29,4 +28,3 @@ public class ThymeleafApplication {
 //        }
 //    }
 }
-

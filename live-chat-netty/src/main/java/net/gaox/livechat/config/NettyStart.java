@@ -19,10 +19,8 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * @Description: <p>  </p>
- * @ClassName: nettyStart
- * @Author: gaox·Eric
- * @Date: 2019/7/19 22:09
+ * @author gaox·Eric
+ * @date 2019/7/19 22:09
  */
 @Component
 public class NettyStart {
@@ -56,7 +54,6 @@ public class NettyStart {
         }
         return b;
     }
-
     @Autowired
     @Qualifier("somethingChannelInitializer")
     private NettyWebSocketChannelInitializer nettyWebSocketChannelInitializer;
@@ -68,20 +65,16 @@ public class NettyStart {
         options.put(ChannelOption.SO_BACKLOG, backlog);
         return options;
     }
-
     @Bean(name = "bossGroup", destroyMethod = "shutdownGracefully")
     public NioEventLoopGroup bossGroup() {
         return new NioEventLoopGroup(bossCount);
     }
-
     @Bean(name = "workerGroup", destroyMethod = "shutdownGracefully")
     public NioEventLoopGroup workerGroup() {
         return new NioEventLoopGroup(workerCount);
     }
-
     @Bean(name = "tcpSocketAddress")
     public InetSocketAddress tcpPort() {
         return new InetSocketAddress(tcpPort);
     }
-
 }

@@ -9,6 +9,6 @@ package net.gaox.relation.mapper;
  * @since 2019-07-10
  */
 
-public interface OrderDetailMapper{
+public interface OrderDetailMapper {
 
 }

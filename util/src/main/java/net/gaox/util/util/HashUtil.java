@@ -10,10 +10,9 @@ import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
 /**
- * @Description: <p>  </p>
- * @ClassName: HashUtil
- * @Author: gaox·Eric
- * @Date: 2019/7/21 15:31
+
+ * @author gaox·Eric
+ * @date 2019/7/21 15:31
  */
 public class HashUtil {
 
@@ -27,7 +26,6 @@ public class HashUtil {
     public static String sha1(String input) {
         return sha1(input.getBytes(StandardCharsets.UTF_8));
     }
-
     /**
      * Generate SHA-1 as hex string (all lower-case).
      *
@@ -45,11 +43,9 @@ public class HashUtil {
         byte[] digest = md.digest();
         return ByteUtil.toHexString(digest);
     }
-
     public static byte[] sha1AsBytes(String input) {
         return sha1AsBytes(input.getBytes(StandardCharsets.UTF_8));
     }
-
     /**
      * Generate SHA-1 as bytes.
      *
@@ -66,7 +62,6 @@ public class HashUtil {
         md.update(input);
         return md.digest();
     }
-
     /**
      * Generate SHA-256 as hex string (all lower-case).
      *
@@ -76,7 +71,6 @@ public class HashUtil {
     public static String sha256(String input) {
         return sha256(input.getBytes(StandardCharsets.UTF_8));
     }
-
     /**
      * Generate SHA-256 as hex string (all lower-case).
      *
@@ -86,7 +80,6 @@ public class HashUtil {
     public static byte[] sha256AsBytes(String input) {
         return sha256AsBytes(input.getBytes(StandardCharsets.UTF_8));
     }
-
     /**
      * Generate SHA-256 as hex string (all lower-case).
      *
@@ -104,7 +97,6 @@ public class HashUtil {
         byte[] digest = md.digest();
         return ByteUtil.toHexString(digest);
     }
-
     /**
      * Generate SHA-256 as bytes.
      *
@@ -121,7 +113,6 @@ public class HashUtil {
         md.update(input);
         return md.digest();
     }
-
     /**
      * Generate SHA-512 as bytes.
      *
@@ -138,7 +129,6 @@ public class HashUtil {
         md.update(input);
         return md.digest();
     }
-
     /**
      * Do HMAC-SHA256.
      *
@@ -156,7 +146,6 @@ public class HashUtil {
         mac.update(data);
         return mac.doFinal();
     }
-
     /**
      * Do HMAC-SHA256.
      *
@@ -165,7 +154,6 @@ public class HashUtil {
     public static String hmacSha256(byte[] data, byte[] key) {
         return ByteUtil.toHexString(hmacSha256AsBytes(data, key));
     }
-
     /**
      * Do HMAC-SHA1.
      *
@@ -183,7 +171,6 @@ public class HashUtil {
         mac.update(data);
         return mac.doFinal();
     }
-
     /**
      * Do HMAC-SHA256.
      *
@@ -192,7 +179,6 @@ public class HashUtil {
     public static String hmacSha256(String data, String key) {
         return hmacSha256(data.getBytes(StandardCharsets.UTF_8), key.getBytes(StandardCharsets.UTF_8));
     }
-
     /**
      * Do HMAC-SHA256.
      *
@@ -201,7 +187,6 @@ public class HashUtil {
     public static byte[] hmacSha256AsBytes(String data, String key) {
         return hmacSha256AsBytes(data.getBytes(StandardCharsets.UTF_8), key.getBytes(StandardCharsets.UTF_8));
     }
-
     /**
      * Do HMAC-SHA256.
      *

@@ -4,7 +4,6 @@ import lombok.Data;
 import net.gaox.relation.model.enums.EnumDelFlag;
 
 import java.time.LocalDateTime;
-import java.io.Serializable;
 
 /**
  * <p>

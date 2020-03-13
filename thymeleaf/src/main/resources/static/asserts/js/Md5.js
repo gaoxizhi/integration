@@ -25,7 +25,6 @@ function str_md5(s){ return binl2str(core_md5(str2binl(s), s.length * chrsz));}
 function hex_hmac_md5(key, data) { return binl2hex(core_hmac_md5(key, data)); }
 function b64_hmac_md5(key, data) { return binl2b64(core_hmac_md5(key, data)); }
 function str_hmac_md5(key, data) { return binl2str(core_hmac_md5(key, data)); }
-
 /*
  * Perform a simple self-test to see if the VM is working
  */
@@ -33,7 +32,6 @@ function md5_vm_test()
 {
     return hex_md5("abc") == "900150983cd24fb0d6963f7d28e17f72";
 }
-
 /*
  * Calculate the MD5 of an array of little-endian words, and a bit length
  */
@@ -131,7 +129,6 @@ function core_md5(x, len)
     return Array(a, b, c, d);
 
 }
-
 /*
  * These functions implement the four basic operations the algorithm uses.
  */
@@ -155,7 +152,6 @@ function md5_ii(a, b, c, d, x, s, t)
 {
     return md5_cmn(c ^ (b | (~d)), a, b, x, s, t);
 }
-
 /*
  * Calculate the HMAC-MD5, of a key and some data
  */
@@ -170,11 +166,9 @@ function core_hmac_md5(key, data)
         ipad[i] = bkey[i] ^ 0x36363636;
         opad[i] = bkey[i] ^ 0x5C5C5C5C;
     }
-
     var hash = core_md5(ipad.concat(str2binl(data)), 512 + data.length * chrsz);
     return core_md5(opad.concat(hash), 512 + 128);
 }
-
 /*
  * Add integers, wrapping at 2^32. This uses 16-bit operations internally
  * to work around bugs in some JS interpreters.
@@ -185,7 +179,6 @@ function safe_add(x, y)
     var msw = (x >> 16) + (y >> 16) + (lsw >> 16);
     return (msw << 16) | (lsw & 0xFFFF);
 }
-
 /*
  * Bitwise rotate a 32-bit number to the left.
  */
@@ -193,7 +186,6 @@ function bit_rol(num, cnt)
 {
     return (num << cnt) | (num >>> (32 - cnt));
 }
-
 /*
  * Convert a string to an array of little-endian words
  * If chrsz is ASCII, characters >255 have their hi-byte silently ignored.
@@ -206,7 +198,6 @@ function str2binl(str)
         bin[i>>5] |= (str.charCodeAt(i / chrsz) & mask) << (i%32);
     return bin;
 }
-
 /*
  * Convert an array of little-endian words to a string
  */
@@ -218,7 +209,6 @@ function binl2str(bin)
         str += String.fromCharCode((bin[i>>5] >>> (i % 32)) & mask);
     return str;
 }
-
 /*
  * Convert an array of little-endian words to a hex string.
  */
@@ -233,7 +223,6 @@ function binl2hex(binarray)
     }
     return str;
 }
-
 /*
  * Convert an array of little-endian words to a base-64 string
  */
