@@ -1,0 +1,8 @@
+spring:
+  mail:
+    host: smtp.qq.com
+    username: gx_zone@qq.com
+    from: gx_zone@163.com
+    #授权码
+    password: ABCDabcdABCDa
+    default-encoding: UTF-8
