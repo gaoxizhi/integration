@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
+import java.util.List;
+
 /**
  * <p> 邮件信息vo </p>
  *
@@ -23,7 +25,11 @@ public class MailInfo {
     /**
      * 收件人
      */
-    private String to;
+    private String[] recipients;
+    /**
+     * 抄送人
+     */
+    private String[] carbonCopy;
     /**
      * 主题
      */
@@ -32,6 +38,18 @@ public class MailInfo {
      * 内容
      */
     private String context;
+    /**
+     * 是否包含附件
+     */
+    private Boolean accessory;
+    /**
+     * 附件列表
+     */
+    private List<Accessory> accessoryList;
+    /**
+     * 是否html类型
+     */
+    private Boolean html;
     /**
      * 已读回执
      */

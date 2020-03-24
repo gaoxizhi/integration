@@ -1,5 +1,6 @@
 package net.gaox.mail;
 
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.thymeleaf.context.Context;
 
 import javax.annotation.Resource;
 import javax.mail.MessagingException;
+import java.util.Arrays;
 
 
 /**
@@ -20,6 +22,7 @@ import javax.mail.MessagingException;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
+@Slf4j
 public class MailServiceTest {
 
     @Autowired
@@ -77,8 +80,29 @@ public class MailServiceTest {
     public void testTemplateMailTest() throws MessagingException {
         Context context = new Context();
         context.setVariable("id", "098");
-
+        // 使用template模版引擎渲染的邮件内容
         String emailContent = templateEngine.process("emailTeplate", context);
         mailService.sendHtmlMail("gx_zone@163.com", "这是一封HTML邮件", emailContent);
+    }
+
+    @Test
+    public void testTemplateMail() {
+        Context context = new Context();
+        context.setVariable("id", "098");
+        // 使用template模版引擎渲染的邮件内容
+        String emailContent = templateEngine.process("emailTeplate", context);
+        MailInfo mail = new MailInfo()
+                .setFrom("gx_zone@qq.com")
+                .setRecipients(new String[]{"gx_zone@163.com"})
+                .setSubject("MailInfo模版")
+                .setHtml(true)
+                .setAccessory(true)
+                .setAccessoryList(
+                        Arrays.asList(new Accessory[]{
+                                new Accessory().setType(AccessoryType.PICTURE).setFilePath("src/main/resources/data/bug.JPG").setPictureId("gaox090"),
+                                new Accessory().setType(AccessoryType.FILE).setFilePath("src/main/resources/data/error.xlsx")})
+                ).setContext(emailContent);
+        Boolean send = mailService.sendMail(mail);
+        log.info("发送邮件{}！", send ? "成功" : "失败");
     }
 }
