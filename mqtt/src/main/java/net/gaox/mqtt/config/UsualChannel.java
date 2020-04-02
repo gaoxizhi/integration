@@ -10,6 +10,11 @@ import org.springframework.integration.mqtt.inbound.MqttPahoMessageDrivenChannel
 import org.springframework.integration.mqtt.support.DefaultPahoMessageConverter;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.MessageHandler;
+import org.springframework.stereotype.Service;
+
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.stream.Collectors;
 
 /**
  * <p> 普通订阅器 </p>
@@ -20,6 +25,7 @@ import org.springframework.messaging.MessageHandler;
 
 @Configuration
 @Slf4j
+@Service
 public class UsualChannel {
 
     private final MqttEnv vo;
@@ -32,6 +38,15 @@ public class UsualChannel {
      * 全局消息订阅器
      */
     private static MqttPahoMessageDrivenChannelAdapter adapter;
+
+    /**
+     * 主题列表，可通过add、remove方法动态调整
+     */
+    private static HashSet<String> topics = new HashSet<>();
+
+    static {
+        topics.add("inTopic");
+    }
 
     /**
      * 接收通道
@@ -52,7 +67,8 @@ public class UsualChannel {
     @Bean
     public MessageProducer inbound() {
         adapter = new MqttPahoMessageDrivenChannelAdapter(
-                vo.getHost(), vo.getClientId() + "_usual", "aa", "/hello/1", "inTopic");
+                vo.getHost(), vo.getClientId() + "_usual", "aa");
+        topics.stream().forEach(s -> adapter.addTopic(s, 1));
         adapter.setCompletionTimeout(vo.getTimeout());
         adapter.setConverter(new DefaultPahoMessageConverter());
         adapter.setQos(1);
@@ -78,5 +94,37 @@ public class UsualChannel {
             }
             log.info("主题：[{}]，消息接收到的数据：[{}]", topic, payload);
         };
+    }
+
+    /**
+     * 动态添加订阅主题
+     *
+     * @param topic 主题s
+     */
+    public void addListenTopic(String... topic) {
+        if (null == adapter) {
+            inbound();
+        }
+        log.debug("UsualChannel sub topic before are [{}]",
+                Arrays.asList(adapter.getTopic()).stream().collect(Collectors.joining(", ")));
+        adapter.addTopic(topic);
+        log.debug("UsualChannel sub topic now are [{}]",
+                Arrays.asList(adapter.getTopic()).stream().collect(Collectors.joining(", ")));
+    }
+
+    /**
+     * 动态移除订阅主题
+     *
+     * @param topic 主题s
+     */
+    public void removeListenTopic(String... topic) {
+        if (null == adapter) {
+            inbound();
+        }
+        log.debug("UsualChannel sub topic before are [{}]",
+                Arrays.asList(adapter.getTopic()).stream().collect(Collectors.joining(", ")));
+        adapter.removeTopic(topic);
+        log.debug("UsualChannel sub topic now are [{}]",
+                Arrays.asList(adapter.getTopic()).stream().collect(Collectors.joining(", ")));
     }
 }
