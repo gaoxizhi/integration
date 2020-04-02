@@ -20,6 +20,8 @@ springboot、redis、mybatis、mybatisplus、MongoDB...技术整合项目
 | live-chat-netty     | 12511 |
 | file-server         | 12512 |
 | ip                  | 12515 |
+| mqtt                | 12516 |
+| ws                  | 12518 |
 
 #### 安装教程
 
