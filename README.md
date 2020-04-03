@@ -22,6 +22,7 @@ springboot、redis、mybatis、mybatisplus、MongoDB...技术整合项目
 | ip                  | 12515 |
 | mqtt                | 12516 |
 | ws                  | 12518 |
+| drools              | 12519 |
 
 #### 安装教程
 
