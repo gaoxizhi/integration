@@ -13,149 +13,141 @@ rule "Calculate Taxi Fare - Output"
 enabled true
 
 salience 100
-    when
-        $taxiRide:TaxiRide();
-    then
-        System.out.println("#公里数 : "+$taxiRide.getDistanceInMile());
-        System.out.println("#起步价 : "+12);
-        rideFare.setStartFare(new BigDecimal("12"));
-        rideFare.setNightSurcharge(BigDecimal.ZERO);
-        rideFare.setReletFare(BigDecimal.ZERO);
+when
+    $taxiRide:TaxiRide();
+then
+    System.out.println("#公里数 : "+$taxiRide.getDistanceInMile());
+    System.out.println("#起步价 : "+12);
+    rideFare.setStartFare(new BigDecimal("12"));
+    rideFare.setNightSurcharge(BigDecimal.ZERO);
+    rideFare.setReletFare(BigDecimal.ZERO);
 end
 
 
 rule "Calculate Taxi Fare - Less than 3 kilometers"
 salience 99
-    when
-    	//起步价：首3公里12元;  不论白天黑夜 || distanceInMile = 3
-        $taxiRide:TaxiRide(distanceInMile <= 3);
-    then
-        System.out.println("收取起步价格 : 12");
+when
+    //起步价：首3公里12元;  不论白天黑夜 || distanceInMile = 3
+    $taxiRide:TaxiRide(distanceInMile <= 3);
+then
+    System.out.println("收取起步价格 : 12");
 end
 
 
 rule "Calculate Taxi Fare - 3 ~ 15 kilometers"
 salience 99
-    when
-    	//续租价：超过3公里部分，每公里2.6元
-        $taxiRide:TaxiRide(distanceInMile > 3 , distanceInMile <= 15);
-    then
-        String reletFare = ($taxiRide.getDistanceInMile().subtract(new BigDecimal(3))).multiply(new BigDecimal(2.6))
-            .setScale(1, BigDecimal.ROUND_UP).stripTrailingZeros().toPlainString();
-        rideFare.setReletFare(new BigDecimal(12).add(new BigDecimal(reletFare)));
+when
+    //续租价：超过3公里部分，每公里2.6元
+    $taxiRide:TaxiRide(distanceInMile > 3, distanceInMile <= 15);
+then
+    String reletFare = ($taxiRide.getDistanceInMile().subtract(new BigDecimal(3))).multiply(new BigDecimal(2.6))
+        .setScale(1, BigDecimal.ROUND_UP).stripTrailingZeros().toPlainString();
+    rideFare.setReletFare(new BigDecimal(12).add(new BigDecimal(reletFare)));
 end
 
 rule "Calculate Taxi Fare - 3 ~ 15 kilometers, daytime surcharge"
     extends "Calculate Taxi Fare - 3 ~ 15 kilometers"
 
 salience 10
-    when
-        TaxiRide( isNightSurcharge == false);
-    then
-        System.out.println("#续租价 : "+rideFare.getReletFare());
-        System.out.println("#应付金额 : "+rideFare.total());
+when
+    TaxiRide( isNightSurcharge == false);
+then
+    System.out.println("#续租价 : "+rideFare.getReletFare());
+    System.out.println("#应付金额 : "+rideFare.total());
 end
 
 rule "Calculate Taxi Fare - 3 ~ 15 kilometers, night surcharge"
     extends "Calculate Taxi Fare - 3 ~ 15 kilometers"
 
 salience 10
-    when
-        TaxiRide( isNightSurcharge == true);
-    then
-        System.out.println("#续租价 : "+rideFare.getReletFare());
-        String nightSurcharge = rideFare.getReletFare().multiply(new BigDecimal("0.3"))
-            .setScale(1, BigDecimal.ROUND_UP).stripTrailingZeros().toPlainString();
-        System.out.println("#夜间费用 : "+nightSurcharge);
-        rideFare.setNightSurcharge(new BigDecimal(nightSurcharge));
-        System.out.println("#应付金额 : "+rideFare.total());
+when
+    TaxiRide( isNightSurcharge == true);
+then
+    System.out.println("#续租价 : "+rideFare.getReletFare());
+    String nightSurcharge = rideFare.getReletFare().multiply(new BigDecimal("0.3"))
+        .setScale(1, BigDecimal.ROUND_UP).stripTrailingZeros().toPlainString();
+    System.out.println("#夜间费用 : "+nightSurcharge);
+    rideFare.setNightSurcharge(new BigDecimal(nightSurcharge));
+    System.out.println("#应付金额 : "+rideFare.total());
 end
 
 
 rule "Calculate Taxi Fare - 15~25 kilometers"
 salience 99
-    when
-    	//续租价：超过3公里部分，每公里2.6元;
-		//返空费实行阶梯附加，15至25公里按照续租价加收20%
-        $taxiRide:TaxiRide(distanceInMile > 15 , distanceInMile <= 25);
-    then
-        String secondFare = ($taxiRide.getDistanceInMile().subtract(new BigDecimal(15)))
-            .multiply(new BigDecimal(2.6)).multiply(new BigDecimal(1.2))
-            .setScale(1, BigDecimal.ROUND_UP).stripTrailingZeros().toPlainString();
-        //12+13x2.6
-        String reletFare = new BigDecimal(45.8).add(new BigDecimal(secondFare))
-            .setScale(1, BigDecimal.ROUND_UP).stripTrailingZeros().toPlainString();
-        rideFare.setReletFare(new BigDecimal(reletFare));
+when
+    //续租价：超过3公里部分，每公里2.6元;
+    //返空费实行阶梯附加，15至25公里按照续租价加收20%
+    $taxiRide:TaxiRide(distanceInMile > 15, distanceInMile <= 25);
+then
+    String secondFare = ($taxiRide.getDistanceInMile().subtract(new BigDecimal(15)))
+        .multiply(new BigDecimal(2.6)).multiply(new BigDecimal(1.2))
+        .setScale(1, BigDecimal.ROUND_UP).stripTrailingZeros().toPlainString();
+    //12+13x2.6
+    String reletFare = new BigDecimal(45.8).add(new BigDecimal(secondFare))
+        .setScale(1, BigDecimal.ROUND_UP).stripTrailingZeros().toPlainString();
+    rideFare.setReletFare(new BigDecimal(reletFare));
 end
 
 rule "Calculate Taxi Fare - 15~25 kilometers, daytime surcharge"
     extends "Calculate Taxi Fare - 15~25 kilometers"
-salience 99
+salience 98
 
-    when
-        TaxiRide( isNightSurcharge == false)
-    then
-        System.out.println("#续租价 : "+rideFare.getReletFare());
-        System.out.println("#应付金额 : "+rideFare.total());
-        // 此规则匹配后不再匹配其他规则
-        drools.halt();
+when
+    TaxiRide( isNightSurcharge == false);
+then
+    System.out.println("#续租价 : "+rideFare.getReletFare());
+    System.out.println("#应付金额 : "+rideFare.total());
+    // 此规则匹配后不再匹配其他规则
+    drools.halt();
 end
 
 rule "Calculate Taxi Fare - 15~25 kilometers, night surcharge"
     extends "Calculate Taxi Fare - 15~25 kilometers"
-salience 99
-    when
-        TaxiRide( isNightSurcharge == true)
-    then
-        System.out.println("#续租价 : "+rideFare.getReletFare());
-        String nightSurcharge = rideFare.getReletFare().multiply(new BigDecimal("0.3"))
-            .setScale(1, BigDecimal.ROUND_UP).stripTrailingZeros().toPlainString();
-        System.out.println("#夜间费用 : "+nightSurcharge);
-        rideFare.setNightSurcharge(new BigDecimal(nightSurcharge));
-        System.out.println("#应付金额 : "+rideFare.total());
-     end
+salience 98
+when
+    TaxiRide( isNightSurcharge == true);
+then
+    System.out.println("#续租价 : "+rideFare.getReletFare());
+    String nightSurcharge = rideFare.getReletFare().multiply(new BigDecimal("0.3"))
+        .setScale(1, BigDecimal.ROUND_UP).stripTrailingZeros().toPlainString();
+    System.out.println("#夜间费用 : "+nightSurcharge);
+    rideFare.setNightSurcharge(new BigDecimal(nightSurcharge));
+    System.out.println("#应付金额 : "+rideFare.total());
+ end
 
-
-rule "Calculate Taxi Fare - more than 25 kilometers"
-salience 99
-    when
-    	//续租价：超过3公里部分，每公里2.6元;
-		//返空费实行阶梯附加，15至25公里按照续租价加收20%
-		//25公里以上按续租价加收50%
-        $taxiRide:TaxiRide(distanceInMile > 25, $n:isNightSurcharge)
-    then
-        String secondFare = ($taxiRide.getDistanceInMile().subtract(new BigDecimal(25)))
-            .multiply(new BigDecimal(2.6)).multiply(new BigDecimal(1.2))
-            .setScale(1, BigDecimal.ROUND_UP).stripTrailingZeros().toPlainString();
-        // 12+13*2.6+(25-15)*2.6*1.2
-        String reletFare = new BigDecimal(77).add(new BigDecimal(secondFare))
-            .setScale(1, BigDecimal.ROUND_UP).stripTrailingZeros().toPlainString();
-        rideFare.setReletFare(new BigDecimal(reletFare));
-end
 
 rule "Calculate Taxi Fare - more than 25 kilometers, daytime surcharge"
-    extends "Calculate Taxi Fare - more than 25 kilometers"
 salience 99
-
-    when
-        TaxiRide( isNightSurcharge == false)
-    then
-        System.out.println("#续租价 : "+rideFare.getReletFare());
-        System.out.println("#应付金额 : "+rideFare.total());
-        // 此规则匹配后不再匹配其他规则
-        drools.halt();
+when
+    $taxiRide:TaxiRide(distanceInMile > 25, isNightSurcharge == false);
+then
+    rideFare.setReletFare(more25($taxiRide.getDistanceInMile()));
+    System.out.println("#续租价 : "+rideFare.getReletFare());
+    System.out.println("#应付金额 : "+rideFare.total());
+    // 此规则匹配后不再匹配其他规则
+    drools.halt();
 end
 
 rule "Calculate Taxi Fare - more than 25 kilometers, night surcharge"
-    extends "Calculate Taxi Fare - more than 25 kilometers"
 salience 99
-    when
-        TaxiRide( isNightSurcharge == true)
-    then
-        System.out.println("#续租价 : "+rideFare.getReletFare());
-        String nightSurcharge = rideFare.getReletFare().multiply(new BigDecimal("0.3"))
-            .setScale(1, BigDecimal.ROUND_UP).stripTrailingZeros().toPlainString();
-        System.out.println("#夜间费用 : "+nightSurcharge);
-        rideFare.setNightSurcharge(new BigDecimal(nightSurcharge));
-        System.out.println("#应付金额 : "+rideFare.total());
-     end
+when
+    $taxiRide:TaxiRide(distanceInMile > 25, isNightSurcharge == true);
+then
+    rideFare.setReletFare(more25($taxiRide.getDistanceInMile()));
+    System.out.println("#续租价 : "+rideFare.getReletFare());
+    String nightSurcharge = rideFare.getReletFare().multiply(new BigDecimal("0.3"))
+        .setScale(1, BigDecimal.ROUND_UP).stripTrailingZeros().toPlainString();
+    System.out.println("#夜间费用 : "+nightSurcharge);
+    rideFare.setNightSurcharge(new BigDecimal(nightSurcharge));
+    System.out.println("#应付金额 : "+rideFare.total());
+end
+
+function BigDecimal more25(BigDecimal distanceInMile){
+    String secondFare = (distanceInMile.subtract(new BigDecimal(25)))
+       .multiply(new BigDecimal(2.6)).multiply(new BigDecimal(1.2))
+       .setScale(1, BigDecimal.ROUND_UP).stripTrailingZeros().toPlainString();
+    // 12+13*2.6+(25-15)*2.6*1.2
+    String reletFare = new BigDecimal(77).add(new BigDecimal(secondFare))
+       .setScale(1, BigDecimal.ROUND_UP).stripTrailingZeros().toPlainString();
+return new BigDecimal(reletFare);
+   }
