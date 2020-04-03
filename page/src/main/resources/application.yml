@@ -6,9 +6,58 @@ spring:
   # 配置MySQL
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    username: page
-    password: 2183ac6cd59c237b
+    username: root
+    password: root
     url: jdbc:mysql://localhost:3306/gao_page?serverTimezone=GMT%2B8&characterEncoding=utf-8&useSSL=false&useUnicode=true
+
+    druid:
+      stat-view-servlet:
+        url-pattern: /druid/*
+        allow: 127.0.0.1
+        login-username: admin
+        login-password: 123456
+        stat-view-servlet.deny: 192.168.1.10
+        stat-view-servlet.reset-enable: false
+        type: com.alibaba.druid.pool.DruidDataSource
+        platform: mysql
+        initial-size: 5
+        min-idle: 5
+        maxActive: 20
+        maxWait: 60000
+        timeBetweenEvictionRunsMillis: 60000
+        minEvictableIdleTimeMillis: 300000
+        validationQuery: SELECT 1
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        poolPreparedStatements: true
+        maxPoolPreparedStatementPerConnectionSize: 20
+        filters:
+          - stat
+          - wall
+          - log4j
+        connectionProperties: druid.stat.mergeSql\= true;druid.stat.slowSqlMillis\= 5000
+        web-stat-filter:
+          enabled: true
+          url-pattern: /*
+          exclusions:
+            - \*.js
+            - \*.gif
+            - \*.jpg
+            - \*.bmp
+            - \*.png
+            - \*.css
+            - \*.ico
+            - /druid/*
+      # 配置druid日志输出
+      filter:
+        slf4j:
+          enabled: true
+          statement-create-after-log-enabled: false
+          statement-close-after-log-enabled: false
+          result-set-open-after-log-enabled: false
+          result-set-close-after-log-enabled: false
+
     # Hikari 数据源专用配置
     hikari:
       maximum-pool-size: 20
