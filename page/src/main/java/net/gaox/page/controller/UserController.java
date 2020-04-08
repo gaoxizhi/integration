@@ -29,7 +29,8 @@ public class UserController {
     }
 
     @GetMapping("/list")
-    public List<User> list(@RequestParam Integer page, @RequestParam Integer limit) {
+    public List<User> list(@RequestParam(required = false, defaultValue = "1") Integer page,
+                           @RequestParam(required = false, defaultValue = "10") Integer limit) {
         List<User> list = userService.listGaoPage(page, limit);
         list.stream().forEach(s -> System.out.println(s.toString()));
         return list;

@@ -21,8 +21,11 @@ springboot、redis、mybatis、mybatisplus、MongoDB...技术整合项目
 | file-server         | 12512 |
 | ip                  | 12515 |
 | mqtt                | 12516 |
+| log4j2-designation  | 12517 |
 | ws                  | 12518 |
 | drools              | 12519 |
+| model               | 12520 |
+
 
 #### 安装教程
 

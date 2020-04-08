@@ -86,3 +86,5 @@ logging:
     net:
       gaox:
         page: debug
+  # 日志配置文件地址
+  config: classpath:log4j/log4j2.xml

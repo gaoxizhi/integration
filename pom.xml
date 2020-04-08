@@ -42,6 +42,8 @@
         <module>mongodb</module>
         <module>springboot-jpa</module>
         <module>shiro-jwt</module>
+        <module>log4j2-designation</module>
+        <module>ip</module>
         <module>model</module>
         <module>page</module>
         <module>mybatis-relation</module>
