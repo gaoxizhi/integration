@@ -40,11 +40,15 @@ live-chat:
   tcp:
     port: 8090
   boss:
-    thread:
-      count: 2
+    net:
+      gaox:
+        thread:
+          count: 3
   worker:
-    thread:
-      count: 2
+    net:
+      gaox:
+        thread:
+          count: 5
   so:
     keepalive: true
     backlog: 100
