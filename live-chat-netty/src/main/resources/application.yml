@@ -36,6 +36,15 @@ spring:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     hibernate:
       ddl-auto: update
+
+ø# 控制项目日志级别
+logging:
+  level:
+    net:
+      gaox:
+        livechat: debug
+    root: debug
+
 live-chat:
   tcp:
     port: 8090
