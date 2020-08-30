@@ -1,4 +1,4 @@
-package clone;
+package net.gaox.clone;
 
 /**
  * <p> 车辆接口 </p>

@@ -1,4 +1,4 @@
-package clone;
+package net.gaox.clone;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,12 +12,12 @@ import java.time.LocalDateTime;
  *
  * @author gaox·Eric
  * @site gaox.net
- * @date 2019/11/30 13:39
+ * @date 2019/11/30 15:19
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class HongQi implements Car, Cloneable {
+public class Audi implements Car, Cloneable {
     /**
      * 品牌
      */
@@ -32,13 +32,8 @@ public class HongQi implements Car, Cloneable {
     private BigDecimal price;
 
     @Override
-    protected HongQi clone() throws CloneNotSupportedException {
-        HongQi obj = (HongQi) super.clone();
-        //这里需要对本对象的属性进行深克隆
-        obj.price = new BigDecimal(price.toString());
-        //这里LocalDateTime是不可变类型，不必担心浅克隆引发的问题
-        obj.productionTime = LocalDateTime.of(productionTime.toLocalDate(), productionTime.toLocalTime());
-        return obj;
+    protected Audi clone() throws CloneNotSupportedException {
+        return (Audi) super.clone();
     }
 
     @Override

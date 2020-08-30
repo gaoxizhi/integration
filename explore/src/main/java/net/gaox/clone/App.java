@@ -1,4 +1,4 @@
-package clone;
+package net.gaox.clone;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
