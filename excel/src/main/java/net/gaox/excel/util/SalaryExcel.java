@@ -59,11 +59,10 @@ public class SalaryExcel {
         firstRow.createCell(4).setCellValue("出勤率");
         firstRow.createCell(5).setCellValue("实际工资");
         firstRow.createCell(6).setCellValue("签字");
-//by gisoracle 设置四位小数,千分位使用,
-//
-//        HSSFDataFormat format = wb.createDataFormat();
-//        cellStyle.setDataFormat(format.getFormat("#,##0.0000")); //  四位小数
-        XSSFDataFormat dataFormat = book.createDataFormat();
+
+        // 设置两位小数，千分位
+        CellStyle dataStyle = book.createCellStyle();
+        dataStyle.setDataFormat(book.createDataFormat().getFormat("#,##0.00"));
 
         Random random = new Random(100);
         for (int i = 0; i < 10; i++) {
@@ -74,9 +73,11 @@ public class SalaryExcel {
             row.createCell(3).setCellValue(random.nextInt(60) * 100 + 5000);
             // Formula 设置公式，不允许带'='
             XSSFCell cell1 = row.createCell(4);
+            cell1.setCellStyle(dataStyle);
             cell1.setCellFormula("C" + line + "/B" + line);
 
             XSSFCell cell2 = row.createCell(5);
+            cell2.setCellStyle(dataStyle);
             cell2.setCellFormula("D" + line + "*E" + line);
         }
 
