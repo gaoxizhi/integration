@@ -26,6 +26,10 @@ public class PoiExcel {
         Sheet sheet = work.getSheetAt(0);
         for (int i = sheet.getFirstRowNum(); i <= sheet.getLastRowNum(); i++) {
             Row row = sheet.getRow(i);
+            // 过滤空行
+            if (null == row) {
+                continue;
+            }
             for (int j = row.getFirstCellNum(); j < row.getLastCellNum(); j++) {
                 System.out.println(i + ":" + j + " --> " + getCellValue(row.getCell(j), null));
             }

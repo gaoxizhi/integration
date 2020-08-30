@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * <p>  </p>
+ * <p> 从数据库导出表数据结构及数据 </p>
  *
  * @author gaox·Eric
  * @date 2019/9/22 13:19
@@ -136,7 +136,7 @@ public class Db2Excel {
             XSSFCell tableNameCell = sumTableHead.createCell(3);
             // 添加超链接 使用creationHelpper来创建XSSFHyperlink对象
             XSSFCreationHelper creationHelper = book.getCreationHelper();
-            XSSFHyperlink hyperlink = (XSSFHyperlink) creationHelper.createHyperlink(HyperlinkType.DOCUMENT);
+            XSSFHyperlink hyperlink = creationHelper.createHyperlink(HyperlinkType.DOCUMENT);
             hyperlink.setAddress("#'" + tableName + "'!A1");
             tableNameCell.setHyperlink(hyperlink);
             tableNameCell.setCellValue(tableName);
@@ -228,7 +228,7 @@ public class Db2Excel {
         XSSFCell links = bottomRow.createCell(0);
         links.setCellStyle(bottomCellStyle);
         XSSFCreationHelper creationHelper = book.getCreationHelper();
-        XSSFHyperlink hyperlink = (XSSFHyperlink) creationHelper.createHyperlink(HyperlinkType.URL);
+        XSSFHyperlink hyperlink = creationHelper.createHyperlink(HyperlinkType.URL);
         hyperlink.setAddress("http://gaozhaoxi.com/");
         links.setHyperlink(hyperlink);
         links.setCellValue("光而不耀 gaozhaoxi.com");
