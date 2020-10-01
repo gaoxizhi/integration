@@ -25,11 +25,13 @@ public class RegexTest {
         matcher("asfsdf23323", "\\w+");
         // 匹配组
         group();
-        // 替换
+        // replaceAll 替换
         replace();
+        // appendReplacement 替换
+        replace2();
         // 分割
         split();
-
+        // 爬取网页上超链接
         webSpider();
     }
 
@@ -77,7 +79,7 @@ public class RegexTest {
     }
 
     /**
-     * 按照正则替换字符串
+     * 按照正则替换字符串 replaceAll
      */
     public static void replace() {
         //表达式对象
@@ -88,7 +90,29 @@ public class RegexTest {
         Matcher m = p.matcher(input);
         //替换
         String newStr = m.replaceAll("#");
-        System.out.println(String.format("字符串=[%s]将符合正则表达式=[%s]的字符串替换为[*]，结果：[%s]", input, regex, newStr));
+        System.out.println(String.format("字符串=[%s]将符合正则表达式=[%s]的字符串替换为[#]，结果：[%s]", input, regex, newStr));
+    }
+
+    /**
+     * 按照正则替换字符串2 appendReplacement
+     */
+    public static void replace2() {
+        //表达式对象
+        String regex = "[0-9]";
+        Pattern p = Pattern.compile(regex);
+        //创建Matcher对象
+        String input = "aa232**ssd445*sds223";
+        Matcher m = p.matcher(input);
+
+        //替换
+        StringBuffer buffer = new StringBuffer();
+        while (m.find()) {
+            m.appendReplacement(buffer, "#");
+        }
+        m.appendTail(buffer);
+        String str = buffer.toString();
+
+        System.out.println(String.format("字符串=[%s]将符合正则表达式=[%s]的字符串替换为[#]，结果：[%s]", input, regex, str));
     }
 
     /**
