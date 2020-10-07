@@ -7,7 +7,6 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 import net.gaox.livechat.handler.NettyWebSocketChannelInitializer;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -28,10 +27,10 @@ public class NettyStart {
     @Value("${live-chat.tcp.port}")
     private int tcpPort;
 
-    @Value("${live-chat.boss.thread.count}")
+    @Value("${live-chat.boss.net.gaox.thread.count}")
     private int bossCount;
 
-    @Value("${live-chat.worker.thread.count}")
+    @Value("${live-chat.worker.net.gaox.thread.count}")
     private int workerCount;
 
     @Value("${live-chat.so.keepalive}")
@@ -39,6 +38,12 @@ public class NettyStart {
 
     @Value("${live-chat.so.backlog}")
     private int backlog;
+
+    private final NettyWebSocketChannelInitializer nettyWebSocketChannelInitializer;
+
+    public NettyStart(@Qualifier("somethingChannelInitializer") NettyWebSocketChannelInitializer nettyWebSocketChannelInitializer) {
+        this.nettyWebSocketChannelInitializer = nettyWebSocketChannelInitializer;
+    }
 
     @Bean(name = "serverBootstrap")
     public ServerBootstrap bootstrap() {
@@ -54,9 +59,6 @@ public class NettyStart {
         }
         return b;
     }
-    @Autowired
-    @Qualifier("somethingChannelInitializer")
-    private NettyWebSocketChannelInitializer nettyWebSocketChannelInitializer;
 
     @Bean(name = "tcpChannelOptions")
     public Map<ChannelOption<?>, Object> tcpChannelOptions() {
@@ -65,14 +67,17 @@ public class NettyStart {
         options.put(ChannelOption.SO_BACKLOG, backlog);
         return options;
     }
+
     @Bean(name = "bossGroup", destroyMethod = "shutdownGracefully")
     public NioEventLoopGroup bossGroup() {
         return new NioEventLoopGroup(bossCount);
     }
+
     @Bean(name = "workerGroup", destroyMethod = "shutdownGracefully")
     public NioEventLoopGroup workerGroup() {
         return new NioEventLoopGroup(workerCount);
     }
+
     @Bean(name = "tcpSocketAddress")
     public InetSocketAddress tcpPort() {
         return new InetSocketAddress(tcpPort);

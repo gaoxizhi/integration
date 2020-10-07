@@ -16,7 +16,18 @@ import java.util.Map;
  */
 public interface UserMapper {
 
+    /**
+     * 查询列表
+     *
+     * @param data 查询条件
+     * @return
+     */
     List<User> listGaoPage(@Param("map") Map<String, Object> data);
 
+    /**
+     * 插入用户
+     *
+     * @return 执行条数
+     */
     Integer insert();
 }

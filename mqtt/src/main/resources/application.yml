@@ -1,0 +1,9 @@
+server:
+  port: 12516
+mqtt:
+  username: admin
+  password: admin
+  host: ws://1.95.18.81:8083/mqtt
+  clientId: service
+  topic: aa
+  timeout: 60000

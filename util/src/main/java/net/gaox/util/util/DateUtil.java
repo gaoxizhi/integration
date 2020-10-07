@@ -6,7 +6,7 @@ import java.util.GregorianCalendar;
 
 /**
  * <p> 时间工具类 </p>
-  DateUtil
+ *
  * @author gaox·Eric
  * @date 2019/4/20 14:12
  */
@@ -22,7 +22,7 @@ public class DateUtil {
      * @param hour   增加的小时
      * @param minute 增加的分钟
      * @param second 增加的秒
-     * @return
+     * @return 最终结果时间
      */
     public Date getAfterDate(Date date, int year, int month, int day, int hour, int minute, int second) {
         if (date == null) {
@@ -50,5 +50,70 @@ public class DateUtil {
             cal.add(Calendar.SECOND, second);
         }
         return cal.getTime();
+    }
+
+    /**
+     * 返回一定时间后的日期
+     *
+     * @param date   开始计时的时间
+     * @param year   增加的年
+     * @param month  增加的月
+     * @param day    增加的日
+     * @param hour   增加的小时
+     * @param minute 增加的分钟
+     * @return 最终结果时间
+     */
+    public Date getAfterDate(Date date, int year, int month, int day, int hour, int minute) {
+        return getAfterDate(date, year, month, day, hour, minute, 0);
+    }
+
+    /**
+     * 返回一定时间后的日期
+     *
+     * @param date  开始计时的时间
+     * @param year  增加的年
+     * @param month 增加的月
+     * @param day   增加的日
+     * @param hour  增加的小时
+     * @return 最终结果时间
+     */
+    public Date getAfterDate(Date date, int year, int month, int day, int hour) {
+        return getAfterDate(date, year, month, day, hour, 0, 0);
+    }
+
+    /**
+     * 返回一定时间后的日期
+     *
+     * @param date  开始计时的时间
+     * @param year  增加的年
+     * @param month 增加的月
+     * @param day   增加的日
+     * @return 最终结果时间
+     */
+    public Date getAfterDate(Date date, int year, int month, int day) {
+        return getAfterDate(date, year, month, day, 0, 0, 0);
+    }
+
+    /**
+     * 返回一定时间后的日期
+     *
+     * @param date  开始计时的时间
+     * @param year  增加的年
+     * @param month 增加的月
+     * @return 最终结果时间
+     */
+    public Date getAfterDate(Date date, int year, int month) {
+        return getAfterDate(date, year, month, 0, 0, 0, 0);
+    }
+
+    /**
+     * 返回一定时间后的日期
+     *
+     * @param date 开始计时的时间
+     * @param year 增加的年
+     * @return 最终结果时间
+     */
+    public Date getAfterDate(Date date, int year) {
+        return getAfterDate(date, year, 0, 0, 0, 0, 0);
     }
 }

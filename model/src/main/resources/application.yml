@@ -1,6 +1,6 @@
 server:
   # 设置服务器端口
-  port: 80
+  port: 12520
   servlet:
     # 设置项目根路径
     context-path: /

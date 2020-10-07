@@ -18,9 +18,13 @@ import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 public class MyBatisPlusGenerator {
 
     /**
-     * 生成数据库
+     * 生成数据库信息
      */
     private final static String DATA_BASE = "erp";
+    private final static String DATA_BASE_HOST = "localhost";
+    private final static String DATA_BASE_PROT = "3306";
+    private final static String DATA_BASE_USER = "root";
+    private final static String DATA_BASE_PASS = "root";
     /**
      * 需要生成的表
      */
@@ -73,9 +77,9 @@ public class MyBatisPlusGenerator {
                 // 设置数据库类型
                 .setDbType(DbType.MYSQL)
                 .setDriverName("com.mysql.cj.jdbc.Driver")
-                .setUrl("jdbc:mysql://localhost:3306/" + DATA_BASE + "?useUnicode=true&characterEncoding=utf-8&tinyInt1isBit=false&serverTimezone=Asia/Shanghai")
-                .setUsername("root")
-                .setPassword("root");
+                .setUrl("jdbc:mysql://" + DATA_BASE_HOST + ":" + DATA_BASE_PROT + "/" + DATA_BASE + "?useUnicode=true&characterEncoding=utf-8&tinyInt1isBit=false&serverTimezone=Asia/Shanghai")
+                .setUsername(DATA_BASE_USER)
+                .setPassword(DATA_BASE_PASS);
 
         // 3. 策略配置globalConfiguration中
         StrategyConfig stConfig = new StrategyConfig()

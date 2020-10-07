@@ -1,6 +1,6 @@
 # 服务器端口配置
 server:
-  port: 12515
+  port: 12517
 
 # 日志配置文件地址
 logging:

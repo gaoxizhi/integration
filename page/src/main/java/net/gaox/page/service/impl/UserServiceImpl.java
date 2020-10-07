@@ -29,8 +29,8 @@ public class UserServiceImpl implements UserService {
 
 
         Map<String, Object> data = new HashMap();
-        data.put("page", 1);
-        data.put("size", 2);
+        data.put("page", page);
+        data.put("size", limit);
         return userMapper.listGaoPage(data);
     }
 }

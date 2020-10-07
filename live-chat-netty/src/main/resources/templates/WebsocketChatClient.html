@@ -3,55 +3,64 @@
 <head>
     <meta charset="UTF-8"/>
     <title>WebSocket Chat</title>
+    <style type="text/css">
+        #responseText {
+        }
+    </style>
 </head>
 <body>
 <script type="text/javascript">
     var socket;
     if (!window.WebSocket) {
         window.WebSocket = window.MozWebSocket;
-    gaoxif (window.WebSocket) {
-        socket = new WebSocket("ws://192.168.0.187:8090/ws");
+    }
+    if (window.WebSocket) {
+        socket = new WebSocket("ws://local.gaox.site:8090/ws");
         socket.onmessage = function (event) {
             var ta = document.getElementById('responseText');
             ta.value = ta.value + '\n' + event.data
-        gaox;
+        };
         socket.onopen = function (event) {
             var ta = document.getElementById('responseText');
             ta.value = "连接开启!";
-        gaox;
+        };
         socket.onclose = function (event) {
             var ta = document.getElementById('responseText');
             ta.value = ta.value + "连接被关闭";
-        gaox;
-    gaox else {
+        };
+    } else {
         alert("你的浏览器不支持 WebSocket！");
-    gaox
+    }
 
     function send(message) {
         if (!window.WebSocket) {
             return;
-        gaox
+        }
         if (socket.readyState === WebSocket.OPEN) {
             socket.send(message);
-        gaox else {
+        } else {
             alert("连接没有开启.");
-        gaox
-    gaox
+        }
+    }
 
     window.onbeforeunload = function (event) {
         event.returnValue = "刷新提醒";
-    gaox;
+    };
     document.onkeydown = function (event) {
         var e = event || window.event;
         if (e && 13 === e.keyCode)
             send(form.message.value);
-    gaox;
+    };
 </script>
 <form onsubmit="return false;" name="form">
     <h3>netty 聊天室：</h3>
+    <label for="responseText"></label>
     <textarea id="responseText" style="width: 300px; height: 400px;"></textarea>
-    <br/>
-    <input type="text" name="message" style="width: 300px" value="测试数据"/><br/>
+    </br>
+    <label>
+        <input type="text" name="message" style="width: 300px" value="测试数据"/>
+    </label>
+    </br>
     <input type="button" value="发送消息" onclick="send(this.form.message.value)"/>
 </form>
 <br/>

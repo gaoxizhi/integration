@@ -25,6 +25,8 @@
     <select id="listGaoPage" parameterType="map" resultMap="BaseResultMap">
         SELECT *
         from user
+        -- 手动分页，拼接
+        limit ${(map.page-1) * map.size}, #{map.size}
     </select>
 
     <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="net.gaox.page.entity.User">

@@ -1,0 +1,12 @@
+server:
+  port: 12519
+spring:
+  http:
+    encoding:
+      force: true
+      charset: UTF-8
+
+
+logging:
+  level:
+    net.gaox.drools: debug
