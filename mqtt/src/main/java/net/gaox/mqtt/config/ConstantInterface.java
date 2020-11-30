@@ -8,7 +8,7 @@ package net.gaox.mqtt.config;
  */
 public class ConstantInterface {
     /**
-     * MQTT 推送来的主图名称
+     * MQTT 推送来的主题名称
      */
     public static final String RECEIVED_TOPIC = "mqtt_receivedTopic";
 }
