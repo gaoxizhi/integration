@@ -10,6 +10,7 @@ import net.gaox.livechat.handler.NettyWebSocketChannelInitializer;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
 import java.net.InetSocketAddress;
@@ -22,6 +23,7 @@ import java.util.Set;
  * @date 2019/7/19 22:09
  */
 @Component
+@Configuration
 public class NettyStart {
 
     @Value("${live-chat.tcp.port}")
