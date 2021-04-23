@@ -4,6 +4,7 @@
 .idea/
 .git/
 target/
+file
 .settings/
 */*.iml
 */*.iml
