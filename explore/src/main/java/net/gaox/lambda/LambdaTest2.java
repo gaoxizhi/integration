@@ -44,9 +44,10 @@ public class LambdaTest2 {
                 return o1.compareTo(o2);
             }
         });
-        //排序 lambda方式
+
+        //排序 使用String中的compareTo方法
         Collections.sort(strings, (o1, o2) -> o1.compareTo(o2));
-        //idea 优化 使用String中的方法
+        Collections.sort(strings, String::compareTo);
         strings.sort(String::compareTo);
 
         //对strings转大写

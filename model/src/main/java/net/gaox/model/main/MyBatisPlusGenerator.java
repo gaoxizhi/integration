@@ -27,16 +27,13 @@ public class MyBatisPlusGenerator {
     private final static String DATA_BASE_PASS = "root";
     /**
      * 需要生成的表
+     * 空数组时默认操作所有表
      */
-    private final static String[] TABLES =
-            {"access_log", "item", "item_detail", "operation_log", "order_detail", "order",
-                    "r_role_permission", "r_user_role", "sys_classify", "sys_kv",
-                    "sys_permission", "sys_role", "sys_user"
-            };
+    private final static String[] TABLES = {};
     /**
      * 生成配置文件目录
      */
-    private final static String OUT_DIR = "C:\\data\\codeBase\\erp-api\\src\\main\\java";
+    private final static String OUT_DIR = "/Users/gaox/coding/erp-api/src/main/java";
     /**
      * 项目父级包路径
      */

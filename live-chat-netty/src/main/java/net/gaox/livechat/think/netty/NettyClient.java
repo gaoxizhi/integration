@@ -32,7 +32,7 @@ public class NettyClient {
         Channel channel = bootstrap.connect("local.gaox.site", 8005).channel();
 
         while (true) {
-            channel.writeAndFlush((LocalDateTime.now().toString() + ": hello from client!").getBytes());
+            channel.writeAndFlush((LocalDateTime.now() + ": hello from client!").getBytes());
             Thread.sleep(2000);
         }
     }
