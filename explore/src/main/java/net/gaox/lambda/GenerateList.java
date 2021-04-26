@@ -25,6 +25,10 @@ public class GenerateList {
 
         List<Integer> intStreamRangeClosedList = IntStream.rangeClosed(0, 12).boxed().collect(Collectors.toList());
         List<Integer> intStreamRangeClosedList2 = IntStream.range(0, 12).mapToObj(i -> 2 * i).collect(Collectors.toList());
+
+        /**
+         * 无限序列 列表
+         */
         List<Integer> intStreamIterate = IntStream.iterate(0, i -> i += 2).limit(15).boxed().collect(Collectors.toList());
 
         List<Integer> streamIterate = Stream.iterate(0, i -> i += 2).limit(32).collect(Collectors.toList());
