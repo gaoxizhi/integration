@@ -1,5 +1,7 @@
 package net.gaox.thread.pool;
 
+import org.junit.Test;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -11,12 +13,12 @@ import java.util.concurrent.*;
  * @author gaox·Eric
  * @date 2020/5/7 16:12
  */
-public class Test {
+public class WorkerTest {
 
     private static int count = 20_000;
 
-//    LinkedList
-    static void test() {
+    @Test
+    public void test() {
         long startTime = System.currentTimeMillis();
 
         ConcurrentLinkedDeque<Integer> l = new ConcurrentLinkedDeque<>();
@@ -47,7 +49,8 @@ public class Test {
         System.out.println(l.size());
     }
 
-    static void test2() {
+    @Test
+    public void test2() {
         long startTime = System.currentTimeMillis();
         final List<Integer> l = new LinkedList<>();
         final Random random = new Random();
@@ -66,11 +69,12 @@ public class Test {
         System.out.println(l.size());
     }
 
-    static void test3() {
+    @Test
+    public void test3() {
         ExecutorService executor = new ThreadPoolExecutor(3, 3, 0L, TimeUnit.MILLISECONDS, new ArrayBlockingQueue<>(15));
 
-        Worker tasks[] = new Worker[20];
-        for (int i = 0; i < 20; i++) {
+        Worker[] tasks = new Worker[20];
+        for (int i = 0; i < tasks.length; i++) {
             tasks[i] = new Worker(i);
             System.out.println("提交任务: " + tasks[i] + ", " + i);
             executor.execute(tasks[i]);
@@ -80,7 +84,8 @@ public class Test {
         // 关闭线程池
     }
 
-    static void test4() {
+    @Test
+    public void test4() {
         ExecutorService executor = new ThreadPoolExecutor(3, 3, 0L, TimeUnit.MILLISECONDS, new ArrayBlockingQueue<>(15));
         Worker tasks[] = new Worker[20];
         for (int i = 0; i < 10; i++) {
@@ -104,7 +109,8 @@ public class Test {
         executor.shutdown();
     }
 
-    static void test5() {
+    @Test
+    public void test5() {
         final List<Integer> l = new LinkedList<>();
         final Semaphore semaphore = new Semaphore(10);
         ExecutorService exec = Executors.newCachedThreadPool();
@@ -134,31 +140,4 @@ public class Test {
         System.out.println(end - start);
     }
 
-
-    static class Worker implements Runnable {
-        private int id;
-
-        public Worker(int id) {
-            this.id = id;
-        }
-
-        @Override
-        public void run() {
-            try {
-                System.out.println(Thread.currentThread().getName() + " 执行任务 " + id);
-//                Thread.sleep(1000);
-                System.out.println(Thread.currentThread().getName() + " 完成任务 " + id);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    public static void main(String[] args) {
-//        test();
-//        test2();
-//        test3();
-//        test4();
-        test();
-    }
 }
