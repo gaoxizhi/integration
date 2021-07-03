@@ -97,11 +97,11 @@ public class LambdaTest2 {
         System.out.println("sum is:" + nums.stream().filter(Objects::nonNull).distinct().mapToInt(num -> num * 2)
                 .peek(System.out::println).skip(2).limit(4).sum());
 
-//        List<Integer> numsWithoutNull = nums.stream().filter(num -> num != null).
-//                collect(() -> new ArrayList<Integer>(),
-//                        (list, item) -> list.add(item),
-//                        (list1, list2) -> list1.addAll(list2)
-//                );
+        List<Integer> numsWithoutNull = nums.stream().filter(num -> num != null).
+                collect(() -> new ArrayList<Integer>(),
+                        (list, item) -> list.add(item),
+                        (list1, list2) -> list1.addAll(list2)
+                );
         /*
          * 对一个元素是Integer类型的List，先过滤掉全部的null，然后把剩下的元素收集到一个新的List中。
          * 进一步看一下collect方法的三个参数，都是lambda形式的函数。
@@ -110,9 +110,9 @@ public class LambdaTest2 {
          *      函数体就是把stream中的元素加入ArrayList对象中。第二个函数被反复调用直到原stream的元素被消费完毕；
          * 第三个函数也是接受两个参数，这两个都是ArrayList类型的，函数体就是把第二个ArrayList全部加入到第一个中；
          */
-        List<Integer> numsWithoutNull = nums.stream().filter(Objects::nonNull)
+        List<Integer> numsWithoutNull2 = nums.stream().filter(Objects::nonNull)
                 .collect(ArrayList::new, ArrayList::add, ArrayList::addAll);
-//        System.out.println("ints sum is:" + numsWithoutNull.stream().reduce((sum, item) -> sum + item).get());
+        System.out.println("ints sum is:" + numsWithoutNull.stream().reduce((sum, item) -> sum + item).get());
         System.out.printf("ints sum is:%d%n", numsWithoutNull.stream().reduce(Integer::sum).get());
         System.out.printf("ints sum is:%d%n", nums.stream().reduce(0, Integer::sum));
         /*
@@ -125,7 +125,7 @@ public class LambdaTest2 {
 
         List<Integer> ints = Lists.newArrayList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
         System.out.println(ints.stream().allMatch(item -> item < 5));
-//        ints.stream().max((o1, o2) -> o1.compareTo(o2)).ifPresent(System.out::println);
+        ints.stream().max((o1, o2) -> o1.compareTo(o2)).ifPresent(System.out::println);
         ints.stream().max(Integer::compareTo).ifPresent(System.out::println);
         final LocalDate beginTime = LocalDate.of(2019, 5, 1);
 
@@ -133,17 +133,31 @@ public class LambdaTest2 {
         ArrayList<ManageSort> list = new ArrayList<>();
         final LocalDate toDay = LocalDate.now();
 
+        Random random = new Random(1000000);
         for (int i = 0; i <= beginTime.until(toDay, ChronoUnit.DAYS); i++) {
-            list.add(new ManageSort().setTime(beginTime.plusDays(i)));
+            ManageSort manageSort = new ManageSort().setTime(beginTime.plusDays(i)).setType("type" + i)
+                    .setDateTime(new Date(System.currentTimeMillis() + random.nextLong()));
+            list.add(manageSort);
         }
 
         //自定义排序规则：包含大小相等条件，日期（后-->前）
         list.sort((o1, o2) -> o1.getTime().isBefore(o2.getTime()) ? 1 : (o1.getTime().isAfter(o2.getTime()) ? -1 : 0));
-//        list.stream().sorted((o1, o2) -> o1.getTime().isBefore(o2.getTime()) ? 1 : (o1.getTime().isAfter(o2.getTime()) ? -1 : 0))
-//                .peek((o1,o2)->{
-//                    final ManageSort o21 = (ManageSort) o2;
-//                    final ManageSort manageSort = o1.setType(o1.getType() + ((ManageSort) o2).getType());
-//                });
+
+        // 时间1排序
+        Comparator<ManageSort> dateTimeComparator = (o1, o2) -> (int) (o1.getDateTime().getTime() - o2.getDateTime().getTime());
+        // 时间2排序
+        Comparator<ManageSort> dateComparator = Comparator.comparing(ManageSort::getTime);
+        // type排序
+        Comparator<ManageSort> typeComparator = Comparator.comparing(ManageSort::getType);
+        // 时间1排序 逆序，时间2排序，type排序
+        list.sort(dateTimeComparator.reversed().thenComparing(dateComparator).thenComparing(typeComparator));
+
+        list.sort((o1, o2) -> {
+            int compare1 = o2.getTime().isBefore(o1.getTime()) ? 1 : (o1.getTime().isAfter(o2.getTime()) ? -1 : 0);
+            int compare2 = o1.getTime().compareTo(o2.getTime());
+            int compare3 = o1.getType().compareTo(o2.getType());
+            return -compare1 == 0 ? (compare2 == 0 ? (compare3 == 0 ? 0 : compare3) : compare2) : -compare1;
+        });
     }
 
     //    Logger.getL
@@ -152,5 +166,6 @@ public class LambdaTest2 {
     static class ManageSort {
         private String type;
         private LocalDate time;
+        private Date dateTime;
     }
 }

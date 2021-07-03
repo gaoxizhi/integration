@@ -26,7 +26,7 @@ public class ConnectionOracle {
             // classLoader,加载对应驱动//(1)
             Class.forName(driver);
             // 进行链接(2)
-            conn = (Connection) DriverManager.getConnection(url, username, password);
+            conn = DriverManager.getConnection(url, username, password);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (SQLException e) {
@@ -41,7 +41,7 @@ public class ConnectionOracle {
         String sql = "select ename from emp";
         ResultSet rs = null;
         try {
-            pstmt = (PreparedStatement) conn.prepareStatement(sql);
+            pstmt = conn.prepareStatement(sql);
             rs = pstmt.executeQuery();
             int col = rs.getMetaData().getColumnCount();
             System.out.println("+----------------------------+");

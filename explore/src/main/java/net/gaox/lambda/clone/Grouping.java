@@ -1,8 +1,10 @@
 package net.gaox.lambda.clone;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -21,25 +23,23 @@ public class Grouping {
                 People.builder().id(102).name("李四").inCome(2000).build(),
                 People.builder().id(103).name("王五").inCome(4500).build()
         );
+        final List<People> people3 = deepCopy(list);
 
         //map分组实现
 
-//        final Map<Integer, List<People>> collect = list.stream().collect(groupingBy(People::getId));
-//        List<People> people = new ArrayList<>();
-//        for (Integer id : collect.keySet()) {
-//            people.add(collect.get(id).get(0).setInCome(collect.get(id).stream().map(People::getInCome).reduce(0D, Double::sum)));
-//        }
-//        people.forEach(System.out::println);
+        final Map<Integer, List<People>> collect = list.stream().collect(Collectors.groupingBy(People::getId));
+        List<People> people = new ArrayList<>();
+        for (Integer id : collect.keySet()) {
+            people.add(collect.get(id).get(0).setInCome(collect.get(id).stream().map(People::getInCome).reduce(0D, Double::sum)));
+        }
+        people.forEach(System.out::println);
 
-//        List<People> people = list.stream().map(s -> new People(s.getId(), s.getName(), s.getInCome())).collect(Collectors.toList());
-//
-//        List<People> collectList = list.stream().peek(s -> s.setInCome(people.stream().filter(i -> s.getId() == i.getId()).map(People::getInCome).reduce(0D, Double::sum))).distinct().collect(Collectors.toList());
-//        collectList.forEach(System.out::println);
-
-        final List<People> people = deepCopy(list);
+        List<People> people2 = list.stream().map(s -> new People(s.getId(), s.getName(), s.getInCome())).collect(Collectors.toList());
+        List<People> collectList2 = list.stream().peek(s -> s.setInCome(people2.stream().filter(i -> s.getId() == i.getId()).map(People::getInCome).reduce(0D, Double::sum))).distinct().collect(Collectors.toList());
+        collectList2.forEach(System.out::println);
 
         List<People> collectList = list.stream().peek(s ->
-                s.setInCome(people.stream().filter(i ->
+                s.setInCome(people3.stream().filter(i ->
                         s.getId() == i.getId()).map(People::getInCome).reduce(0D, Double::sum)
                 )
         ).distinct().collect(Collectors.toList());

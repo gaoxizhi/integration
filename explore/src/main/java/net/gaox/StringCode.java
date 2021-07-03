@@ -60,6 +60,6 @@ public class StringCode {
         for (byte datum : data) {
             builder.append("0x").append(Integer.toHexString(datum & 0xFF).toUpperCase()).append(" ");
         }
-        System.out.println(builder.toString());
+        System.out.println(builder);
     }
 }
