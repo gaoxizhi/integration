@@ -87,7 +87,7 @@ public class WorkerTest {
     @Test
     public void test4() {
         ExecutorService executor = new ThreadPoolExecutor(3, 3, 0L, TimeUnit.MILLISECONDS, new ArrayBlockingQueue<>(15));
-        Worker tasks[] = new Worker[20];
+        Worker[] tasks = new Worker[20];
         for (int i = 0; i < 10; i++) {
             tasks[i] = new Worker(i);
             System.out.println("提交任务: " + tasks[i] + ", " + i);

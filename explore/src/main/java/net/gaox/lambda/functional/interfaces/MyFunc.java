@@ -1,4 +1,4 @@
-package net.gaox.lambda.functionalInterface;
+package net.gaox.lambda.functional.interfaces;
 
 /**
  * <p> 获取参数值：泛型函数式接口 </p>

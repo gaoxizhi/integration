@@ -44,7 +44,7 @@ public class ImgUtil {
      * @param cellsValue 以二维数组形式存放 表格里面的值
      * @param path       文件保存路径
      */
-    public void myGraphicsGeneration(String cellsValue[][], String path) {
+    public void myGraphicsGeneration(String[][] cellsValue, String path) {
         // 字体大小
         int fontTitleSize = 32;
         // 横线的行数
@@ -123,21 +123,27 @@ public class ImgUtil {
                 BufferedImage.TYPE_INT_BGR);
         Graphics g = image.getGraphics();
         g.setClip(0, 0, width, height);
+        // 先用黑色填充整张图片,也就是背景
         g.setColor(Color.black);
-        g.fillRect(0, 0, width, height);// 先用黑色填充整张图片,也就是背景
-        g.setColor(Color.red);// 在换成黑色
-        g.setFont(font);// 设置画笔字体
-        /** 用于获得垂直居中y */
+        g.fillRect(0, 0, width, height);
+        // 在换成红色
+        g.setColor(Color.red);
+        // 设置画笔字体
+        g.setFont(font);
+        // 用于获得垂直居中y
         Rectangle clip = g.getClipBounds();
         FontMetrics fm = g.getFontMetrics(font);
         int ascent = fm.getAscent();
         int descent = fm.getDescent();
         int y = (clip.height - (ascent + descent)) / 2 + ascent;
-        for (int i = 0; i < 6; i++) {// 256 340 0 680
-            g.drawString(str, i * 680, y);// 画出字符串
+        for (int i = 0; i < 6; i++) {
+            // 256 340 0 680
+            // 画出字符串
+            g.drawString(str, i * 680, y);
         }
         g.dispose();
-        ImageIO.write(image, "png", outFile);// 输出png图片
+        // 输出png图片
+        ImageIO.write(image, "png", outFile);
     }
 
     /**

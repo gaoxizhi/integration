@@ -1,4 +1,4 @@
-package net.gaox.lambda.functionalInterface;
+package net.gaox.lambda.functional.interfaces;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;

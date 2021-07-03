@@ -1,4 +1,4 @@
-package net.gaox.lambda.ballTest;
+package net.gaox.lambda.ball;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,7 +19,7 @@ import java.util.Random;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Ball {
-    private static final String[] colors = {"red", "blue", "green", "yellow", "pink", "pepper"};
+    private static final String[] COLORS = {"red", "blue", "green", "yellow", "pink", "pepper"};
     private static Random r = new Random();
     private String color;
     private float weight;
@@ -27,7 +27,7 @@ public class Ball {
     public static List<Ball> randomBall(int number) {
         List<Ball> balls = new ArrayList<>(number);
         for (int i = 0; i < number; i++) {
-            Ball ball = new Ball(colors[r.nextInt(colors.length)], 1f + r.nextFloat() / 10f - 0.05f);
+            Ball ball = new Ball(COLORS[r.nextInt(COLORS.length)], 1f + r.nextFloat() / 10f - 0.05f);
             balls.add(ball);
         }
         return balls;

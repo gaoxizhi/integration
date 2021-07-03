@@ -19,13 +19,13 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ComponentScan("net.gaox.drools.service")
 public class TaxiFareConfiguration {
-    private static final String drlFile = "taxi_fare_rule.drl";
+    private static final String DRL_FILE = "taxi_fare_rule.drl";
 
     @Bean
     public KieContainer kieContainer() {
         KieServices kieServices = KieServices.Factory.get();
         KieFileSystem kieFileSystem = kieServices.newKieFileSystem();
-        kieFileSystem.write(ResourceFactory.newClassPathResource(drlFile));
+        kieFileSystem.write(ResourceFactory.newClassPathResource(DRL_FILE));
         KieBuilder kieBuilder = kieServices.newKieBuilder(kieFileSystem);
         kieBuilder.buildAll();
         KieModule kieModule = kieBuilder.getKieModule();

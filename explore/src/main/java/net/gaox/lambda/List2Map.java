@@ -49,7 +49,7 @@ public class List2Map {
         //从集合中过滤出来符合条件的元素：
 
         //过滤出符合条件的数据
-        List<Apple> filterList = appleList.stream().filter(a -> a.getName().equals("香蕉")).collect(Collectors.toList());
+        List<Apple> filterList = appleList.stream().filter(a -> "香蕉".equals(a.getName())).collect(Collectors.toList());
 
         //[Apple{id=2, name='香蕉', money=2.89, num=30}]
         System.err.println("filterList:" + filterList);

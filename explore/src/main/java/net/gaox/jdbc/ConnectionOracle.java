@@ -11,8 +11,6 @@ import java.sql.*;
 public class ConnectionOracle {
 
     static String driver = "oracle.jdbc.driver.OracleDriver";
-    // String url = "jdbc:mysql://localhost:3306/demo";
-    // mysql版本较高,报SSL警告
     static String url = "jdbc:oracle:thin:@localhost:1521:orcl";
     static String username = "scott";
     static String password = "123456";

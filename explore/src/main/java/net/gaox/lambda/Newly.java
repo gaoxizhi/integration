@@ -33,7 +33,7 @@ import java.util.stream.Stream;
  * @date 2020/9/5 14:36
  */
 
-public abstract class Newly {
+public class Newly {
 
     /**
      * Calculates the greatest common denominator (gcd) of an array of numbers
@@ -343,8 +343,11 @@ public abstract class Newly {
         final int direction = arr[0].compareTo(arr[1]) < 0 ? 1 : -1;
         for (int i = 0; i < arr.length; i++) {
             T val = arr[i];
-            if (i == arr.length - 1) return direction;
-            else if ((val.compareTo(arr[i + 1]) * direction > 0)) return 0;
+            if (i == arr.length - 1) {
+                return direction;
+            } else if ((val.compareTo(arr[i + 1]) * direction > 0)) {
+                return 0;
+            }
         }
         return direction;
     }
@@ -518,9 +521,7 @@ public abstract class Newly {
 
     public static String capitalize(String input, boolean lowerRest) {
         return input.substring(0, 1).toUpperCase() +
-                (lowerRest
-                        ? input.substring(1, input.length()).toLowerCase()
-                        : input.substring(1, input.length()));
+                (lowerRest ? input.substring(1).toLowerCase() : input.substring(1));
     }
 
     public static String capitalizeEveryWord(final String input) {
@@ -641,8 +642,14 @@ public abstract class Newly {
                 .toArray(String[]::new);
     }
 
-    //Read the link below for more information
-    // https://stackoverflow.com/questions/309424/read-convert-an-inputstream-to-a-string
+    /**
+     * Read the link below for more information
+     * https://stackoverflow.com/questions/309424/read-convert-an-inputstream-to-a-string
+     *
+     * @param in inputStream
+     * @return str
+     * @throws IOException
+     */
     public static String convertInputStreamToString(final InputStream in) throws IOException {
         ByteArrayOutputStream result = new ByteArrayOutputStream();
         byte[] buffer = new byte[1024];

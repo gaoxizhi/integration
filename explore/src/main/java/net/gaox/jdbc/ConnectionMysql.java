@@ -13,8 +13,10 @@ public class ConnectionMysql {
     public static Connection getConnection() {
 
         String driver = "com.mysql.jdbc.Driver";
-        // String url = "jdbc:mysql://localhost:3306/demo";
-        // mysql版本较高,报SSL警告
+        /**
+         * mysql版本较高，报SSL警告
+         * String url = "jdbc:mysql://localhost:3306/demo";
+         */
         String url = "jdbc:mysql://localhost:3306/database?useUnicode=true&characterEncoding=utf-8&useSSL=false";
         String username = "***youruser**";
         String password = "***yourpass**";

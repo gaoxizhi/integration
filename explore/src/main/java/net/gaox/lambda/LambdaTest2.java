@@ -73,13 +73,14 @@ public class LambdaTest2 {
 
         // generate 生成一个无限长度的Stream，并且是是懒加载
         Stream<Double> randoms = Stream.generate(Math::random);
-        Stream<Integer> randomInt = Stream.generate(() -> ((int) (Math.random() * 1000) % 16));
+        Random random = new Random();
+        Stream<Integer> randomInt = Stream.generate(() -> (random.nextInt(1000) % 16));
         // 配合limit指定长度
-        Stream<Integer> randimInt1024 = Stream.generate(() -> ((int) (Math.random() * 1000) % 16)).limit(1024);
+        Stream<Integer> randimInt1024 = Stream.generate(() -> (random.nextInt(1000) % 16)).limit(1024);
         //和generator不同的是，其元素的生成是重复对给定的种子值(seed)调用用户指定函数来生成的。
         // 其中包含的元素可以认为是：seed，f(seed),f(f(seed))无限循环
         Stream.iterate(1, item -> item + 1).limit(10).forEach(System.out::println);
-        Stream.iterate(((int) (Math.random() * 1000) % 16), item -> item + 1).limit(10).forEach(System.out::println);
+        Stream.iterate((random.nextInt(1000) % 16), item -> item + 1).limit(10).forEach(System.out::println);
         //将内部的集合整合到一个里面
         List<List<Integer>> lists = Arrays.asList(
                 Collections.singletonList(1),
@@ -133,10 +134,10 @@ public class LambdaTest2 {
         ArrayList<ManageSort> list = new ArrayList<>();
         final LocalDate toDay = LocalDate.now();
 
-        Random random = new Random(1000000);
+        Random random2 = new Random(1000000);
         for (int i = 0; i <= beginTime.until(toDay, ChronoUnit.DAYS); i++) {
             ManageSort manageSort = new ManageSort().setTime(beginTime.plusDays(i)).setType("type" + i)
-                    .setDateTime(new Date(System.currentTimeMillis() + random.nextLong()));
+                    .setDateTime(new Date(System.currentTimeMillis() + random2.nextLong()));
             list.add(manageSort);
         }
 
@@ -160,7 +161,6 @@ public class LambdaTest2 {
         });
     }
 
-    //    Logger.getL
     @Data
     @Accessors(chain = true)
     static class ManageSort {

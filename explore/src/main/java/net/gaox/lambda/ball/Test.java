@@ -1,4 +1,4 @@
-package net.gaox.lambda.ballTest;
+package net.gaox.lambda.ball;
 
 import java.util.HashMap;
 import java.util.List;
