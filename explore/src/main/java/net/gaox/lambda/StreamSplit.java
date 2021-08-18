@@ -1,4 +1,4 @@
-package net.gaox.lambda.stream;
+package net.gaox.lambda;
 
 import java.util.Arrays;
 import java.util.List;
@@ -11,7 +11,7 @@ import java.util.stream.Stream;
  * @author gaox·Eric
  * @date 2020/11/2 15:16
  */
-public class Skip {
+public class StreamSplit {
 
     /**
      * 计算切分次数

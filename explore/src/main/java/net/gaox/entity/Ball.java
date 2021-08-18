@@ -1,4 +1,4 @@
-package net.gaox.lambda.ball;
+package net.gaox.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

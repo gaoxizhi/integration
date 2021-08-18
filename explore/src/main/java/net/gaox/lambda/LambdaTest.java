@@ -1,8 +1,8 @@
 package net.gaox.lambda;
 
 import com.google.common.collect.ImmutableList;
-import net.gaox.lambda.entity.SysUser;
-import net.gaox.lambda.entity.enums.EnumDel;
+import net.gaox.entity.SysUser;
+import net.gaox.enums.EnumDel;
 import org.apache.commons.lang3.StringUtils;
 
 import java.time.LocalDateTime;

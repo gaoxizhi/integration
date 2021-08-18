@@ -1,4 +1,4 @@
-package net.gaox.lambda;
+package net.gaox.entity;
 
 import java.math.BigDecimal;
 

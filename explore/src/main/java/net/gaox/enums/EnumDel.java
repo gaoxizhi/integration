@@ -1,4 +1,4 @@
-package net.gaox.lambda.entity.enums;
+package net.gaox.enums;
 
 /**
  * @author gaox

@@ -1,10 +1,10 @@
-package net.gaox.lambda.entity;
+package net.gaox.entity;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.experimental.Accessors;
-import net.gaox.lambda.entity.enums.EnumDel;
+import net.gaox.enums.EnumDel;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotEmpty;

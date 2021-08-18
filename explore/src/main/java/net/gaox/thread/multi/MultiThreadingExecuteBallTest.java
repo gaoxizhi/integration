@@ -11,7 +11,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @author gaox·Eric
  * @date 2021/4/23 23:14
  */
-public class MultiThreadingExecuteTest {
+public class MultiThreadingExecuteBallTest {
     static int intNum = 0;
     static volatile int intVolatileNum = 0;
     static AtomicInteger atomicNum = new AtomicInteger(0);

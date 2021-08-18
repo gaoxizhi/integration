@@ -1,4 +1,6 @@
-package net.gaox.lambda.ball;
+package net.gaox.lambda;
+
+import net.gaox.entity.Ball;
 
 import java.util.HashMap;
 import java.util.List;
@@ -12,7 +14,7 @@ import java.util.stream.Collectors;
  * @author gaox·Eric
  * @date 2019/9/21 13:10
  */
-public class Test {
+public class BallTest {
     /**
      * 最糟糕
      *
