@@ -1,4 +1,4 @@
-package net.gaox.base.clone;
+package net.gaox.clone;
 
 /**
  * @Description: <p>  </p>

@@ -1,8 +1,7 @@
 package net.gaox.lambda;
 
 import com.google.common.collect.Lists;
-import lombok.Data;
-import lombok.experimental.Accessors;
+import net.gaox.entity.ManageSort;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -159,13 +158,5 @@ public class LambdaTest2 {
             int compare3 = o1.getType().compareTo(o2.getType());
             return -compare1 == 0 ? (compare2 == 0 ? (compare3 == 0 ? 0 : compare3) : compare2) : -compare1;
         });
-    }
-
-    @Data
-    @Accessors(chain = true)
-    static class ManageSort {
-        private String type;
-        private LocalDate time;
-        private Date dateTime;
     }
 }
