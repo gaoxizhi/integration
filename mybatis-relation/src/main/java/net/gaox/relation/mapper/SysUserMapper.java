@@ -15,9 +15,42 @@ import java.util.List;
  */
 public interface SysUserMapper {
 
+    /**
+     * 获取列表
+     *
+     * @return list
+     */
     List<SysUser> list();
 
+    /**
+     * 插入
+     *
+     * @param map entry
+     * @return num
+     */
     int insert(@Param("map") SysUser map);
 
+    /**
+     * 通过id查询
+     *
+     * @param map id
+     * @return one
+     */
     SysUser selectById(@Param("map") SysUser map);
+
+    /**
+     * 标记删除
+     *
+     * @param map id
+     * @return num
+     */
+    Integer deleteMark(@Param("map") SysUser map);
+
+    /**
+     * 删除
+     *
+     * @param map id
+     * @return num
+     */
+    Integer delete(@Param("map") SysUser map);
 }

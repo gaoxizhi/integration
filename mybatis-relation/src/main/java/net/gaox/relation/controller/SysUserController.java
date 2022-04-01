@@ -7,11 +7,9 @@ import net.gaox.relation.mapper.OrdersCustomMapper;
 import net.gaox.relation.mapper.SysUserMapper;
 import net.gaox.relation.model.dto.OrderDetailCustomDTO;
 import net.gaox.relation.model.dto.OrdersCustomTypeDTO;
+import net.gaox.relation.model.enums.EnumDelFlag;
 import net.gaox.relation.model.enums.EnumSex;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.time.LocalDate;
@@ -34,6 +32,13 @@ public class SysUserController {
     @Resource
     private OrdersCustomMapper ocMapper;
 
+    @GetMapping
+    public SysUser get(Long id) {
+        SysUser user = new SysUser();
+        user.setId(id);
+        return userMapper.selectById(user);
+    }
+
     @GetMapping("/list")
     public List<SysUser> list() {
         return userMapper.list();
@@ -54,7 +59,7 @@ public class SysUserController {
         return ocMapper.findOrdersAndOrderDetailResultMap();
     }
 
-    @PostMapping()
+    @PostMapping
     public Object insert() {
         SysUser user = new SysUser();
         user.setUserName("高羲之");
@@ -68,6 +73,16 @@ public class SysUserController {
         user = userMapper.selectById(user);
         log.debug(user.toString());
         return user;
+    }
+
+    @DeleteMapping
+    public SysUser delete(Long id) {
+        SysUser user = new SysUser();
+        user.setId(id);
+        SysUser sysUser = userMapper.selectById(user);
+        sysUser.setDelFlag(EnumDelFlag.DELETE);
+        userMapper.deleteMark(sysUser);
+        return sysUser;
     }
 
     @GetMapping("/findUserAndItemsResultMap")
