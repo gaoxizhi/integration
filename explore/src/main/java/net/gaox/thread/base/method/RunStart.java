@@ -13,18 +13,16 @@ import java.util.stream.IntStream;
  */
 public class RunStart {
     private final static String PREFIX = "GAO_THREAD-";
+    private static Runnable runnable = () -> System.out.println(Thread.currentThread().getName() + " -  in runnable.");
 
     public static void main(String[] args) {
         IntStream.range(0, 5).mapToObj(RunStart::createThread).forEach(Thread::run);
-        IntStream.range(0, 5).boxed()
-                .map(i -> new Thread(() -> System.out.println(Thread.currentThread().getName()), PREFIX + i))
-                .forEach(Thread::start);
+        IntStream.range(0, 5).boxed().map(i -> new Thread(runnable, PREFIX + i)).forEach(Thread::start);
         // 区别以上，输出当前线程名为${PREFIX}
-        new Thread(() -> System.out.println(Thread.currentThread().getName()), PREFIX + "one").start();
+        new Thread(runnable, PREFIX + "self").start();
     }
 
-    //
     private static Thread createThread(final int intName) {
-        return new Thread(() -> System.out.println(Thread.currentThread().getName()), PREFIX + intName);
+        return new Thread(() -> System.out.println(Thread.currentThread().getName() + " - in createThread."), PREFIX + intName);
     }
 }
