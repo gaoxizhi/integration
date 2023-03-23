@@ -51,6 +51,7 @@
         <module>file-server</module>
         <module>explore</module>
         <module>mqtt</module>
+        <module>redis-share-session</module>
     </modules>
 
     <!--依赖管理-->
