@@ -1,9 +1,14 @@
 package net.gaox.relation.model.enums;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 /**
  * @author gaox·Eric
  * @date 2019/7/13 00:21
  */
+@Getter
+@AllArgsConstructor
 public enum EnumDelFlag {
     /**
      * 被删除
@@ -12,19 +17,7 @@ public enum EnumDelFlag {
     NORMAL(1, "正常"),
     CANCEL(2, "注销");
 
-    private EnumDelFlag(int code, String description) {
-        this.code = new Integer(code);
-        this.description = description;
-    }
-
     private Integer code;
     private String description;
 
-    public Integer getCode() {
-        return code;
-    }
-
-    public String getDescription() {
-        return description;
-    }
 }
