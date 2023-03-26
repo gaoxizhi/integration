@@ -23,11 +23,13 @@ public class UserClothesController {
     public UserClothesController(UserClothesService userClothesService) {
         this.userClothesService = userClothesService;
     }
+
     @GetMapping("/user/clothes/{id}")
     public List<User> findUsersByClothesId(@PathVariable(value = "id") Long id) {
         log.debug("查询衣服id： " + id);
         return userClothesService.findUsersByClothes(id);
     }
+
     @GetMapping("/userClothes")
     public UserClothes getone() {
         log.debug("查询衣服人员绑定!");
