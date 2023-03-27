@@ -1,6 +1,7 @@
 package net.gaox.jpa.base;
 
 import lombok.Data;
+import net.gaox.jpa.config.annotation.Comment;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
@@ -19,17 +20,19 @@ import java.time.LocalDateTime;
 @MappedSuperclass
 public abstract class AbstractEntity {
 
-    @Column(name = "create_time", columnDefinition = "datetime    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间'")
+    @Comment("创建时间")
+    @Column(name = "create_time", columnDefinition = "datetime    NOT NULL DEFAULT CURRENT_TIMESTAMP")
     protected LocalDateTime createTime;
 
-    @Column(name = "update_time",
-            columnDefinition = "datetime    NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '上次修改时间'")
+    @Comment("上次修改时间")
+    @Column(name = "update_time", columnDefinition = "datetime    NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     protected LocalDateTime updateTime;
 
     /**
      * 状态：0 删除, 1 正常, 2 禁用, 3 注销
      */
-    @Column(name = "state", columnDefinition = "tinyint(4) NOT NULL DEFAULT 1 COMMENT '状态: 0 删除, 1 正常, 2 禁用, 3 注销'")
+    @Comment("状态: 0 删除, 1 正常, 2 禁用, 3 注销")
+    @Column(name = "state", columnDefinition = "tinyint(4) NOT NULL DEFAULT 1")
     protected Integer state;
 
     @PrePersist

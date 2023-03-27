@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import net.gaox.jpa.base.AbstractEntity;
+import net.gaox.jpa.config.annotation.Comment;
 import net.gaox.jpa.enums.StateEnum;
 
 import javax.persistence.*;
@@ -32,9 +33,11 @@ public class User extends AbstractEntity implements Serializable {
     private Long id;
 
     @Column(name = "name", length = 32, unique = true, nullable = false)
+    @Comment("用户名")
     private String name;
 
     @Column(name = "spCode", length = 32)
+    @Comment("code")
     private String spCode;
 
     @Override
