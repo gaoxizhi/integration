@@ -31,7 +31,11 @@ public class YamlUtils {
         if (ymlFileName == null || ymlFileName.isEmpty() || !ymlFileName.endsWith(".yml")) {
             throw new RuntimeException("请输入yml文件名称！！");
         }
-        File ymlFile = new File(ymlFileName);
+        String filePath = ClassUtil.getClasspath() + "/" + ymlFileName;
+        File ymlFile = new File(filePath);
+        if (!ymlFile.exists()) {
+            FileUtil.createFile(ymlFile);
+        }
         if (!ymlFile.exists()) {
             throw new RuntimeException("工程根目录下不存在 " + ymlFileName + "文件！！");
         }

@@ -2,6 +2,7 @@ package net.gaox.restart;
 
 import lombok.extern.slf4j.Slf4j;
 import net.gaox.util.util.PropertiesUtil;
+import net.gaox.util.util.YamlUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -9,6 +10,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ExecutorService;
@@ -49,6 +51,14 @@ public class App {
             properties.setProperty(applicationNameKey, applicationName);
             properties.setProperty(portKey, String.valueOf(port));
             PropertiesUtil.saveProperties(properties, null);
+
+            // from yaml to properties
+            Map<String, String> propertiesMap = YamlUtils.getPropertiesMap("application-dev.yml");
+            Properties propertiesDev = new Properties();
+            propertiesDev.putAll(propertiesMap);
+            properties.setProperty(applicationNameKey, applicationName);
+            properties.setProperty(portKey, String.valueOf(port));
+            PropertiesUtil.saveProperties(propertiesDev, "application-dev.properties");
 
         } catch (Exception e) {
             e.printStackTrace();
