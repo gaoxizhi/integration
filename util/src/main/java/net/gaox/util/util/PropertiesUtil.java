@@ -137,7 +137,7 @@ public final class PropertiesUtil {
      * 通过配置文件路径和名称，热加载Properties
      */
     public static void load(String propsName) {
-        try (InputStream is = ClassUtil.classLoader.getResourceAsStream(propsName)) {
+        try (InputStream is = ClassUtil.getDefaultClassLoader().getResourceAsStream(propsName)) {
             getProperties().load(is);
         } catch (IOException e) {
             throw new RuntimeException("读取配置文件" + propsName + "出现异常", e);

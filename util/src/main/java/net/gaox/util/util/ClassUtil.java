@@ -11,29 +11,32 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ClassUtil {
 
-    public static ClassLoader classLoader = getDefaultClassLoader();
+    private static ClassLoader classLoader = getDefaultClassLoader();
 
     /**
      * 获取 ClassLoader
      */
     public static ClassLoader getDefaultClassLoader() {
-        ClassLoader cl = null;
+        if (null != classLoader) {
+            return classLoader;
+        }
+
         try {
-            cl = Thread.currentThread().getContextClassLoader();
+            classLoader = Thread.currentThread().getContextClassLoader();
         } catch (Exception ex) {
             log.error(" Thread.currentThread() 获取 ClassLoader 出错：", ex);
         }
-        if (null == cl) {
-            cl = PropertiesUtil.class.getClassLoader();
-            if (null == cl) {
+        if (null == classLoader) {
+            classLoader = PropertiesUtil.class.getClassLoader();
+            if (null == classLoader) {
                 try {
-                    cl = ClassLoader.getSystemClassLoader();
+                    classLoader = ClassLoader.getSystemClassLoader();
                 } catch (Exception ex) {
                     log.error(" ClassLoader.getSystemClassLoader() 获取 ClassLoader 出错：", ex);
                 }
             }
         }
-        return cl;
+        return classLoader;
     }
 
     /**
@@ -42,10 +45,10 @@ public class ClassUtil {
     public static String getClasspath() {
         String classpath = null;
         try {
-            classpath = classLoader.getResource("/").getPath();
+            classpath = getDefaultClassLoader().getResource("/").getPath();
         } catch (Exception e) {
             try {
-                classpath = classLoader.getResource("").getPath();
+                classpath = getDefaultClassLoader().getResource("").getPath();
             } catch (Exception ex) {
                 log.error(" classpath 初始化失败：", ex);
             }
