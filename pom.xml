@@ -52,6 +52,8 @@
         <module>explore</module>
         <module>mqtt</module>
         <module>redis-share-session</module>
+        <module>jsoup</module>
+        <module>test</module>
     </modules>
 
     <!--依赖管理-->
@@ -78,26 +80,26 @@
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
-            <version>2.8.0</version>
+            <version>3.0.0</version>
         </dependency>
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger-ui</artifactId>
-            <version>2.8.0</version>
+            <version>3.0.0</version>
         </dependency>
 
         <!--日志服务-->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>1.7.16</version>
+            <version>2.0.5</version>
         </dependency>
 
         <!-- *************** fastJson依赖 国内较为常用 ***************************************-->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
-            <version>1.2.58</version>
+            <version>2.0.25</version>
         </dependency>
         <!-- *************** 简化实体类方法 ************************************************** -->
         <dependency>
@@ -105,6 +107,17 @@
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.30</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.7.30</version>
+        </dependency>
+
     </dependencies>
 
     <!--构建方式-->
