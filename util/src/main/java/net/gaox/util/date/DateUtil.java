@@ -1,4 +1,4 @@
-package net.gaox.util.util;
+package net.gaox.util.date;
 
 import java.util.Calendar;
 import java.util.Date;

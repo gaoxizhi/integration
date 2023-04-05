@@ -1,4 +1,4 @@
-package net.gaox.util;
+package net.gaox.util.util.http;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
