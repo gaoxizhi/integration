@@ -1,2 +1,7 @@
 server:
   port: 12523
+net:
+  gaox:
+    hanlp:
+      url: https://hanlp.hankcs.com/api
+      auth: gaox
