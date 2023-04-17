@@ -29,3 +29,4 @@ springboot、redis、mybatis、mybatisplus、MongoDB...技术整合项目
 | model               | 12520 |
 | redis-share-session | 12521 |
 | restart-spring      | 12522 |
+| similar-text        | 12523 |

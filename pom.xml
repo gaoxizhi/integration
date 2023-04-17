@@ -54,6 +54,7 @@
         <module>redis-share-session</module>
         <module>jsoup</module>
         <module>test</module>
+        <module>similar-text</module>
     </modules>
 
     <!--依赖管理-->
