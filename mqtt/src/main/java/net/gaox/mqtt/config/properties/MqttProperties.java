@@ -1,9 +1,7 @@
-package net.gaox.mqtt.config;
+package net.gaox.mqtt.config.properties;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Primary;
-import org.springframework.stereotype.Component;
 
 /**
  * <p> 配置类 </p>
@@ -12,14 +10,37 @@ import org.springframework.stereotype.Component;
  * @date 2020/3/27 11:02
  */
 @Data
-@Primary
-@Component
 @ConfigurationProperties(prefix = "mqtt")
-public class MqttEnv {
+public class MqttProperties {
+
+    /**
+     * 用户名
+     */
     private String username;
+
+    /**
+     * 密码
+     */
     private String password;
+
+    /**
+     * 连接名
+     */
     private String host;
+
+    /**
+     * 客户端id
+     */
     private String clientId;
+
+    /**
+     * 默认 topic
+     */
     private String topic;
+
+    /**
+     * 超时时间
+     */
     private Long timeout;
+
 }

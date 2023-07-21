@@ -1,11 +1,14 @@
-package net.gaox.mqtt.config;
+package net.gaox.mqtt.config.hannel;
 
 import lombok.extern.slf4j.Slf4j;
+import net.gaox.mqtt.config.constant.Constant;
+import net.gaox.mqtt.config.properties.MqttProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.integration.channel.DirectChannel;
 import org.springframework.integration.core.MessageProducer;
+import org.springframework.integration.mqtt.core.MqttPahoClientFactory;
 import org.springframework.integration.mqtt.inbound.MqttPahoMessageDrivenChannelAdapter;
 import org.springframework.integration.mqtt.support.DefaultPahoMessageConverter;
 import org.springframework.messaging.MessageChannel;
@@ -22,10 +25,13 @@ import org.springframework.messaging.MessageHandler;
 @Slf4j
 public class HelloChannel {
 
-    private final MqttEnv vo;
+    private final MqttProperties vo;
 
-    public HelloChannel(MqttEnv vo) {
+    private final MqttPahoClientFactory factory;
+
+    public HelloChannel(MqttProperties vo, MqttPahoClientFactory factory) {
         this.vo = vo;
+        this.factory = factory;
     }
 
     /**
@@ -53,8 +59,7 @@ public class HelloChannel {
     @Bean
     public MessageProducer inboundSoma() {
 
-        adapter = new MqttPahoMessageDrivenChannelAdapter(
-                vo.getHost(), vo.getClientId() + "_hello", "/hello/#");
+        adapter = new MqttPahoMessageDrivenChannelAdapter(vo.getClientId() + "_hello", factory, "/hello/#");
         adapter.addTopic("gao");
         adapter.removeTopic("gao");
         adapter.setCompletionTimeout(vo.getTimeout());
@@ -73,7 +78,7 @@ public class HelloChannel {
     @ServiceActivator(inputChannel = "mqttInputChannelSoma")
     public MessageHandler handlerHello() {
         return message -> {
-            String topic = message.getHeaders().get(ConstantInterface.RECEIVED_TOPIC).toString();
+            String topic = message.getHeaders().get(Constant.RECEIVED_TOPIC).toString();
             String type = topic.substring(topic.lastIndexOf("/") + 1);
             String payload = message.getPayload().toString();
             //处理指定消息集合

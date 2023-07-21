@@ -1,16 +1,18 @@
-package net.gaox.mqtt.config;
+package net.gaox.mqtt.config.hannel;
 
 import lombok.extern.slf4j.Slf4j;
+import net.gaox.mqtt.config.constant.Constant;
+import net.gaox.mqtt.config.properties.MqttProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.integration.channel.DirectChannel;
 import org.springframework.integration.core.MessageProducer;
+import org.springframework.integration.mqtt.core.MqttPahoClientFactory;
 import org.springframework.integration.mqtt.inbound.MqttPahoMessageDrivenChannelAdapter;
 import org.springframework.integration.mqtt.support.DefaultPahoMessageConverter;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.MessageHandler;
-import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -23,15 +25,16 @@ import java.util.stream.Collectors;
  * @date 2020/3/27 13:48
  */
 
-@Configuration
 @Slf4j
-@Service
+@Configuration
 public class UsualChannel {
 
-    private final MqttEnv vo;
+    private final MqttProperties vo;
+    private final MqttPahoClientFactory factory;
 
-    public UsualChannel(MqttEnv vo) {
+    public UsualChannel(MqttProperties vo, MqttPahoClientFactory factory) {
         this.vo = vo;
+        this.factory = factory;
     }
 
     /**
@@ -66,8 +69,7 @@ public class UsualChannel {
      */
     @Bean
     public MessageProducer inbound() {
-        adapter = new MqttPahoMessageDrivenChannelAdapter(
-                vo.getHost(), vo.getClientId() + "_usual", "aa");
+        adapter = new MqttPahoMessageDrivenChannelAdapter(vo.getClientId() + "_usual", factory, "aa");
         topics.stream().forEach(s -> adapter.addTopic(s, 1));
         adapter.setCompletionTimeout(vo.getTimeout());
         adapter.setConverter(new DefaultPahoMessageConverter());
@@ -85,7 +87,7 @@ public class UsualChannel {
     @ServiceActivator(inputChannel = "mqttInputChannel")
     public MessageHandler handler() {
         return message -> {
-            String topic = message.getHeaders().get(ConstantInterface.RECEIVED_TOPIC).toString();
+            String topic = message.getHeaders().get(Constant.RECEIVED_TOPIC).toString();
             String payload = message.getPayload().toString();
             if ("aa".equalsIgnoreCase(topic)) {
                 System.out.printf("hello from: [aa], msg: [%s].", payload);

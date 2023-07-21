@@ -1,6 +1,8 @@
 package net.gaox.mqtt.config;
 
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import net.gaox.mqtt.config.properties.MqttProperties;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,17 +21,14 @@ import org.springframework.messaging.MessageHandler;
  * @author gaox·Eric
  * @date 2020/3/27 09:10
  */
+@Slf4j
 @Configuration
 @IntegrationComponentScan
-@Slf4j
+@AllArgsConstructor
 public class MqttConfig {
 
 
-    private final MqttEnv vo;
-
-    public MqttConfig(MqttEnv vo) {
-        this.vo = vo;
-    }
+    private final MqttProperties vo;
 
     @Bean
     public MqttConnectOptions getMqttConnectOptions() {

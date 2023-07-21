@@ -1,4 +1,4 @@
-package net.gaox.mqtt.config;
+package net.gaox.mqtt.config.constant;
 
 /**
  * <p> 常量类 </p>
@@ -6,9 +6,10 @@ package net.gaox.mqtt.config;
  * @author gaox·Eric
  * @date 2020/3/27 13:16
  */
-public class ConstantInterface {
+public class Constant {
     /**
      * MQTT 推送来的主题名称
      */
     public static final String RECEIVED_TOPIC = "mqtt_receivedTopic";
+
 }
