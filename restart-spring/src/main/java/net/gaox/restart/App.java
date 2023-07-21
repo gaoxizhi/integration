@@ -39,6 +39,9 @@ public class App {
     private static ConfigurableApplicationContext context;
 
     public static void main(String[] args) {
+
+        // 步骤1：在应用程序的 main() 方法中，我们可以使用一个临时变量来存放 SpringApplication.run() 返回的
+        // ConfigurableApplicationContext 对象，供后面使用
         App.args = args;
         App.context = SpringApplication.run(App.class, args);
     }
@@ -47,6 +50,7 @@ public class App {
     public String restart(Integer port, String applicationName) {
         log.info(applicationNameKey + ":" + appName);
         try {
+            // 步骤2：设置 Spring Boot 应用程序中属性
             Properties properties = PropertiesUtil.get();
             properties.setProperty(applicationNameKey, applicationName);
             properties.setProperty(portKey, String.valueOf(port));
@@ -69,7 +73,9 @@ public class App {
                 new ThreadPoolExecutor.DiscardOldestPolicy());
 
         threadPool.execute(() -> {
+            // 步骤3：调用 ConfigurableApplicationContext 的 close() 方法
             context.close();
+            // 最后再调用 SpringApplication.run() 方法重新给 ConfigurableApplicationContext 对象进行赋值已达到重启的效果
             context = SpringApplication.run(App.class, args);
         });
 
