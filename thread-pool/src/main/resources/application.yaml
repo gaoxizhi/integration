@@ -1,0 +1,12 @@
+server:
+  # 设置服务器端口
+  port: 12526
+  servlet:
+    # 设置项目根路径
+    context-path: /
+
+# 控制项目日志级别
+logging:
+  level:
+    net:
+      gaox: debug
