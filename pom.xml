@@ -55,6 +55,8 @@
         <module>jsoup</module>
         <module>test</module>
         <module>similar-text</module>
+        <module>thread-pool</module>
+        <module>jedis-connect</module>
     </modules>
 
     <!--依赖管理-->

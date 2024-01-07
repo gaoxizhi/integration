@@ -9,7 +9,7 @@
     </parent>
 
     <groupId>net.gaox</groupId>
-    <artifactId>share-session</artifactId>
+    <artifactId>redis-share-session</artifactId>
     <version>0.1</version>
     <name>redis-share-session</name>
     <description>redis share session</description>
