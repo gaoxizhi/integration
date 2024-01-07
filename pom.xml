@@ -52,7 +52,6 @@
         <module>explore</module>
         <module>mqtt</module>
         <module>redis-share-session</module>
-        <module>jsoup</module>
         <module>test</module>
         <module>similar-text</module>
         <module>thread-pool</module>
@@ -108,6 +107,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
+            <version>1.18.30</version>
             <optional>true</optional>
         </dependency>
         <dependency>
