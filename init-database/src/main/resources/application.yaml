@@ -1,0 +1,8 @@
+server:
+  port: 12522
+
+logging:
+  level:
+    root: info
+    net:
+      gaox: trace

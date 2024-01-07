@@ -13,11 +13,44 @@ public class FileUtil {
     /**
      * 创建一个文件
      *
-     * @param pathFileName
-     * @return
+     * @param file 文件
+     * @return 文件
      */
-    public static File createFile(File pathFileName) {
-        File f = pathFileName;
+    public static File createFileIfNotExists(File file) {
+
+        if (file.exists() && file.isFile()) {
+            return file;
+        }
+
+        File f = file;
+        //判断父目录路径是否存在，即test.txt前的I:\a\b\
+        if (!f.getParentFile().exists()) {
+            try {
+                //不存在则创建父目录
+                f.getParentFile().mkdirs();
+                f.createNewFile();
+                return f;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return f;
+    }
+
+    /**
+     * 创建一个文件，如果存在就删除后新建
+     *
+     * @param file 文件
+     * @return 新文件
+     */
+    public static File createFile(File file) {
+
+        // 如果路径文件存在，且为文件
+        if (file.exists() && file.isFile()) {
+            file.delete();
+        }
+
+        File f = file;
         //判断父目录路径是否存在，即test.txt前的I:\a\b\
         if (!f.getParentFile().exists()) {
             try {

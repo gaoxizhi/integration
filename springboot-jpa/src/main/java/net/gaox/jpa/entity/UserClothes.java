@@ -1,36 +1,35 @@
 package net.gaox.jpa.entity;
 
 import lombok.Data;
+import net.gaox.jpa.base.AbstractEntity;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.io.Serializable;
 
 /**
  * <p> 用户衣物关系表 </p>
- * 用例：联合主键场景
-  UserClothes
+ *
  * @author gaox·Eric
  * @date 2019/5/2 23:31
  */
 @Data
 @Entity
-@IdClass(UserClothesId.class)
 @Table(name = "user_clothes")
-public class UserClothes {
+@org.hibernate.annotations.Table(appliesTo = "user_clothes", comment = "用户衣物关系表")
+public class UserClothes extends AbstractEntity implements Serializable {
+
     /**
      * 复合主键要用这个注解
      */
-//    @EmbeddedId
-//    private UserClothesId id;
+    @EmbeddedId
+    @AttributeOverrides({
+            @AttributeOverride(name = "userId", column = @Column(name = "userId")),
+            @AttributeOverride(name = "clothesId", column = @Column(name = "clothesId"))
+    })
+    private UserClothesId id;
 
-    @Id
-    private Long userId;
-    @Id
-    private Long clothesId;
-
-    @Column(name = "create_time")
-    private LocalDateTime createTime;
-    @Column(name = "mod_time")
-    private LocalDateTime modTime;
+    @Override
+    protected void prePersist() {
+    }
 
 }

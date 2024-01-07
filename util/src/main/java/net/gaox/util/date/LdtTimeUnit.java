@@ -95,7 +95,6 @@ public class LdtTimeUnit {
         return Date.from(zdt.toInstant());
     }
 
-
     /**
      * 分析两时间天间隔
      */
@@ -158,7 +157,7 @@ public class LdtTimeUnit {
 
     public static void main(String[] args) {
 
-        System.out.println(LocalDateTime.now().toString());
+        System.out.println(LocalDateTime.now());
         System.out.println(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
 
         System.out.println("getMonthStartTime: " + LocalDateTime.of(LdtTimeUnit.parseLdt("2015-10-21 05:21:32")

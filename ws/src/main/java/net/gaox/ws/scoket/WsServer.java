@@ -188,9 +188,9 @@ public class WsServer {
     /**
      * 自定义消息推送
      */
-    public static void pushMessage(String message, @PathParam("id") String id) {
+    public static void pushMessage(String message, String id) {
         log.info("发送消息到:" + id + "，报文:" + message);
-        if (StringUtils.isEmpty(id) && onlyMap.containsKey(id)) {
+        if (!StringUtils.isEmpty(id) && onlyMap.containsKey(id)) {
             sendMessage(message, onlyMap.get(id));
         } else {
             log.error("用户" + id + ",不在线！");

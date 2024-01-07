@@ -5,7 +5,6 @@ import net.gaox.jpa.entity.UserClothes;
 import net.gaox.jpa.entity.UserClothesId;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -26,12 +25,11 @@ public interface UserClothesService extends JpaRepository<UserClothes, UserCloth
      * 总结应该按照类结构编写
      * </p>
      *
-     * @param id
+     * @param clothesId 衣物id
      * @return
      */
-//    @Query("SELECT u FROM User u ,UserClothes uc WHERE u.id = uc.id.userId AND uc.id.clothesId = :id")
-    @Query("SELECT u FROM User u ,UserClothes uc WHERE u.id = uc.userId AND uc.clothesId = :id")
-    List<User> findUsersByClothes(@Param("id") Long id);
+    @Query("SELECT u FROM User u ,UserClothes uc WHERE u.id = uc.id.userId AND uc.id.clothesId = :clothesId")
+    List<User> findUsersByClothes(Long clothesId);
 
     /**
      * 查找通过用户id和衣服id
@@ -40,5 +38,6 @@ public interface UserClothesService extends JpaRepository<UserClothes, UserCloth
      * @param clothesId
      * @return
      */
+    @Query("SELECT uc FROM UserClothes uc WHERE uc.id.userId = :userId AND uc.id.clothesId = :clothesId")
     UserClothes findByUserIdAndClothesId(Long userId, Long clothesId);
 }

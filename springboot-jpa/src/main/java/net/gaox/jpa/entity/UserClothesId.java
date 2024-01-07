@@ -7,7 +7,8 @@ import javax.persistence.Embeddable;
 import java.io.Serializable;
 
 /**
- UserClothes
+ * 用户衣物关联键
+ *
  * @author gaox·Eric
  * @date 2019/5/2 23:35
  */

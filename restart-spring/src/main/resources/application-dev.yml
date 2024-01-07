@@ -1,0 +1,14 @@
+# 设置服务器端口
+server:
+  port: 8080
+
+spring:
+  application:
+    name: restart-test
+
+# log
+logging:
+  level:
+    net:
+      gaox:
+        restart: debug
