@@ -1,6 +1,7 @@
 package net.gaox.thread.base;
 
-import java.util.Date;
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.concurrent.Callable;
 
 /**
@@ -9,12 +10,13 @@ import java.util.concurrent.Callable;
  * @author gaox·Eric
  * @date 2020/3/9 12:37
  */
+@Slf4j
 public class Caller implements Callable<Boolean> {
     @Override
     public Boolean call() {
         try {
-            Thread.sleep(10_000);
-            System.out.println(new Date());
+            Thread.sleep(2_000);
+            log.info("运行完成……");
             return true;
         } catch (Exception e) {
             e.printStackTrace();

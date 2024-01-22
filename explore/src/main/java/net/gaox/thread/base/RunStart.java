@@ -1,4 +1,4 @@
-package net.gaox.thread.base.method;
+package net.gaox.thread.base;
 
 import lombok.extern.slf4j.Slf4j;
 

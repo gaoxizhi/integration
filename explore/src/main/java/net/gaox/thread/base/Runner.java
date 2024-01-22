@@ -1,5 +1,7 @@
 package net.gaox.thread.base;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.concurrent.*;
 
 /**
@@ -8,13 +10,23 @@ import java.util.concurrent.*;
  * @author gaox·Eric
  * @date 2020/3/9 12:37
  */
-public class Runner implements Runnable {
-    @Override
-    public void run() {
+@Slf4j
+public class Runner {
+
+    public static void main(String[] args) {
+
         ExecutorService executor = Executors.newSingleThreadExecutor();
         Future<Boolean> future = executor.submit(new Caller());
+        log.info("executor submit wait future");
         try {
-            future.get(1, TimeUnit.SECONDS);
+            // 判断任务完成
+            // Boolean futureDone = future.isDone();
+            // get 方法会阻塞
+            // Boolean get = future.get();
+
+            // 或设置超时时间，超时可能会报错，任务完成会立即返回
+            Boolean get = future.get(20, TimeUnit.SECONDS);
+            log.info("get status = {}", get);
         } catch (TimeoutException e) {
             System.out.println("timeout");
         } catch (Exception e) {

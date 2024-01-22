@@ -1,7 +1,8 @@
-package net.gaox.thread.base.method;
+package net.gaox.thread.base;
 
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.concurrent.TimeUnit;
 import java.util.stream.IntStream;
 
 /**
@@ -14,8 +15,14 @@ import java.util.stream.IntStream;
  */
 @Slf4j
 public class ThreadYield {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
+
         IntStream.rangeClosed(1, 5).mapToObj(ThreadYield::create).forEach(Thread::start);
+        TimeUnit.SECONDS.sleep(1);
+        log.info("==================next==================");
+
+        IntStream.rangeClosed(1, 5).mapToObj(index -> new Thread(() -> monitor(index)))
+                .forEach(Thread::start);
     }
 
     private static Thread create(int index) {
@@ -26,6 +33,16 @@ public class ThreadYield {
                 Thread.yield();
             }
         });
+    }
+
+    private static void monitor(int index) {
+        log.info("index {} enter.", index);
+        // 调用yield方法
+        if (1 == index % 2) {
+            Thread.yield();
+        }
+        log.info("index {} do task.", index);
+        log.info("index {} leave.", index);
     }
 
 }

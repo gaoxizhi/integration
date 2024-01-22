@@ -1,0 +1,7 @@
+#控制项目日志级别
+logging:
+  level:
+    net:
+      gaox: debug
+  # 日志配置文件地址
+  config: classpath:log4j/log4j2.xml

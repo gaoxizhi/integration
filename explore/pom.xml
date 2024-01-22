@@ -12,6 +12,12 @@
     <artifactId>explore</artifactId>
     <dependencies>
         <dependency>
+            <groupId>net.gaox</groupId>
+            <artifactId>util</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
         </dependency>
