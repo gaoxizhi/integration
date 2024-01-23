@@ -1,15 +1,18 @@
 package net.gaox.thread.gaoxpool;
 
 import lombok.extern.slf4j.Slf4j;
+import net.gaox.thread.gaoxpool.factory.DefaultThreadFactory;
+import net.gaox.thread.gaoxpool.factory.ThreadFactory;
 import net.gaox.thread.gaoxpool.policy.DenyPolicy;
 import net.gaox.thread.gaoxpool.policy.DiscardDenyPolicy;
 import net.gaox.thread.gaoxpool.queue.LinkedRunnableQueue;
 import net.gaox.thread.gaoxpool.queue.RunnableQueue;
+import net.gaox.thread.gaoxpool.task.InternalTask;
+import net.gaox.thread.gaoxpool.task.ThreadTask;
 
 import java.util.ArrayDeque;
 import java.util.Queue;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * <p> 线程池实现 </p>
@@ -59,6 +62,9 @@ public class GaoxPool extends Thread implements ThreadPool {
         this.runnableQueue = new LinkedRunnableQueue(queueSize, denyPolicy, this);
         this.keepAliveTime = keepAliveTime;
         this.timeUnit = timeUnit;
+        log.info("thread pool create, param: initSize = {}, coreSize = {}, maxSize = {}, queueSize = {}, " +
+                        "denyPolicy = {}, keepAliveTime = {} {}.",
+                initSize, coreSize, maxSize, queueSize, denyPolicy, keepAliveTime, timeUnit);
         this.init();
     }
 
@@ -90,7 +96,7 @@ public class GaoxPool extends Thread implements ThreadPool {
 
     private void removeThread() {
         ThreadTask threadTask = threadQueue.remove();
-        threadTask.internalTask.stop();
+        threadTask.getInternalTask().stop();
         log.trace("remove a thread.");
         this.activeCount--;
     }
@@ -148,10 +154,9 @@ public class GaoxPool extends Thread implements ThreadPool {
                 return;
             }
             isShutdown = true;
-            threadQueue.forEach(threadTask ->
-            {
-                threadTask.internalTask.stop();
-                threadTask.thread.interrupt();
+            threadQueue.forEach(threadTask -> {
+                threadTask.getInternalTask().stop();
+                threadTask.getThread().interrupt();
             });
             this.interrupt();
         }
@@ -199,31 +204,6 @@ public class GaoxPool extends Thread implements ThreadPool {
     @Override
     public boolean isShutdown() {
         return this.isShutdown;
-    }
-
-    private static class DefaultThreadFactory implements ThreadFactory {
-
-        private static final AtomicInteger GROUP_COUNTER = new AtomicInteger(1);
-
-        private static final ThreadGroup group = new ThreadGroup("MyThreadPool-" + GROUP_COUNTER.getAndDecrement());
-
-        private static final AtomicInteger COUNTER = new AtomicInteger(0);
-
-        @Override
-        public Thread createThread(Runnable runnable) {
-            return new Thread(group, runnable, "thread-pool-" + COUNTER.getAndDecrement());
-        }
-    }
-
-    private static class ThreadTask {
-        public ThreadTask(Thread thread, InternalTask internalTask) {
-            this.thread = thread;
-            this.internalTask = internalTask;
-        }
-
-        Thread thread;
-
-        InternalTask internalTask;
     }
 
 }

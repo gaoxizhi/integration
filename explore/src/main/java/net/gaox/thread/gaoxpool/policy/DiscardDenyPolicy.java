@@ -15,4 +15,9 @@ public class DiscardDenyPolicy implements DenyPolicy {
         //do nothing
     }
 
+    @Override
+    public String toString() {
+        return "DiscardDenyPolicy";
+    }
+
 }

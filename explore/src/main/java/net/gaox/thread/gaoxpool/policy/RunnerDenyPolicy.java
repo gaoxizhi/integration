@@ -17,4 +17,9 @@ public class RunnerDenyPolicy implements DenyPolicy {
         }
     }
 
+    @Override
+    public String toString() {
+        return "RunnerDenyPolicy";
+    }
+
 }

@@ -15,4 +15,10 @@ public class AbortDenyPolicy implements DenyPolicy {
     public void reject(Runnable runnable, ThreadPool threadPool) {
         throw new RunnableDenyException("The runnable " + runnable + " will be abort.");
     }
+
+    @Override
+    public String toString() {
+        return "AbortDenyPolicy";
+    }
+
 }

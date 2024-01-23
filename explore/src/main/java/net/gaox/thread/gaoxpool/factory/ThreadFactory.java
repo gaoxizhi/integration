@@ -1,4 +1,4 @@
-package net.gaox.thread.gaoxpool;
+package net.gaox.thread.gaoxpool.factory;
 
 /**
  * <p> 线程工厂 </p>

@@ -26,19 +26,9 @@ public class ThreadPoolTest {
             });
         }
 
-        // for (; ; ) {
-        //     System.out.println("getActiveCount:" + threadPool.getActiveCount());
-        //     System.out.println("getQueueSize:" + threadPool.getQueueSize());
-        //     System.out.println("getCoreSize:" + threadPool.getCoreSize());
-        //     System.out.println("getMaxSize:" + threadPool.getMaxSize());
-        //     System.out.println("======================================");
-        //     TimeUnit.SECONDS.sleep(5);
-        // }
-
+        // 提前关闭线程池会造成以上 中断异常
         // TimeUnit.SECONDS.sleep(12);
         // threadPool.shutdown();
-
-        Thread.currentThread().join();
     }
 
 }

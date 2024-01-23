@@ -1,4 +1,4 @@
-package net.gaox.thread.gaoxpool;
+package net.gaox.thread.gaoxpool.task;
 
 import net.gaox.thread.gaoxpool.queue.RunnableQueue;
 
