@@ -1,4 +1,4 @@
-package net.gaox.thread.base;
+package net.gaox.thread.base.group;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -32,7 +32,8 @@ public class ThreadGroupTest {
         ThreadGroup group = new ThreadGroup("TestGroup");
         Thread t2 = new Thread(group, () -> System.out.println("hou hou ~ "), "t2");
         // 通过 setDaemon 方法将 t2 设置为了守护线程
-        // 那么 main 进程结束生命周期后，JVM 也会随之退出运行，当然 t2 线程也会结束
+        // Java 守护线程的主要作用是为其他线程（主要是用户线程）提供服务
+        // 在所有用户线程结束后，自动结束自身的运行，从而保证整个 JVM 的正常退出
         t2.setDaemon(true);
         ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(4, 8,
                 60, TimeUnit.MINUTES, new LinkedBlockingQueue<>());
