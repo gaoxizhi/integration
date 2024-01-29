@@ -49,7 +49,7 @@ public class GaoxPool extends Thread implements ThreadPool {
 
     public GaoxPool(int initSize, int coreSize, int maxSize, int queueSize) {
         this(initSize, coreSize, maxSize, DEFAULT_THREAD_FACTORY,
-                queueSize, DEFAULT_DENY_POLICY, 1, TimeUnit.SECONDS);
+                queueSize, DEFAULT_DENY_POLICY, 10, TimeUnit.SECONDS);
     }
 
     public GaoxPool(int initSize, int coreSize, int maxSize,
