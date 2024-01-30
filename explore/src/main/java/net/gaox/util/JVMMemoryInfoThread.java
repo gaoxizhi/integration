@@ -21,20 +21,19 @@ public class JVMMemoryInfoThread extends Thread {
     @Override
     public void run() {
         setName("jvm-memory-info");
+        // 获取Runtime对象
+        Runtime runtime = Runtime.getRuntime();
+        // 获取JVM最大可申请内存
+        long maxMemory = runtime.maxMemory();
+        // 获取当前JVM已分配的内存总数
+        long totalMemory = runtime.totalMemory();
+        // 获取JVM当前空闲内存量
+        long freeMemory = runtime.freeMemory();
+
+        log.info("JVM maxMemory: {} MB, totalMemory: {} MB, freeMemory: {} MB.",
+                bytes2mb(maxMemory), bytes2mb(totalMemory), bytes2mb(freeMemory));
 
         while (true) {
-            // 获取Runtime对象
-            Runtime runtime = Runtime.getRuntime();
-            // 获取JVM最大可申请内存
-            long maxMemory = runtime.maxMemory();
-            // 获取当前JVM已分配的内存总数
-            long totalMemory = runtime.totalMemory();
-            // 获取JVM当前空闲内存量
-            long freeMemory = runtime.freeMemory();
-
-            log.info("JVM maxMemory: {} MB, totalMemory: {} MB, freeMemory: {} MB.",
-                    bytes2mb(maxMemory), bytes2mb(totalMemory), bytes2mb(freeMemory));
-
             // 使用Java管理扩展（JMX）获取更详细的内存信息
             MemoryMXBean memoryMxBean = ManagementFactory.getMemoryMXBean();
             MemoryUsage heapMemoryUsage = memoryMxBean.getHeapMemoryUsage();

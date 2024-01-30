@@ -16,9 +16,7 @@ public class LRUCacheTest {
     public static void main(String[] args) throws InterruptedException {
 
         // 内存信息监控，每 2 秒输出一次
-        JVMMemoryInfoThread memoryInfo = new JVMMemoryInfoThread();
-        memoryInfo.setDaemon(true);
-        memoryInfo.start();
+        new JVMMemoryInfoThread().start();
 
         /// log.info("同步展示内存情况");
         // removeEldest();
