@@ -55,6 +55,7 @@ public class GaoxPool extends Thread implements ThreadPool {
     public GaoxPool(int initSize, int coreSize, int maxSize,
                     ThreadFactory threadFactory, int queueSize,
                     DenyPolicy denyPolicy, long keepAliveTime, TimeUnit timeUnit) {
+        super("gaox-pool");
         this.initSize = initSize;
         this.coreSize = coreSize;
         this.maxSize = maxSize;
