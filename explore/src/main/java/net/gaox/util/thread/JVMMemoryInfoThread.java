@@ -1,4 +1,4 @@
-package net.gaox.util;
+package net.gaox.util.thread;
 
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -17,10 +17,14 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class JVMMemoryInfoThread extends Thread {
 
+    public JVMMemoryInfoThread() {
+        setName("jvmMemoryInfo");
+        setDaemon(true);
+    }
+
     @SneakyThrows
     @Override
     public void run() {
-        setName("jvm-memory-info");
         // 获取Runtime对象
         Runtime runtime = Runtime.getRuntime();
         // 获取JVM最大可申请内存

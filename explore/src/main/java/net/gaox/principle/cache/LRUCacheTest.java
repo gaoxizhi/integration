@@ -1,7 +1,7 @@
 package net.gaox.principle.cache;
 
 import lombok.extern.slf4j.Slf4j;
-import net.gaox.util.JVMMemoryInfoThread;
+import net.gaox.util.thread.JVMMemoryInfoThread;
 
 import java.util.concurrent.TimeUnit;
 
