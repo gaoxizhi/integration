@@ -110,7 +110,10 @@ public class ClientHandler implements Runnable {
                 socket.close();
             }
         } catch (Throwable e) {
-            //ignore
+            if (socket != null) {
+                //将 socket 实例加入 Tracker 中
+                SocketCleaningTracker.track(socket);
+            }
         }
     }
 
