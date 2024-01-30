@@ -32,6 +32,7 @@ public class ClientHandler implements Runnable {
     public ClientHandler(final Socket socket) {
         this.socket = socket;
         this.clientIdentify = socket.getInetAddress().getHostAddress() + ":" + socket.getPort();
+        SocketHookThread.startHookThread(clientIdentify, socket);
     }
 
     /**
@@ -43,6 +44,10 @@ public class ClientHandler implements Runnable {
             this.chat();
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            // 任务执行结束时，执行释放资源的工作
+            this.release();
+            log.info("察觉异常");
         }
     }
 
@@ -94,6 +99,19 @@ public class ClientHandler implements Runnable {
     private void write2Client(PrintStream print, String message) {
         print.println(message);
         print.flush();
+    }
+
+    /**
+     * 释放 socket 资源
+     */
+    private void release() {
+        try {
+            if (socket != null) {
+                socket.close();
+            }
+        } catch (Throwable e) {
+            //ignore
+        }
     }
 
 }
