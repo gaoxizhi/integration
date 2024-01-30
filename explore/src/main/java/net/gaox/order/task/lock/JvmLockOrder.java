@@ -9,12 +9,9 @@ import java.util.concurrent.Executors;
 
 /**
  * <p>  </p>
- *
  * 类锁、对象锁
  * 类锁只有一个：OrderLockServer.class
  * 对象锁每创建一个都是一个新的锁
- *
- *
  *
  * @author gaox·Eric
  * @date 2021/3/1 21:16
@@ -22,12 +19,13 @@ import java.util.concurrent.Executors;
 public class JvmLockOrder {
     public static void main(String[] args) {
         ExecutorService executorService = Executors.newCachedThreadPool();
-        final CountDownLatch latch = new CountDownLatch(1);
+        // 设置门阀条件为所有的线程数，效果相同，但必须执行相应次数的 countDown
+        final CountDownLatch latch = new CountDownLatch(10);
         OrderLockServer orderServer = new OrderLockServer();
         for (int i = 0; i < 10; i++) {
-            executorService.submit(new OrderTask(latch,orderServer));
+            executorService.submit(new OrderTask(latch, orderServer));
+            latch.countDown();
         }
-        latch.countDown();
         executorService.shutdown();
     }
 }
