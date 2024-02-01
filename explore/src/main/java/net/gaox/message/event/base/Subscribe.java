@@ -1,5 +1,7 @@
 package net.gaox.message.event.base;
 
+import org.springframework.core.annotation.AliasFor;
+
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -17,9 +19,19 @@ import java.lang.annotation.Target;
 public @interface Subscribe {
 
     /**
+     * 定义默认的 topic 值
+     */
+    String DEFAULT_TOPIC = "default-topic";
+
+    /**
      * 指定topic, 默认 default-topic
      *
      * @return topic
      */
-    String topic() default "default-topic";
+    @AliasFor(value = "value")
+    String topic() default DEFAULT_TOPIC;
+
+    @AliasFor(value = "topic")
+    String value() default DEFAULT_TOPIC;
+
 }
