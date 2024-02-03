@@ -37,7 +37,7 @@ spring:
     hibernate:
       ddl-auto: update
 
-ø# 控制项目日志级别
+# 控制项目日志级别
 logging:
   level:
     net:
