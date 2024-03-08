@@ -3,6 +3,7 @@ package net.gaox.conf;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import redis.clients.jedis.Jedis;
+import redis.clients.jedis.Pipeline;
 import redis.clients.jedis.Tuple;
 
 import java.util.List;
@@ -65,6 +66,18 @@ public class ConnectTest {
         // 获取所有keys
         Set<String> keys = jedis.keys("*");
         log.info("all keys = {}", String.join(", ", keys));
+
+        // 生成 pipeline 对象
+        Pipeline pipeline = jedis.pipelined();
+        // pipeline 执行命令，注意此时命令并未真正执行
+        pipeline.del("list");
+        pipeline.del("hash");
+        // 执行命令
+        pipeline.incr("counter");
+        List<Object> resultList = pipeline.syncAndReturnAll();
+        for (Object object : resultList) {
+            log.info("return = {}", object);
+        }
 
         jedis.close();
     }
