@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.gaox.response.BaseResponse;
 import net.gaox.service.AsyncService;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -32,6 +33,7 @@ public class AsyncTaskController {
     /**
      * 直接使用异步线程池
      */
+    @Qualifier("asyncExecutor")
     public final Executor asyncExecutor;
 
     @GetMapping(value = "/task")

@@ -34,7 +34,7 @@ public class AsyncServiceImpl implements AsyncService {
     }
 
     @Override
-    @Async
+    @Async("log")
     public Future<BaseResponse> doTaskTwo() {
         log.info("开始做任务二（睡眠2s）");
         methodThread();
