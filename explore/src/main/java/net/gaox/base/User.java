@@ -1,12 +1,14 @@
 package net.gaox.base;
 
+import java.io.Serializable;
+
 /**
  * @Description: <p> User类 </p>
  * @ClassName User
  * @Author: gaox·Eric
  * @Date: 2019/3/31 16:13
  */
-public class User {
+public class User implements Serializable {
 
     private String name;
     private int age;
