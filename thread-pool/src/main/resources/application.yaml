@@ -5,8 +5,6 @@ server:
     # 设置项目根路径
     context-path: /
 
-# 控制项目日志级别
+# 日志配置文件地址
 logging:
-  level:
-    net:
-      gaox: debug
+  config: classpath:log4j/log4j2.yml
