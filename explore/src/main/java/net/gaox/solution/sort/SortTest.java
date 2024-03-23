@@ -50,6 +50,16 @@ public class SortTest {
     }
 
     @Test
+    public void quickSort() {
+        QuickSort.quick(Arrays.stream(array).toArray());
+    }
+
+    @Test
+    public void quickSortOptimized() {
+        QuickSortOptimized.quick(Arrays.stream(array).toArray());
+    }
+
+    @Test
     public void monkeySort() {
         ExecutorService executor = Executors.newSingleThreadExecutor();
         Future<?> future = executor.submit(() -> MonkeySort.monkeySort(Arrays.stream(array).toArray()));
