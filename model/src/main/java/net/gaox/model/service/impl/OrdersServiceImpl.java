@@ -6,11 +6,12 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.gaox.model.entity.Orders;
 import net.gaox.model.entity.message.BrokerMessageLog;
-import net.gaox.model.enums.OrderSendStatus;
+import net.gaox.model.enums.OrderSendStatusEnum;
+import net.gaox.model.events.OrderSendEvent;
 import net.gaox.model.mapper.BrokerMessageLogMapper;
 import net.gaox.model.mapper.OrdersMapper;
-import net.gaox.model.queue.send.OrderSender;
 import net.gaox.model.service.OrdersService;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,7 +32,7 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
 
     private final BrokerMessageLogMapper brokerMessageLogMapper;
 
-    private final OrderSender orderSender;
+    private final ApplicationEventPublisher applicationEventPublisher;
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -43,7 +44,7 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
         BrokerMessageLog brokerMessageLog = new BrokerMessageLog();
         brokerMessageLog.setMessageId(String.valueOf(order.getNumber()));
         brokerMessageLog.setMessage(JSONObject.toJSONString(order));
-        brokerMessageLog.setStatus(OrderSendStatus.ORDER_SENDING.getCode());
+        brokerMessageLog.setStatus(OrderSendStatusEnum.ORDER_SENDING.getCode());
         LocalDateTime now = LocalDateTime.now();
         brokerMessageLog.setCreateTime(now);
         //下一次投递时间
@@ -52,7 +53,8 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
 
         brokerMessageLogMapper.insert(brokerMessageLog);
         try {
-            orderSender.send(order);
+            OrderSendEvent even = new OrderSendEvent(OrderSendStatusEnum.ORDER_SENDING, order);
+            applicationEventPublisher.publishEvent(even);
             return true;
         } catch (Exception e) {
             e.printStackTrace();

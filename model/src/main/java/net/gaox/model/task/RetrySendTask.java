@@ -6,9 +6,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.gaox.model.entity.Orders;
 import net.gaox.model.entity.message.BrokerMessageLog;
-import net.gaox.model.enums.OrderSendStatus;
+import net.gaox.model.enums.OrderSendStatusEnum;
+import net.gaox.model.events.OrderSendEvent;
 import net.gaox.model.mapper.BrokerMessageLogMapper;
-import net.gaox.model.queue.send.OrderSender;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -25,7 +26,7 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class RetrySendTask {
 
-    private final OrderSender orderSender;
+    private final ApplicationEventPublisher applicationEventPublisher;
 
     private final BrokerMessageLogMapper brokerMessageLogMapper;
 
@@ -36,7 +37,7 @@ public class RetrySendTask {
     public void rabbitmqReSend() {
         LambdaQueryWrapper<BrokerMessageLog> queryWrapper = new LambdaQueryWrapper<BrokerMessageLog>()
                 .le(BrokerMessageLog::getNextRetry, LocalDateTime.now())
-                .eq(BrokerMessageLog::getStatus, OrderSendStatus.ORDER_SENDING.getCode());
+                .eq(BrokerMessageLog::getStatus, OrderSendStatusEnum.ORDER_SENDING.getCode());
 
         /**
          *
@@ -47,8 +48,12 @@ public class RetrySendTask {
          */
         brokerMessageLogMapper.selectList(queryWrapper).forEach(messageLog -> {
             if (messageLog.getTryCount() >= 3) {
-                messageLog.setStatus(OrderSendStatus.ORDER_SEND_FAILURE.getCode());
+                messageLog.setStatus(OrderSendStatusEnum.ORDER_SEND_FAILURE.getCode());
                 messageLog.setUpdateTime(LocalDateTime.now());
+                // 测试不消费事件
+                Orders order = JSONObject.parseObject(messageLog.getMessage(), Orders.class);
+                OrderSendEvent even = new OrderSendEvent(OrderSendStatusEnum.ORDER_SEND_FAILURE, order);
+                applicationEventPublisher.publishEvent(even);
                 brokerMessageLogMapper.updateById(messageLog);
             } else {
                 messageLog.setTryCount(messageLog.getTryCount() + 1);
@@ -56,7 +61,9 @@ public class RetrySendTask {
                 brokerMessageLogMapper.updateById(messageLog);
                 try {
                     //重新投递信息
-                    orderSender.send(JSONObject.parseObject(messageLog.getMessage(), Orders.class));
+                    Orders order = JSONObject.parseObject(messageLog.getMessage(), Orders.class);
+                    OrderSendEvent even = new OrderSendEvent(OrderSendStatusEnum.ORDER_SENDING, order);
+                    applicationEventPublisher.publishEvent(even);
                     log.info("订单信息重新投递成功，订单号：{}", messageLog.getMessageId());
                 } catch (Exception e) {
                     log.error("订单信息重新投递失败，订单号：{}", messageLog.getMessageId());

@@ -1,9 +1,10 @@
 package net.gaox.excel.controller;
 
+import lombok.RequiredArgsConstructor;
 import net.gaox.excel.service.ExcelService;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -22,15 +23,11 @@ import java.util.List;
  * @author gaox·Eric
  * @date 2019-03-16 20:20:00
  */
-@Controller
+@RestController
+@RequiredArgsConstructor
 public class ExcelController {
 
-
     private final ExcelService importService;
-
-    public ExcelController(ExcelService importService) {
-        this.importService = importService;
-    }
 
     /**
      * 表单方式提交Excel文件并解析
@@ -101,4 +98,5 @@ public class ExcelController {
             }
         }
     }
+
 }
