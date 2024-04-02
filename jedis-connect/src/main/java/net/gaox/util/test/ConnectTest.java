@@ -1,7 +1,6 @@
-package net.gaox.conf;
+package net.gaox.util.test;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.Pipeline;
 import redis.clients.jedis.Tuple;
@@ -16,14 +15,14 @@ import java.util.Set;
  * @author gaox·Eric
  * @date 2024-01-07 15:08
  */
+@Slf4j
 public class ConnectTest {
-    private static final Logger log = LoggerFactory.getLogger(ConnectTest.class);
 
     public static void main(String[] args) {
 
         // 1. 生成一个Jedis对象，这个对象负责和指定Redis实例进行通信
         Jedis jedis = new Jedis("127.0.0.1", 6379);
-        jedis.auth("******");
+        jedis.auth("pass");
 
         // 2. jedis执行set操作
         String setResult = jedis.set("hello", "world");
@@ -64,7 +63,7 @@ public class ConnectTest {
         log.info("zset = {}", zset);
 
         // 获取所有keys
-        Set<String> keys = jedis.keys("*");
+        Set<String> keys = jedis.keys("h*");
         log.info("all keys = {}", String.join(", ", keys));
 
         // 生成 pipeline 对象
