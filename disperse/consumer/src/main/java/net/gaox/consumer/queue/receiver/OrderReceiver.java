@@ -59,9 +59,8 @@ public class OrderReceiver {
             channel.basicAck(deliveryTag, false);
             return;
         }
-
-        localOrder.setNote("完成");
-        ordersService.updateById(localOrder);
+        Orders update = new Orders().setId(order.getId()).setNote("完成");
+        ordersService.updateById(update);
 
         // 取值为 false 时，表示通知 RabbitMQ 当前消息被确认
         // 如果为 true，则额外将比第一个参数指定的 delivery tag 小的消息一并确认
