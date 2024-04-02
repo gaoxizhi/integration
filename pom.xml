@@ -59,6 +59,7 @@
         <module>lettuce-redis-connect</module>
         <module>minio</module>
         <module>disperse</module>
+        <module>es-search</module>
     </modules>
 
     <!--依赖管理-->

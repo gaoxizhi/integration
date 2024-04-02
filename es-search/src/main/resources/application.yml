@@ -1,0 +1,18 @@
+﻿server:
+  # 设置服务器端口
+  port: 12527
+  servlet:
+    # 设置项目根路径
+    context-path: /
+
+spring:
+  application:
+    name: es-search
+
+#控制项目日志级别
+logging:
+  level:
+    root: info
+    net:
+      gaox:
+        search: debug
