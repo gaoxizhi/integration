@@ -1,0 +1,17 @@
+server:
+  # 设置服务器端口
+  port: 8080
+  servlet:
+    # 设置项目根路径
+    context-path: /
+
+spring:
+  application:
+    name: common
+
+#控制项目日志级别
+logging:
+  level:
+    net:
+      gaox:
+        common: debug

@@ -33,3 +33,5 @@ springboot、redis、mybatis、mybatisplus、MongoDB...技术整合项目
 | thread-pool         | 12526 |
 | jedis-connect       | 12527 |
 | lettuce-connect     | 12528 |
+| consumer            | 12529 |
+| producer            | 12530 |
