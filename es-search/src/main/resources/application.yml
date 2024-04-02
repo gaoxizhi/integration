@@ -9,6 +9,27 @@ spring:
   application:
     name: es-search
 
+  # es 配置
+  data:
+    elasticsearch:
+      cluster-name: es01
+      cluster-nodes: localhost:9200
+      properties:
+        transport:
+          tcp:
+            connect_timeout: 30s
+        recovery:
+          initial_shards: quorum
+      repositories:
+        enabled: true
+
+  # es 集群配置方式
+  elasticsearch:
+    rest:
+      uris: http://localhost:9200
+      username: admin
+      password: password
+
 #控制项目日志级别
 logging:
   level:
