@@ -33,6 +33,19 @@ public class ApiResponse extends HashMap<String, Object> {
     }
 
     /**
+     * 成功包含数据消息封装
+     *
+     * @param data data
+     * @return
+     */
+    public static ApiResponse success(Object data) {
+        ApiResponse apiResult = new ApiResponse();
+        apiResult.put("success", true);
+        apiResult.put("data", data);
+        return apiResult;
+    }
+
+    /**
      * 错误消息封装
      *
      * @return
@@ -40,6 +53,17 @@ public class ApiResponse extends HashMap<String, Object> {
     public static ApiResponse fail() {
         ApiResponse apiResult = new ApiResponse();
         apiResult.put("success", false);
+        return apiResult;
+    }
+    /**
+     * 错误消息封装
+     *
+     * @return
+     */
+    public static ApiResponse fail(String msg) {
+        ApiResponse apiResult = new ApiResponse();
+        apiResult.put("success", false);
+        apiResult.put("msg", msg);
         return apiResult;
     }
 

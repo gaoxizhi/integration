@@ -35,3 +35,4 @@ springboot、redis、mybatis、mybatisplus、MongoDB...技术整合项目
 | lettuce-connect     | 12528 |
 | consumer            | 12529 |
 | producer            | 12530 |
+| minio               | 12531 |

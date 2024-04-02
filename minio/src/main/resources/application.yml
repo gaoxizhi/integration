@@ -1,0 +1,21 @@
+server:
+  port: 12531
+minio:
+  endpoint: http://localhost:9000
+  access-key: admin
+  secret-key: minioadmin
+
+spring:
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+  application:
+    name: minio
+
+logging:
+  file:
+    name: logs/${spring.application.name}/start.log
+  level:
+    net.gaox: debug
+    root: info

@@ -42,7 +42,7 @@ web/.settings/
 .DS_Store
 *.log
 tmp/
-logs/**/*.log.gz
+logs/
 
 
 wxapp/dist/

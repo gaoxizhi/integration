@@ -57,6 +57,7 @@
         <module>thread-pool</module>
         <module>jedis-connect</module>
         <module>lettuce-redis-connect</module>
+        <module>minio</module>
         <module>disperse</module>
     </modules>
 
