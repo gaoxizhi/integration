@@ -1,5 +1,7 @@
 package net.gaox.util.util;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.time.LocalDate;
@@ -7,11 +9,9 @@ import java.time.ZoneId;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 /**
- * 53 bits unique id:
+ * <p> 分布式id生成策略 </p>
+ * 53bitID 由32bit秒级时间戳+16bit自增+5bit机器标识组成，累积32台机器
  * <p>
  * |--------|--------|--------|--------|--------|--------|--------|--------|
  * |00000000|00011111|11111111|11111111|11111111|11111111|11111111|11111111|
@@ -20,31 +20,18 @@ import org.slf4j.LoggerFactory;
  * |--------|--------|--------|--------|--------|--------|--------|---xxxxx|
  * <p>
  * Maximum ID = 11111_11111111_11111111_11111111_11111111_11111111_11111111
- * <p>
  * Maximum TS = 11111_11111111_11111111_11111111_111
- * <p>
  * Maximum NT = ----- -------- -------- -------- ---11111_11111111_111 = 65535
- * <p>
  * Maximum SH = ----- -------- -------- -------- -------- -------- ---11111 = 31
  * <p>
- * It can generate 64k unique id per IP and up to 2106-02-07T06:28:15Z.
- */
-
-/**
-
+ * 每秒可以生成65万个序列号时间戳减去一个固定值，此方案最高可支持到2106年。
+ * 如果每秒65万个序列号不够怎么办？没关系，可以继续递增时间戳，向前“借”下一秒的65万个序列号。
+ *
  * @author gaox·Eric
  * @date 2019/7/21 15:17
  */
+@Slf4j
 public class KeyID {
-    /**
-     * <p> 53bitID由32bit秒级时间戳+16bit自增+5bit机器标识组成，累积32台机器，每秒可以生成65万个序列号 </p>
-     * 时间戳减去一个固定值，此方案最高可支持到2106年。
-     * 如果每秒65万个序列号不够怎么办？没关系，可以继续递增时间戳，向前“借”下一秒的65万个序列号。
-     *
-     * @author gaox·Eric
-     * @since : 2019/7/21 15:22
-     */
-    private static final Logger logger = LoggerFactory.getLogger(KeyID.class);
 
     private static final Pattern PATTERN_LONG_ID = Pattern.compile("^([0-9]{15})([0-9a-f]{32})([0-9a-f]{3})$");
 
@@ -63,10 +50,11 @@ public class KeyID {
     public static long nextId() {
         return nextId(System.currentTimeMillis() / 1000);
     }
-    private static synchronized long nextId(long epochSecond) {
+
+    public static synchronized long nextId(long epochSecond) {
         if (epochSecond < lastEpoch) {
             // warning: clock is turn back:
-            logger.warn("clock is back: " + epochSecond + " from previous:" + lastEpoch);
+            log.warn("clock is back: " + epochSecond + " from previous:" + lastEpoch);
             epochSecond = lastEpoch;
         }
         if (lastEpoch != epochSecond) {
@@ -76,33 +64,37 @@ public class KeyID {
         offset++;
         long next = offset & MAX_NEXT;
         if (next == 0) {
-            logger.warn("maximum id reached in 1 second in epoch: " + epochSecond);
+            log.warn("maximum id reached in 1 second in epoch: " + epochSecond);
             return nextId(epochSecond + 1);
         }
         return generateId(epochSecond, next, SHARD_ID);
     }
-    private static void reset() {
+
+    public static void reset() {
         offset = 0;
     }
-    private static long generateId(long epochSecond, long next, long shardId) {
+
+    public static long generateId(long epochSecond, long next, long shardId) {
         return ((epochSecond - OFFSET) << 21) | (next << 5) | shardId;
     }
-    private static long getServerIdAsLong() {
+
+    public static long getServerIdAsLong() {
         try {
             String hostname = InetAddress.getLocalHost().getHostName();
             Matcher matcher = PATTERN_HOSTNAME.matcher(hostname);
             if (matcher.matches()) {
                 long n = Long.parseLong(matcher.group(1));
                 if (n >= 0 && n < 8) {
-                    logger.info("detect server id from host name {}: {}.", hostname, n);
+                    log.info("detect server id from host name {}: {}.", hostname, n);
                     return n;
                 }
             }
         } catch (UnknownHostException e) {
-            logger.warn("unable to get host name. set server id = 0.");
+            log.warn("unable to get host name. set server id = 0.");
         }
         return 0;
     }
+
     public static long stringIdToLongId(String stringId) {
         // a stringId id is composed as timestamp (15) + uuid (32) + serverId (000~fff).
         Matcher matcher = PATTERN_LONG_ID.matcher(stringId);
@@ -116,4 +108,5 @@ public class KeyID {
         }
         throw new IllegalArgumentException("Invalid id: " + stringId);
     }
+
 }

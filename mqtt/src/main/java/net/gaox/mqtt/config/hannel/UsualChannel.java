@@ -123,10 +123,9 @@ public class UsualChannel {
         if (null == adapter) {
             inbound();
         }
-        log.debug("UsualChannel sub topic before are [{}]",
-                Arrays.asList(adapter.getTopic()).stream().collect(Collectors.joining(", ")));
+        log.debug("UsualChannel sub topic before are [{}]", String.join(", ", adapter.getTopic()));
         adapter.removeTopic(topic);
-        log.debug("UsualChannel sub topic now are [{}]",
-                Arrays.asList(adapter.getTopic()).stream().collect(Collectors.joining(", ")));
+        log.debug("UsualChannel sub topic now are [{}]", String.join(", ", adapter.getTopic()));
     }
+
 }

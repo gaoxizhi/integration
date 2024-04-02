@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import net.gaox.conf.serializer.entity.Club;
 import net.gaox.conf.serializer.entity.ser.ClubSerializer;
+import net.gaox.util.util.KeyID;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,7 +17,6 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * <p> 原子脚本 测试 </p>
@@ -39,18 +39,20 @@ public class RedisUtilsTest {
             // 解析返回结果
             if (!CollectionUtils.isEmpty(result)) {
                 log.info("Key1的新值: [{}], Key2的新值: [{}]", result.get(0), result.get(1));
-            }   String key1 = jedis.get("key1");
+            }
+            String key1 = jedis.get("key1");
             log.info("jedisPool get key1 : " + key1);
         }
     }
 
     @Test
     void getSetKey() {
-        String uuid = UUID.randomUUID().toString();
+        long id = KeyID.nextId();
+        String uuid = Long.toHexString(id).toUpperCase();
         log.info("jedisPool uuid : " + uuid);
         try (Jedis jedis = jedisPool.getResource()) {
             jedis.setex(uuid, 1000, "kiss");
-            log.info("jedisPool get : " + jedis.get(uuid));
+            log.info("jedisPool get key={}, value={}", uuid, jedis.get(uuid));
             String key1 = jedis.get("key1");
             log.info("jedisPool get key1 : " + key1);
         }
