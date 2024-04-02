@@ -4,18 +4,17 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import lombok.extern.slf4j.Slf4j;
 import net.gaox.model.entity.Orders;
 import net.gaox.model.entity.message.BrokerMessageLog;
-import net.gaox.model.enums.EnumUtils;
 import net.gaox.model.enums.OrderSendStatusEnum;
 import net.gaox.model.events.OrderSendEvent;
 import net.gaox.model.mapper.BrokerMessageLogMapper;
 import org.springframework.amqp.rabbit.connection.CorrelationData;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.context.event.EventListener;
+import org.springframework.core.annotation.Order;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * <p> 订单消息发布 </p>
@@ -89,22 +88,20 @@ public class OrderSender {
      *
      * @param event 订单事件消息
      */
-    @EventListener(OrderSendEvent.class)
+    @Async
+    @Order(0)
+    @EventListener
     public void eventListener(OrderSendEvent event) {
-        if (null == event) {
-            log.warn("事件不存在，跳过本次");
+        if (null == event || null == event.getEventType() || null == event.getOrder()) {
+            log.warn("事件参数异常.");
             return;
         }
-        Orders order = event.getOrder();
-        OrderSendStatusEnum eventType = event.getEventType();
-        Object enumStr = EnumUtils.isValueOf(eventType, OrderSendStatusEnum.class) ? eventType.getDesc() : eventType;
-        log.info("订单事件类型[{}], 内容：{}", enumStr, order);
-        List<OrderSendStatusEnum> eventList = Arrays.asList(OrderSendStatusEnum.ORDER_SENDING);
-        if (eventList.stream().noneMatch(s -> eventList.contains(eventType))) {
-            log.warn("不执行当前订单.");
+        if (!OrderSendStatusEnum.ORDER_SENDING.equals(event.getEventType())) {
+            log.warn("不执行当前订单[{}]事件.", event.getEventType().getDesc());
             return;
         }
-        send(order);
+        log.info("订单[{}]开始投递.", event.getOrder().getNumber());
+        send(event.getOrder());
     }
 
 }

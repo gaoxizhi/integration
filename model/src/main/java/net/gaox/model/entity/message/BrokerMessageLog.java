@@ -1,5 +1,6 @@
 package net.gaox.model.entity.message;
 
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -8,6 +9,8 @@ import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+import net.gaox.model.entity.Orders;
+import net.gaox.model.enums.OrderSendStatusEnum;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -47,6 +50,23 @@ public class BrokerMessageLog extends Model<BrokerMessageLog> {
     @TableField("update_time")
     private LocalDateTime updateTime;
 
+    /**
+     * 订单消息
+     *
+     * @param order 订单
+     * @return 消息
+     */
+    public static BrokerMessageLog fromOrder(Orders order) {
+        BrokerMessageLog log = new BrokerMessageLog();
+        log.setMessageId(String.valueOf(order.getNumber()));
+        log.setMessage(JSONObject.toJSONString(order));
+        log.setStatus(OrderSendStatusEnum.ORDER_SENDING.getCode());
+        LocalDateTime now = LocalDateTime.now();
+        log.setCreateTime(now);
+        log.setNextRetry(now.plusMinutes(1));
+        log.setTryCount(0);
+        return log;
+    }
 
     @Override
     protected Serializable pkVal() {

@@ -27,18 +27,17 @@ public class OrdersController {
     private final OrdersService ordersService;
 
     @GetMapping
-    public String postOrderTest() {
+    public Orders postOrderTest() {
         Orders order = new Orders();
         UUID uuid = UUID.randomUUID();
         String orderNumber = uuid.toString().replaceAll("-", "").substring(0, 16);
         order.setUserId(1L);
         order.setNumber(orderNumber);
-        order.setNote("测试订单");
         order.setCreateTime(LocalDateTime.now());
         order.setUpdateTime(LocalDateTime.now());
         ordersService.createOrder(order);
 
-        return "postOrder";
+        return order;
     }
 
 }

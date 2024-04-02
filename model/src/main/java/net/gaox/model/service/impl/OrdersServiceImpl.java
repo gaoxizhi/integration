@@ -1,6 +1,5 @@
 package net.gaox.model.service.impl;
 
-import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,8 +13,6 @@ import net.gaox.model.service.OrdersService;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -37,28 +34,21 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Boolean createOrder(Orders order) {
-
         //插入订单表
-        save(order);
+        baseMapper.insert(order);
         //插入rabbitmq投递信息日志表
-        BrokerMessageLog brokerMessageLog = new BrokerMessageLog();
-        brokerMessageLog.setMessageId(String.valueOf(order.getNumber()));
-        brokerMessageLog.setMessage(JSONObject.toJSONString(order));
-        brokerMessageLog.setStatus(OrderSendStatusEnum.ORDER_SENDING.getCode());
-        LocalDateTime now = LocalDateTime.now();
-        brokerMessageLog.setCreateTime(now);
-        //下一次投递时间
-        brokerMessageLog.setNextRetry(now.plusMinutes(1));
-        brokerMessageLog.setTryCount(0);
+        BrokerMessageLog log = BrokerMessageLog.fromOrder(order);
+        brokerMessageLogMapper.insert(log);
+        publisherOrderSendEvent(order);
+        return true;
+    }
 
-        brokerMessageLogMapper.insert(brokerMessageLog);
+    private void publisherOrderSendEvent(Orders order) {
         try {
             OrderSendEvent even = new OrderSendEvent(OrderSendStatusEnum.ORDER_SENDING, order);
             applicationEventPublisher.publishEvent(even);
-            return true;
         } catch (Exception e) {
-            e.printStackTrace();
-            return false;
+            log.error("订单发送事件发布失败，订单号：{}", order.getNumber(), e);
         }
     }
 
