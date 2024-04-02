@@ -42,6 +42,14 @@
             <artifactId>hutool-poi</artifactId>
             <version>4.1.14</version>
         </dependency>
+
+        <!-- Excel工具-ExcelUtil -->
+        <dependency>
+            <groupId>net.sourceforge.jexcelapi</groupId>
+            <artifactId>jxl</artifactId>
+            <version>2.6.12</version>
+        </dependency>
+
     </dependencies>
 
 

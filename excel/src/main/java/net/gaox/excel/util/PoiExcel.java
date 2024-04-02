@@ -5,7 +5,9 @@ import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.File;
-import java.io.FileInputStream;
+import java.nio.file.Files;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * <p> 借鉴 hutool 解析过程 </p>
@@ -19,9 +21,9 @@ public class PoiExcel {
         String fileName = "/Users/gaox/codeing/aliyun" + File.separator + "ew.xls";
         Workbook work;
         try {
-            work = new XSSFWorkbook(new FileInputStream(new File(fileName)));
+            work = new XSSFWorkbook(Files.newInputStream(new File(fileName).toPath()));
         } catch (Exception e) {
-            work = new HSSFWorkbook(new FileInputStream(new File(fileName)));
+            work = new HSSFWorkbook(Files.newInputStream(new File(fileName).toPath()));
         }
         Sheet sheet = work.getSheetAt(0);
         for (int i = sheet.getFirstRowNum(); i <= sheet.getLastRowNum(); i++) {
@@ -81,7 +83,7 @@ public class PoiExcel {
         final short formatIndex = style.getDataFormat();
         // 判断是否为日期
         if (isDateType(cell, formatIndex)) {
-            // 使用Hutool的DateTime包装
+            // 使用hutool的DateTime包装
             return cell.getDateCellValue();
         }
         final String format = style.getDataFormatString();
@@ -103,12 +105,11 @@ public class PoiExcel {
         // m月d日 ---------- 58
         // HH:mm----------- 20
         // h时mm分 -------- 32
-        if (formatIndex == 14 || formatIndex == 31 || formatIndex == 57 || formatIndex == 58 || formatIndex == 20 || formatIndex == 32) {
+        List<Integer> dateTypes = Arrays.asList(14, 31, 57, 58, 20, 32);
+        if (dateTypes.contains(formatIndex)) {
             return true;
+        } else {
+            return DateUtil.isCellDateFormatted(cell);
         }
-        if (org.apache.poi.ss.usermodel.DateUtil.isCellDateFormatted(cell)) {
-            return true;
-        }
-        return false;
     }
 }
