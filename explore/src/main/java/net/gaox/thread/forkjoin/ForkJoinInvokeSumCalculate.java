@@ -11,7 +11,7 @@ import java.util.concurrent.RecursiveTask;
  * @date 2024-03-21 18:36
  */
 @Slf4j
-public class ForkJoinSumCalculate extends RecursiveTask<Long> {
+public class ForkJoinInvokeSumCalculate extends RecursiveTask<Long> {
 
     /**
      * 最小值
@@ -29,7 +29,7 @@ public class ForkJoinSumCalculate extends RecursiveTask<Long> {
     private long threshold;
 
 
-    public ForkJoinSumCalculate(long start, long end, long threshold) {
+    public ForkJoinInvokeSumCalculate(long start, long end, long threshold) {
         this.start = start;
         this.end = end;
         this.threshold = threshold;
@@ -52,11 +52,9 @@ public class ForkJoinSumCalculate extends RecursiveTask<Long> {
             log.debug("进行递归执行：[{}]~[{}]", start, end);
 
             // 进行拆分，同时压入线程队列
-            ForkJoinSumCalculate left = new ForkJoinSumCalculate(start, middle, threshold);
-            ForkJoinSumCalculate right = new ForkJoinSumCalculate(middle + 1, end, threshold);
-            // fork是直接将子任务放到当前线程的任务队列中
-            left.fork();
-            right.fork();
+            ForkJoinInvokeSumCalculate left = new ForkJoinInvokeSumCalculate(start, middle, threshold);
+            ForkJoinInvokeSumCalculate right = new ForkJoinInvokeSumCalculate(middle + 1, end, threshold);
+            invokeAll(left, right);
 
             return left.join() + right.join();
         }

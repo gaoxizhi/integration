@@ -63,4 +63,20 @@ public class ForkJoinSumCalculateTest {
         log.info("耗费时间为：{}", Duration.between(start, end).toMillis());
 
     }
+
+    @Test
+    public void forkJoinInvoke() {
+        Instant start = Instant.now();
+
+        ForkJoinPool pool = new ForkJoinPool();
+        ForkJoinTask<Long> task = new ForkJoinInvokeSumCalculate(0L, MAX_VALUE, 1000_000L);
+        Long sum = pool.invoke(task);
+        log.info("sum = " + sum);
+
+        Instant end = Instant.now();
+
+        log.info("耗费时间为：{}", Duration.between(start, end).toMillis());
+
+    }
+
 }
