@@ -1,15 +1,22 @@
 package net.gaox.relation.model.dto;
 
 import lombok.Data;
+import net.gaox.relation.model.enums.EnumDelFlag;
 
 import java.time.LocalDateTime;
 
 /**
+ * <p> 订单的扩展类,通过此类映射订单和用户的查询结果,让此类继承字段较多的实体类 </p>
+ *
  * @author gaox·Eric
- * @date 2019/7/14 20:26
+ * @date 2019/7/10 21:31
  */
 @Data
-public class OrderTypeDTO {
+public class OrderAndUserDTO {
+
+    /**
+     * id
+     */
     private Long id;
 
     /**
@@ -40,5 +47,11 @@ public class OrderTypeDTO {
     /**
      * 删除标志：删除0；正常1（默认）
      */
-    private Boolean delFlag;
+    private EnumDelFlag delFlag;
+
+    /**
+     * 用户信息
+     */
+    private UserBaseDTO user;
+
 }

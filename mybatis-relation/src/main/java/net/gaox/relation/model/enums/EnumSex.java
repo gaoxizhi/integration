@@ -1,11 +1,15 @@
 package net.gaox.relation.model.enums;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 /**
  * @author gaox·Eric
  * @date 2019/7/13 00:32
  */
-
-public enum EnumSex {
+@Getter
+@AllArgsConstructor
+public enum EnumSex implements ICodeEnum {
 
     /**
      * 被删除
@@ -14,19 +18,7 @@ public enum EnumSex {
     MALE(1, "男"),
     CANCEL(2, "未知");
 
-    private EnumSex(int code, String description) {
-        this.code = new Integer(code);
-        this.description = description;
-    }
-
     private Integer code;
     private String description;
 
-    public Integer getCode() {
-        return code;
-    }
-
-    public String getDescription() {
-        return description;
-    }
 }

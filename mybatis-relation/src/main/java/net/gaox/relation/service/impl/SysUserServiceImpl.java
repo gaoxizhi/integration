@@ -4,9 +4,7 @@ import net.gaox.relation.service.SysUserService;
 import org.springframework.stereotype.Service;
 
 /**
- * <p>
- * 用户表 服务实现类
- * </p>
+ * <p> 用户表 服务实现类 </p>
  *
  * @author gaox·Eric
  * @since 2019-07-10

@@ -9,7 +9,7 @@ import lombok.Getter;
  */
 @Getter
 @AllArgsConstructor
-public enum EnumDelFlag {
+public enum EnumDelFlag implements ICodeEnum{
     /**
      * 被删除
      */

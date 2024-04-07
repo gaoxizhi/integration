@@ -1,41 +1,36 @@
-package net.gaox.relation.entity;
+package net.gaox.relation.model.dto;
 
 import lombok.Data;
 import net.gaox.relation.model.enums.EnumDelFlag;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
- * <p> 订单详情 </p>
+ * <p> 订单DTO </p>
  *
  * @author gaox·Eric
  * @since 2019-07-10
  */
 @Data
-public class OrderDetail implements Serializable {
+public class OrderAndOrderDetailsDTO {
 
-    private static final long serialVersionUID = 1L;
-
-    /**
-     * id
-     */
     private Long id;
 
     /**
-     * 订单id
+     * 下单用户id
      */
-    private Long orderId;
+    private Long userId;
 
     /**
-     * 商品id
+     * 订单号
      */
-    private Long itemId;
+    private String number;
 
     /**
-     * 商品购买数量
+     * 备注
      */
-    private Integer itemNum;
+    private String note;
 
     /**
      * 创建时间
@@ -51,5 +46,10 @@ public class OrderDetail implements Serializable {
      * 删除标志：删除0；正常1（默认）
      */
     private EnumDelFlag delFlag;
+
+    /**
+     * 订单明细
+     */
+    private List<OrderDetailItemDTO> orderDetails;
 
 }

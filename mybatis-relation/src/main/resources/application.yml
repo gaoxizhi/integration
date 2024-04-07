@@ -13,13 +13,6 @@ spring:
     hikari:
       maximum-pool-size: 20
       minimum-idle: 5
-# 配置mybatis-plus
-#mybatis-plus:
-#  global-config:
-#    # 逻辑删除配置
-#    logic-delete-value: 0
-#    logic-not-delete-value: 1
-#    sql-injector: com.baomidou.mybatisplus.mapper.LogicSqlInjector
 
 mybatis:
   configuration:

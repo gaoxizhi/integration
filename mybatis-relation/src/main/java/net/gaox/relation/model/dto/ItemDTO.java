@@ -1,33 +1,49 @@
 package net.gaox.relation.model.dto;
 
 import lombok.Data;
-import net.gaox.relation.entity.Items;
 import net.gaox.relation.model.enums.EnumDelFlag;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
+ * <p> 商品DTO </p>
+ *
  * @author gaox·Eric
- * @date 2019/7/14 20:30
+ * @since 2019-07-10
  */
 @Data
-public class OrderDetailCustomDTO {
+public class ItemDTO {
+    /**
+     * id
+     */
     private Long id;
 
     /**
-     * 订单id
+     * 商品名称
      */
-    private Long ordersId;
+    private String name;
 
     /**
-     * 商品id
+     * 商品定价
      */
-    private Long itemsId;
+    private BigDecimal price;
 
     /**
-     * 商品购买数量
+     * 商品描述
      */
-    private Integer itemsNum;
+    private String detail;
+
+    /**
+     * 商品图片
+     */
+    private String pic;
+
+    /**
+     * 生产日期
+     */
+    private LocalDate produceTime;
 
     /**
      * 创建时间
@@ -43,8 +59,5 @@ public class OrderDetailCustomDTO {
      * 删除标志：删除0；正常1（默认）
      */
     private EnumDelFlag delFlag;
-    /**
-     * 商品详情
-     */
-    private Items item;
+
 }

@@ -3,39 +3,51 @@ package net.gaox.relation.entity;
 import lombok.Data;
 import net.gaox.relation.model.enums.EnumDelFlag;
 
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
 
 /**
- * <p>
- * 订单表
- * </p>
+ * <p> 商品表 </p>
  *
  * @author gaox·Eric
  * @since 2019-07-10
  */
 @Data
-public class Orders {
+public class Item implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    //    @TableId(value = "id", type = IdType.AUTO)
+    /**
+     * id
+     */
     private Long id;
 
     /**
-     * 下单用户id
+     * 商品名称
      */
-    private Long userId;
+    private String name;
 
     /**
-     * 订单号
+     * 商品定价
      */
-    private String number;
+    private BigDecimal price;
 
     /**
-     * 备注
+     * 商品描述
      */
-    private String note;
+    private String detail;
+
+    /**
+     * 商品图片
+     */
+    private String pic;
+
+    /**
+     * 生产日期
+     */
+    private LocalDate produceTime;
 
     /**
      * 创建时间
@@ -52,12 +64,4 @@ public class Orders {
      */
     private EnumDelFlag delFlag;
 
-    /**
-     * 用户信息
-     */
-    private SysUser user;
-    /**
-     * 订单明细
-     */
-    private List<OrderDetail> orderDetails;
 }

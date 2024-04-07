@@ -3,53 +3,39 @@ package net.gaox.relation.entity;
 import lombok.Data;
 import net.gaox.relation.model.enums.EnumDelFlag;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * <p>
- * 商品表
- * </p>
+ * <p> 订单表 </p>
  *
  * @author gaox·Eric
  * @since 2019-07-10
  */
 @Data
-public class Items {
+public class Order implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     /**
      * id
      */
-//         @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
     /**
-     * 商品名称
+     * 下单用户id
      */
-    private String itemsName;
+    private Long userId;
 
     /**
-     * 商品定价
+     * 订单号
      */
-    private BigDecimal price;
+    private String number;
 
     /**
-     * 商品描述
+     * 备注
      */
-    private String detail;
-
-    /**
-     * 商品图片
-     */
-    private String pic;
-
-    /**
-     * 生产日期
-     */
-    private LocalDate produceTime;
+    private String note;
 
     /**
      * 创建时间

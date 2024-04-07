@@ -7,25 +7,36 @@
 <!-- b.如果没有查询结果的特殊要求建议使用resultType。-->
 <!-- c.resultMap：需要单独定义resultMap，实现有点麻烦，如果对查询结果有特殊的要求，使用resultMap可以完成将关联查询映射pojo的属性中。-->
 <!-- d.resultMap可以实现延迟加载，resultType无法实现延迟加载。-->
-<mapper namespace="net.gaox.relation.mapper.OrdersCustomMapper">
+<mapper namespace="net.gaox.relation.mapper.OrderCustomMapper">
     <!-- 1&1查询订单，关联查询用户信息 -->
-    <select id="findOrdersUser" resultType="net.gaox.relation.model.dto.OrdersCustomTypeDTO">
+    <resultMap id="orderAndUser" type="net.gaox.relation.model.dto.OrderUserDTO">
+        <result column="user_id" property="userId"/>
+        <result column="number" property="number"/>
+        <result column="note" property="note"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="del_flag" property="delFlag"/>
+        <result column="user_name" property="userName"/>
+        <result column="sex" property="sex" typeHandler="net.gaox.relation.config.mybatis.EnumCodeTypeHandler"/>
+        <result column="address" property="address"/>
+    </resultMap>
+    <select id="findOrderUser" resultMap="orderAndUser">
         SELECT o.*,
-               u.user_name,
-               u.sex,
-               u.address
-        FROM orders AS o,
-             sys_user AS u
-        WHERE o.user_id = u.id
+               u.`user_name`,
+               u.`sex`,
+               u.`address`
+        FROM `order` AS o,
+             `sys_user` AS u
+        WHERE o.`user_id` = u.`id`
     </select>
 
-    <!-- 定义查询订单关联用户的 BaseResultMap,将整个的查询结果映射到net.gaox.relation.model.dto.OrdersCustomDTO中-->
-    <resultMap id="OrdersUserResultMap" type="net.gaox.relation.model.dto.OrdersCustomDTO">
+    <!-- 定义查询订单关联用户的 BaseResultMap,将整个的查询结果映射到net.gaox.relation.model.dto.OrderRelationUserDTO中-->
+    <resultMap id="orderUserResultMap" type="net.gaox.relation.model.dto.OrderAndUserDTO">
         <!-- 配置映射的订单信息 -->
         <!-- id:查询列中的唯一标识,订单信息中的唯一标识，如果多列组成唯一标识(如：一般数据库设计中的字典表 使用联合主键)，就需要配置多个id
         column:订单信息的唯一标识 列
-         property:订单信息的唯一标识列所映射到orders中的那个属性(假如：数据库中orders表中的主键为orders_id,而实体属性名称为ordersId,
-         则这个配置应为<id column="orders_id" property="ordersId"/>,类似hibernate实体映射文件配置)。
+         property:订单信息的唯一标识列所映射到order中的那个属性(假如：数据库中order表中的主键为order_id,而实体属性名称为orderId,
+         则这个配置应为<id column="order_id" property="orderId"/>,类似hibernate实体映射文件配置)。
          -->
         <id column="id" property="id"/>
         <result column="user_id" property="userId"/>
@@ -33,133 +44,132 @@
         <result column="note" property="note"/>
         <result column="create_time" property="createTime"/>
         <result column="update_time" property="updateTime"/>
-        <result column="del_flag" property="delFlag" typeHandler="org.apache.ibatis.type.EnumOrdinalTypeHandler"/>
+        <result column="del_flag" property="delFlag"
+                typeHandler="net.gaox.relation.config.mybatis.EnumCodeTypeHandler"/>
         <!-- 配置映射的关联用户信息 -->
 
-        <!--association:用于映射关联查询单个对象的信息
-19      property:要将关联查询的用户信息映射到Orders中那个属性
-20      -->
-        <association property="user" javaType="net.gaox.relation.entity.SysUser">
-            <!-- id:关联查询用户的唯一标识
-            column:指定唯一标识用户信息的列
-            property:映射到user的那个属性
-            -->
+        <!-- association:用于映射关联查询单个对象的信息; property:要将关联查询的用户信息映射到Order中那个属性 -->
+        <association property="user" javaType="net.gaox.relation.model.dto.UserBaseDTO">
+            <!-- id:关联查询用户的唯一标识; column:指定唯一标识用户信息的列; property:映射到user的那个属性 -->
             <id column="user_id" property="id"/>
-            <result column="username" property="userName"/>
-            <result column="sex" property="sex" typeHandler="org.apache.ibatis.type.EnumOrdinalTypeHandler"/>
+            <result column="user_name" property="userName"/>
+            <result column="sex" property="sex" typeHandler="net.gaox.relation.config.mybatis.EnumCodeTypeHandler"/>
             <result column="address" property="address"/>
         </association>
     </resultMap>
     <!-- 查询订单，关联查询用户信息,使用resultMap实现 -->
-    <select id="findOrdersUserResultMap" resultMap="OrdersUserResultMap">
+    <select id="findOrderUserResultMap" resultMap="orderUserResultMap">
         SELECT o.*,
-               u.user_name as userName,
-               u.sex,
-               u.address
-        FROM orders AS o,
-             sys_user AS u
-        WHERE o.user_id = u.id
+               u.`user_name` AS userName,
+               u.`sex`,
+               u.`address`
+        FROM `order` AS o,
+             `sys_user` AS u
+        WHERE o.`user_id` = u.id
     </select>
+
     <!-- 1&n 查询订单(关联用户)及订单明细的resultMap -->
     <!--    总结2-->
     <!--    mybatis使用resultMap的collection对关联查询的多条记录映射到一个list集合属性中。-->
-    <!--    使用resultType实现：将订单明细映射到orders中的orderdetails中，需要自己处理，使用双重循环遍历，去掉重复记录，将订单明细放在orderdetails中。-->
-    <resultMap type="net.gaox.relation.entity.Orders" id="ordersAndOrderDetailResultMap" extends="OrdersUserResultMap">
+    <!--    使用resultType实现：将订单明细映射到order中的orderdetails中，需要自己处理，使用双重循环遍历，去掉重复记录，将订单明细放在orderdetails中。-->
+    <resultMap id="orderAndOrderDetailResultMap" type="net.gaox.relation.model.dto.OrderAndOrderDetailsDTO">
         <!-- 订单信息 -->
         <!-- 关联用户信息 -->
-        <!-- 使用extends继承，不用在中配置订单信息和用户信息的映射-->
+
+        <id column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="number" property="number"/>
+        <result column="note" property="note"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="del_flag" property="delFlag"
+                typeHandler="net.gaox.relation.config.mybatis.EnumCodeTypeHandler"/>
 
         <!-- 关联订单明细信息
             一个订单关联查询出了多条订单明细,要使用collection映射
             collection:对关联查询到的多条记录映射到集合中
-            property:将关联查询到的多条记录映射到orders类的那个属性
+            property:将关联查询到的多条记录映射到order类的那个属性
             ofType:指定映射的集合属性中pojo的类型
         -->
-        <collection property="orderDetails" ofType="net.gaox.relation.entity.OrderDetail">
+        <collection property="orderDetails" ofType="net.gaox.relation.model.dto.OrderDetailItemDTO">
             <!-- id:唯一标识
                  property：要将订单明细的唯一标识映射到com.mybatis.entity.OrderDetail的那个属性
              -->
-            <id column="orderdetail_id" property="id"/>
-            <result column="items_id" property="itemsId"/>
-            <result column="items_num" property="itemsNum"/>
-            <result column="orders_id" property="ordersId"/>
+            <id column="orderDetailId" property="id"/>
+            <result column="item_id" property="itemId"/>
+            <result column="item_num" property="itemNum"/>
+            <result column="order_id" property="orderId"/>
         </collection>
     </resultMap>
     <!-- 查询订单关联查询用户及订单明细 -->
-    <select id="findOrdersAndOrderDetailResultMap" resultMap="ordersAndOrderDetailResultMap">
+    <select id="findOrderAndOrderDetailResultMap" resultMap="orderAndOrderDetailResultMap">
         SELECT o.*,
-               u.user_name AS userName,
-               u.sex,
-               u.address,
-               od.id          orderdetail_id,
-               od.items_id,
-               od.items_num,
-               od.orders_id
-        FROM orders o,
-             sys_user u,
-             order_detail od
-        WHERE o.user_id = u.id
-          AND od.orders_id = o.id
+               u.`user_name` AS userName,
+               u.`sex`,
+               u.`address`,
+               od.id         AS orderDetailId,
+               od.`item_id`,
+               od.`item_num`,
+               od.`order_id`
+        FROM `order` AS o,
+             `sys_user` AS u,
+             `order_detail` AS od
+        WHERE o.`user_id` = u.id
+          AND od.`order_id` = o.id
     </select>
 
     <!--  m&n 查询用户即购买的商品信息的ResultMap -->
-    <resultMap type="net.gaox.relation.entity.SysUser" id="userAndItemsResultMap">
+    <resultMap id="userAndItemResultMap" type="net.gaox.relation.model.dto.UserAndOrderItemDTO">
         <!-- 用户信息 -->
         <id column="user_id" property="id"/>
         <result column="user_name" property="userName"/>
-        <result column="sex" property="sex"  typeHandler="org.apache.ibatis.type.EnumOrdinalTypeHandler"/>
+        <result column="sex" property="sex" typeHandler="net.gaox.relation.config.mybatis.EnumCodeTypeHandler"/>
         <result column="address" property="address"/>
-        <!-- 订单信息
-            一个用户对应多个订单，使用collection映射 -->
-        <collection property="ordersList" ofType="net.gaox.relation.entity.Orders">
+        <!-- 订单信息: 一个用户对应多个订单，使用collection映射 -->
+        <collection property="orderList" ofType="net.gaox.relation.model.dto.OrderAndOrderDetailsDTO">
             <id column="id" property="id"/>
             <result column="user_id" property="userId"/>
             <result column="number" property="number"/>
             <result column="create_time" property="createTime"/>
             <result column="note" property="note"/>
 
-            <!-- 订单明细
-                    一个订单包括 多个明细
-                 -->
-            <collection property="orderDetails" ofType="net.gaox.relation.entity.OrderDetail">
-                <id column="orderdetail_id" property="id"/>
-                <result column="items_id" property="itemsId"/>
-                <result column="items_num" property="itemsNum"/>
-                <result column="orders_id" property="ordersId"/>
-                <!-- 商品信息
-                     一个订单明细对应一个商品
-                  -->
-                <association property="item" javaType="net.gaox.relation.entity.Items">
-                    <id column="items_id" property="id"/>
-                    <result column="items_name" property="itemsName"/>
-                    <result column="items_detail" property="detail"/>
-                    <result column="items_price" property="price"/>
-
+            <!-- 订单明细; 一个订单包括 多个明细 -->
+            <collection property="orderDetails" ofType="net.gaox.relation.model.dto.OrderDetailItemDTO">
+                <id column="orderDetailId" property="id"/>
+                <result column="item_id" property="itemId"/>
+                <result column="item_num" property="itemNum"/>
+                <result column="order_id" property="orderId"/>
+                <!-- 商品信息: 一个订单明细对应一个商品 -->
+                <association property="item" javaType="net.gaox.relation.model.dto.ItemDTO">
+                    <id column="item_id" property="id"/>
+                    <result column="name" property="name"/>
+                    <result column="item_detail" property="detail"/>
+                    <result column="item_price" property="price"/>
                 </association>
             </collection>
         </collection>
 
     </resultMap>
     <!-- 查询用户及用户购买的商品信息，使用resulaMap-->
-    <select id="findUserAndItemsResultMap" resultMap="userAndItemsResultMap">
+    <select id="findUserAndItemResultMap" resultMap="userAndItemResultMap">
         SELECT o.*,
-               u.user_name,
-               u.sex,
-               u.address,
-               od.id        orderdetail_id,
-               od.items_id,
-               od.items_num,
-               od.orders_id,
-               i.items_name items_name,
-               i.detail     items_detail,
-               i.price      items_price
-        FROM orders o,
+               u.`user_name`,
+               u.`sex`,
+               u.`address`,
+               od.`id`    AS orderDetailId,
+               od.`item_id`,
+               od.`item_num`,
+               od.`order_id`,
+               i.`name`   AS name,
+               i.`detail` AS item_detail,
+               i.`price`  AS item_price
+        FROM `order` o,
              sys_user u,
              order_detail od,
-             items i
+             item AS i
         WHERE o.user_id = u.id
-          AND od.orders_id = o.id
-          AND od.items_id = i.id
+          AND od.order_id = o.id
+          AND od.item_id = i.id
     </select>
 
 </mapper>

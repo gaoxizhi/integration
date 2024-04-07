@@ -6,9 +6,7 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 /**
- * <p>
- * 用户表 mapper 接口
- * </p>
+ * <p> 用户表 mapper 接口 </p>
  *
  * @author gaox·Eric
  * @since 2019-07-10
