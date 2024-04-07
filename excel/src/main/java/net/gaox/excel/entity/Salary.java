@@ -4,7 +4,11 @@ import com.alibaba.excel.annotation.ExcelProperty;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 import net.gaox.excel.config.converter.LocalDateConverter;
 
 import java.math.BigDecimal;
@@ -17,6 +21,10 @@ import java.time.LocalDate;
  * @date 2019-03-16 20:20:00
  */
 @Data
+@Builder
+@Accessors(chain = true)
+@NoArgsConstructor
+@AllArgsConstructor
 @TableName("salary")
 public class Salary {
 

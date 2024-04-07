@@ -3,10 +3,7 @@ package net.gaox.excel.controller;
 import lombok.RequiredArgsConstructor;
 import net.gaox.excel.service.ExportService;
 import net.gaox.excel.service.ImportService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
@@ -28,6 +25,11 @@ public class BigTableController {
 
     private final ImportService importService;
 
+    @GetMapping("/exportExcelByMock")
+    public void exportExcel(@RequestParam(required = false) Integer size, HttpServletResponse response) throws IOException {
+        exportService.exportExcelByMock(size, response);
+    }
+
     @GetMapping("/exportBasicExcel")
     public void exportBasicExcel(HttpServletResponse response) throws IOException {
         exportService.exportBasicExcel(response);
@@ -47,6 +49,5 @@ public class BigTableController {
     public void importExcelAsync(MultipartFile file) {
         importService.importExcelAsync(file);
     }
-
 
 }

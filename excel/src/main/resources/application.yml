@@ -10,6 +10,9 @@ spring:
     multipart:
       max-file-size: 100MB
       max-request-size: 1000MB
+  # 设置时区
+  jackson:
+    timezone: Asia/Shanghai
   # 配置MySQL
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
