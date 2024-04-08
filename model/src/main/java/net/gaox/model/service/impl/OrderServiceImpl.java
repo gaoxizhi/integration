@@ -42,7 +42,24 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         return true;
     }
 
-    private void publisherOrderSendEvent(Orders order) {
+    @Override
+    @Transactional
+    public Boolean orderMessageHandleCompleteById(Order update) {
+        try {
+            int result = baseMapper.updateById(update);
+            if (result > 0) {
+                return true;
+            }
+        } catch (Exception e) {
+            log.error("更新时出现异常");
+            // 拦截了异常，手动会滚
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+
+        }
+        return false;
+    }
+
+    private void publisherOrderSendEvent(Order order) {
         try {
             OrderSendEvent even = new OrderSendEvent(OrderSendStatusEnum.ORDER_SENDING, order);
             applicationEventPublisher.publishEvent(even);

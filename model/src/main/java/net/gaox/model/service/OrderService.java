@@ -12,4 +12,12 @@ import net.gaox.model.entity.Order;
 public interface OrderService extends IService<Order> {
     Boolean createOrder(Order order);
 
+    /**
+     * 订单消息处理
+     *
+     * @param update 更新内容
+     * @return 更新结果
+     */
+    Boolean orderMessageHandleCompleteById(Order update);
+
 }
