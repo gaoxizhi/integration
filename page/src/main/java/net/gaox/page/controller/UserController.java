@@ -11,9 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 /**
- * <p>
- * 基础用户表 前端控制器
- * </p>
+ * <p> 基础用户表 前端控制器 </p>
  *
  * @author gaox·Eric
  * @since : 2019/7/9

@@ -8,9 +8,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * <p>
- * 家庭表
- * </p>
+ * <p> 家庭表 </p>
  *
  * @author gaox
  * @since 2019-04-07

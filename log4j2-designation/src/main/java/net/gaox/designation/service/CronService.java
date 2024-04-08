@@ -4,9 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import net.gaox.designation.entity.Cron;
 
 /**
- * <p>
- * 定时表 服务类
- * </p>
+ * <p> 定时表 服务类 </p>
  *
  * @author gaox·Eric
  * @since 2019-10-26

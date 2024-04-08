@@ -7,9 +7,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
- * <p>
- * 基础用户表
- * </p>
+ * <p> 基础用户表 </p>
  *
  * @author gaox·Eric
  * @since 2019-07-09

@@ -7,9 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * <p>
- * 基础用户表 mapper 接口
- * </p>
+ * <p> 基础用户表 mapper 接口 </p>
  *
  * @author gaox·Eric
  * @since 2019-07-09

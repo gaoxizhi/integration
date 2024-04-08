@@ -13,9 +13,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * <p>
- * 定时表
- * </p>
+ * <p> 定时表 </p>
  *
  * @author gaox·Eric
  * @since 2019-10-26

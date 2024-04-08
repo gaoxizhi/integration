@@ -5,9 +5,7 @@ import net.gaox.page.entity.User;
 import java.util.List;
 
 /**
- * <p>
- * 基础用户表 服务类
- * </p>
+ * <p> 基础用户表 服务类 </p>
  *
  * @author gaox·Eric
  * @since 2019-07-09

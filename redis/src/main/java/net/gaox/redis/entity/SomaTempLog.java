@@ -7,9 +7,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * <p>
- * 体感温度湿度计
- * </p>
+ * <p> 体感温度湿度计 </p>
  *
  * @author gaox
  * @since 2019-04-08

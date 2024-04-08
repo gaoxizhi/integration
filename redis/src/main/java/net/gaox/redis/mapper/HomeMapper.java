@@ -6,9 +6,7 @@ import org.apache.ibatis.annotations.*;
 import java.util.List;
 
 /**
- * <p>
- * 家庭表 Mapper 接口
- * </p>
+ * <p> 家庭表 Mapper 接口 </p>
  *
  * @author gaox
  * @since 2019-04-07
