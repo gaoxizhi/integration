@@ -2,7 +2,7 @@ package net.gaox.model.queue.send;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import lombok.extern.slf4j.Slf4j;
-import net.gaox.model.entity.Orders;
+import net.gaox.model.entity.Order;
 import net.gaox.model.entity.message.BrokerMessageLog;
 import net.gaox.model.enums.OrderSendStatusEnum;
 import net.gaox.model.events.OrderSendEvent;
@@ -10,7 +10,6 @@ import net.gaox.model.mapper.BrokerMessageLogMapper;
 import org.springframework.amqp.rabbit.connection.CorrelationData;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.context.event.EventListener;
-import org.springframework.core.annotation.Order;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
@@ -75,7 +74,7 @@ public class OrderSender {
      *
      * @param order 订单
      */
-    public void send(Orders order) {
+    public void send(Order order) {
         //设置投递回调
         rabbitTemplate.setConfirmCallback(confirmCallback);
         CorrelationData correlationData = new CorrelationData();
@@ -89,7 +88,7 @@ public class OrderSender {
      * @param event 订单事件消息
      */
     @Async
-    @Order(0)
+    @org.springframework.core.annotation.Order(0)
     @EventListener
     public void eventListener(OrderSendEvent event) {
         if (null == event || null == event.getEventType() || null == event.getOrder()) {

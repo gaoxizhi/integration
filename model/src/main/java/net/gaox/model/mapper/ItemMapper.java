@@ -1,16 +1,14 @@
 package net.gaox.model.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import net.gaox.model.entity.Orders;
+import net.gaox.model.entity.Item;
 
 /**
- * <p>
- * 订单表 Mapper 接口
- * </p>
+ * <p> 商品表 Mapper 接口 </p>
  *
  * @author gaox·Eric
  * @since 2019-07-13
  */
-public interface OrdersMapper extends BaseMapper<Orders> {
+public interface ItemMapper extends BaseMapper<Item> {
 
 }

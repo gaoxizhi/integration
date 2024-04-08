@@ -3,21 +3,20 @@ package net.gaox.model.service.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import net.gaox.model.entity.Orders;
+import net.gaox.model.entity.Order;
 import net.gaox.model.entity.message.BrokerMessageLog;
 import net.gaox.model.enums.OrderSendStatusEnum;
 import net.gaox.model.events.OrderSendEvent;
 import net.gaox.model.mapper.BrokerMessageLogMapper;
-import net.gaox.model.mapper.OrdersMapper;
-import net.gaox.model.service.OrdersService;
+import net.gaox.model.mapper.OrderMapper;
+import net.gaox.model.service.OrderService;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 /**
- * <p>
- * 订单表 服务实现类
- * </p>
+ * <p> 订单表 服务实现类 </p>
  *
  * @author gaox·Eric
  * @since 2019-07-13
@@ -25,7 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> implements OrdersService {
+public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements OrderService {
 
     private final BrokerMessageLogMapper brokerMessageLogMapper;
 
@@ -33,7 +32,7 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Boolean createOrder(Orders order) {
+    public Boolean createOrder(Order order) {
         //插入订单表
         baseMapper.insert(order);
         //插入rabbitmq投递信息日志表

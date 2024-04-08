@@ -12,9 +12,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * <p>
- * 订单详情
- * </p>
+ * <p> 订单详情 </p>
  *
  * @author gaox·Eric
  * @since 2019-07-13
@@ -32,13 +30,13 @@ public class OrderDetail implements Serializable {
     private Long id;
 
     @ApiModelProperty(value = "订单id")
-    private Long ordersId;
+    private Long orderId;
 
     @ApiModelProperty(value = "商品id")
-    private Long itemsId;
+    private Long itemId;
 
     @ApiModelProperty(value = "商品购买数量")
-    private Integer itemsNum;
+    private Integer itemNum;
 
     @ApiModelProperty(value = "创建时间")
     private LocalDateTime createTime;

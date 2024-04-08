@@ -7,14 +7,15 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+import net.gaox.model.model.enums.EnumDel;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
- * <p>
- * 订单表
- * </p>
+ * <p> 商品表 </p>
  *
  * @author gaox·Eric
  * @since 2019-07-13
@@ -22,22 +23,30 @@ import java.time.LocalDateTime;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@ApiModel(value = "Orders对象", description = "订单表")
-public class Orders implements Serializable {
+@SuppressWarnings("serial")
+@ApiModel(value = "Item对象", description = "商品表")
+public class Item implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @ApiModelProperty(value = "id")
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
-    @ApiModelProperty(value = "下单用户id")
-    private Long userId;
+    @ApiModelProperty(value = "商品名称")
+    private String name;
 
-    @ApiModelProperty(value = "订单号")
-    private String number;
+    @ApiModelProperty(value = "商品定价")
+    private BigDecimal price;
 
-    @ApiModelProperty(value = "备注")
-    private String note;
+    @ApiModelProperty(value = "商品描述")
+    private String detail;
+
+    @ApiModelProperty(value = "商品图片")
+    private String pic;
+
+    @ApiModelProperty(value = "生产日期")
+    private LocalDate produceTime;
 
     @ApiModelProperty(value = "创建时间")
     private LocalDateTime createTime;
@@ -46,5 +55,5 @@ public class Orders implements Serializable {
     private LocalDateTime updateTime;
 
     @ApiModelProperty(value = "删除标志：删除0；正常1（默认）")
-    private Boolean delFlag;
+    private EnumDel delFlag;
 }

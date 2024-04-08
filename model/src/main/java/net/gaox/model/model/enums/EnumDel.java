@@ -1,34 +1,32 @@
 package net.gaox.model.model.enums;
 
 import com.baomidou.mybatisplus.core.enums.IEnum;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
-public enum EnumDel implements IEnum {
+/**
+ * <p> 状态枚举，实现 IEnum 接口 </p>
+ *
+ * @author gaox·Eric
+ * @since 2019-07-13
+ */
+@Getter
+@AllArgsConstructor
+public enum EnumDel implements IEnum<Integer> {
 
     /**
      * 被删除
      */
-    DELETE(false, "删除"),
-    NORMAL(true, "正常");
+    DELETE(0, "删除"),
+    NORMAL(1, "正常"),
+    CANCEL(2, "注销"),
+    ;
 
-    private Boolean value;
+    private Integer value;
     private String desc;
 
-    EnumDel(final Boolean value, final String desc) {
-        this.value = value;
-        this.desc = desc;
-    }
-
-    @Override
-    public Boolean getValue() {
-        return this.value;
-    }
-
-    public String getDesc() {
-        return this.desc;
-    }
-
     /**
-     * 重写ToString收字段字面值
+     * 重写ToString显示字段字面值
      */
     @Override
     public String toString() {

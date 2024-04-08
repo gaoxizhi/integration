@@ -9,9 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 /**
- * <p>
- * 用户表 前端控制器
- * </p>
+ * <p> 用户表 前端控制器 </p>
  *
  * @author gaox·Eric
  * @since 2019-07-13

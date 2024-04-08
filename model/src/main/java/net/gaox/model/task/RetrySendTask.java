@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import net.gaox.model.entity.Orders;
+import net.gaox.model.entity.Order;
 import net.gaox.model.entity.message.BrokerMessageLog;
 import net.gaox.model.enums.OrderSendStatusEnum;
 import net.gaox.model.events.OrderSendEvent;
@@ -51,7 +51,7 @@ public class RetrySendTask {
                 messageLog.setStatus(OrderSendStatusEnum.ORDER_SEND_FAILURE.getCode());
                 messageLog.setUpdateTime(LocalDateTime.now());
                 // 测试不消费事件
-                Orders order = JSONObject.parseObject(messageLog.getMessage(), Orders.class);
+                Order order = JSONObject.parseObject(messageLog.getMessage(), Order.class);
                 OrderSendEvent even = new OrderSendEvent(OrderSendStatusEnum.ORDER_SEND_FAILURE, order);
                 applicationEventPublisher.publishEvent(even);
                 brokerMessageLogMapper.updateById(messageLog);
@@ -61,7 +61,7 @@ public class RetrySendTask {
                 brokerMessageLogMapper.updateById(messageLog);
                 try {
                     //重新投递信息
-                    Orders order = JSONObject.parseObject(messageLog.getMessage(), Orders.class);
+                    Order order = JSONObject.parseObject(messageLog.getMessage(), Order.class);
                     OrderSendEvent even = new OrderSendEvent(OrderSendStatusEnum.ORDER_SENDING, order);
                     applicationEventPublisher.publishEvent(even);
                     log.info("订单信息重新投递成功，订单号：{}", messageLog.getMessageId());

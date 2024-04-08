@@ -1,20 +1,20 @@
 server:
-  # \u8BBE\u7F6E\u670D\u52A1\u5668\u7AEF\u53E3
+  # 设置服务器端口
   port: 12529
   servlet:
-    # \u8BBE\u7F6E\u9879\u76EE\u6839\u8DEF\u5F84
+    # 设置项目根路径
     context-path: /
 
 spring:
   application:
     name: consumer
 
-  # \u914D\u7F6EMySQL
+    # 配置MySQL
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: root
-    # \u8FD9\u91CC\u6709\u5FC5\u8981\u6DFB\u52A0\u65F6\u533A\u4FE1\u606F\uFF0C\u4F1A\u62A5\u9519
+    # 这里有必要添加时区信息，会报错
     url: 'jdbc:mysql://localhost:3306/gaox?serverTimezone=GMT%2B8&characterEncoding=utf-8&useSSL=false&useUnicode=true'
 
   # RabbitMQ
@@ -22,18 +22,18 @@ spring:
     addresses: 127.0.0.1:5672
     username: gaox
     password: gaox
-    #\u865A\u62DF\u4E3B\u673A\u5730\u5740
+    #虚拟主机地址
     virtual-host: /
-    #\u8FDE\u63A5\u8D85\u65F6\u65F6\u95F4
+    #连接超时时间
     connection-timeout: 15000
     publisher-confirms: true
     publisher-returns: true
     template:
       mandatory: true
-    #\u91CD\u65B0\u6295\u9012\u65F6\u95F4\uFF08\u5206\u949F\uFF09
+    #重新投递时间（分钟）
     overtime: 1
 
-#\u63A7\u5236\u9879\u76EE\u65E5\u5FD7\u7EA7\u522B
+#控制项目日志级别
 logging:
   level:
     net:

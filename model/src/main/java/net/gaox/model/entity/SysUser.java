@@ -15,9 +15,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
- * <p>
- * 用户表
- * </p>
+ * <p> 用户表 </p>
  *
  * @author gaox·Eric
  * @since 2019-07-13

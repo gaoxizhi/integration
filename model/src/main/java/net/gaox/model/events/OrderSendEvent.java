@@ -3,7 +3,7 @@ package net.gaox.model.events;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import net.gaox.model.entity.Orders;
+import net.gaox.model.entity.Order;
 import net.gaox.model.enums.OrderSendStatusEnum;
 
 /**
@@ -17,5 +17,5 @@ import net.gaox.model.enums.OrderSendStatusEnum;
 @AllArgsConstructor
 public class OrderSendEvent {
     private OrderSendStatusEnum eventType;
-    private Orders order;
+    private Order order;
 }

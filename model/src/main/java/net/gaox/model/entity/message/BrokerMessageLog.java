@@ -9,7 +9,7 @@ import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
-import net.gaox.model.entity.Orders;
+import net.gaox.model.entity.Order;
 import net.gaox.model.enums.OrderSendStatusEnum;
 
 import java.io.Serializable;
@@ -56,7 +56,7 @@ public class BrokerMessageLog extends Model<BrokerMessageLog> {
      * @param order 订单
      * @return 消息
      */
-    public static BrokerMessageLog fromOrder(Orders order) {
+    public static BrokerMessageLog fromOrder(Order order) {
         BrokerMessageLog log = new BrokerMessageLog();
         log.setMessageId(String.valueOf(order.getNumber()));
         log.setMessage(JSONObject.toJSONString(order));
