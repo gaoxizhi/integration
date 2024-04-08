@@ -38,6 +38,14 @@ public class MyBatisPlusGenerator {
      * 项目父级包路径
      */
     private final static String PARENT_PACKAGE = "net.gaox.erp";
+    /**
+     * mapper.xml 文件路径
+     */
+    private final static String MAPPER_XML_PATH = "resources/mybatis/mapper";
+
+    // 想要覆盖 @since 为 时间，需要改generator源代码
+    // com.baomidou.mybatisplus.generator.engine.AbstractTemplateEngine#getObjectMap
+    // 修改 objectMap.put("date", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
 
     /**
      * 生成入口
@@ -74,7 +82,9 @@ public class MyBatisPlusGenerator {
                 // 设置数据库类型
                 .setDbType(DbType.MYSQL)
                 .setDriverName("com.mysql.cj.jdbc.Driver")
-                .setUrl("jdbc:mysql://" + DATA_BASE_HOST + ":" + DATA_BASE_PROT + "/" + DATA_BASE + "?useUnicode=true&characterEncoding=utf-8&tinyInt1isBit=false&serverTimezone=Asia/Shanghai")
+                .setUrl("jdbc:mysql://" + DATA_BASE_HOST + ":" + DATA_BASE_PROT + "/" + DATA_BASE +
+                        "?useUnicode=true&characterEncoding=utf-8&useSSL=false" +
+                        "&tinyInt1isBit=false&serverTimezone=Asia/Shanghai")
                 .setUsername(DATA_BASE_USER)
                 .setPassword(DATA_BASE_PASS);
 
