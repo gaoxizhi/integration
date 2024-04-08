@@ -57,9 +57,9 @@ public class UserAndOrderItemDTO {
     private LocalDateTime updateTime;
 
     /**
-     * 删除标志：删除0；正常1（默认）
+     * 账户状态: 0 删除, 1 正常, 2 注销
      */
-    private EnumDelFlag delFlag;
+    private EnumDelFlag state;
 
     /**
      * 用户创建的订单列表
