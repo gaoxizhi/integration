@@ -3,8 +3,8 @@ package net.gaox.model.events;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import net.gaox.model.entity.Order;
-import net.gaox.model.enums.OrderSendStatusEnum;
+import net.gaox.domain.model.entity.Order;
+import net.gaox.domain.model.enums.OrderSendStatusEnum;
 
 /**
  * <p> 订单同步时间消息体 </p>

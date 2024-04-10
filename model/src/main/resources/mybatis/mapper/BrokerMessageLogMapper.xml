@@ -3,7 +3,7 @@
 <mapper namespace="net.gaox.model.mapper.BrokerMessageLogMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="net.gaox.model.entity.message.BrokerMessageLog">
+    <resultMap id="BaseResultMap" type="net.gaox.domain.model.entity.message.BrokerMessageLog">
         <id column="message_id" property="messageId" />
         <result column="message" property="message" />
         <result column="try_count" property="tryCount" />

@@ -2,9 +2,9 @@ package net.gaox.model.queue.send;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import lombok.extern.slf4j.Slf4j;
-import net.gaox.model.entity.Order;
-import net.gaox.model.entity.message.BrokerMessageLog;
-import net.gaox.model.enums.OrderSendStatusEnum;
+import net.gaox.domain.model.entity.Order;
+import net.gaox.domain.model.entity.message.BrokerMessageLog;
+import net.gaox.domain.model.enums.OrderSendStatusEnum;
 import net.gaox.model.events.OrderSendEvent;
 import net.gaox.model.mapper.BrokerMessageLogMapper;
 import org.springframework.amqp.rabbit.connection.CorrelationData;

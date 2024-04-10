@@ -1,4 +1,4 @@
-package net.gaox.model.enums;
+package net.gaox.domain.model.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

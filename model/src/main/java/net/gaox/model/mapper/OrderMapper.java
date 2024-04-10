@@ -1,7 +1,7 @@
 package net.gaox.model.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import net.gaox.model.entity.Order;
+import net.gaox.domain.model.entity.Order;
 
 /**
  * <p> 订单表 Mapper 接口 </p>

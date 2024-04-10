@@ -1,7 +1,7 @@
 package net.gaox.model.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import net.gaox.model.entity.SysUser;
+import net.gaox.domain.model.entity.SysUser;
 
 /**
  * <p> 用户表 服务类 </p>

@@ -3,7 +3,7 @@ package net.gaox.consumer.queue.receiver;
 import com.rabbitmq.client.Channel;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import net.gaox.model.entity.Order;
+import net.gaox.domain.model.entity.Order;
 import net.gaox.model.service.OrderService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.amqp.rabbit.annotation.*;

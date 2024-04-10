@@ -3,7 +3,7 @@
 <mapper namespace="net.gaox.model.mapper.OrderDetailMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="net.gaox.model.entity.OrderDetail">
+    <resultMap id="BaseResultMap" type="net.gaox.domain.model.entity.OrderDetail">
         <id column="id" property="id" />
         <result column="order_id" property="orderId" />
         <result column="item_id" property="itemId" />

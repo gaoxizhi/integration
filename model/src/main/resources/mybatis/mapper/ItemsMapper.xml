@@ -3,7 +3,7 @@
 <mapper namespace="net.gaox.model.mapper.ItemMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="net.gaox.model.entity.Item">
+    <resultMap id="BaseResultMap" type="net.gaox.domain.model.entity.Item">
         <id column="id" property="id" />
         <result column="item_name" property="itemName" />
         <result column="price" property="price" />

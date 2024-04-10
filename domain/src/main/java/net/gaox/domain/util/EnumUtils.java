@@ -1,4 +1,4 @@
-package net.gaox.model.enums;
+package net.gaox.domain.util;
 
 import java.util.Arrays;
 import java.util.List;

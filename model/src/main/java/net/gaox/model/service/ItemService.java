@@ -1,7 +1,7 @@
 package net.gaox.model.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import net.gaox.model.entity.Item;
+import net.gaox.domain.model.entity.Item;
 
 /**
  * <p> 商品表 服务类 </p>

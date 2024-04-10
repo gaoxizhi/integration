@@ -2,7 +2,7 @@ package net.gaox.model.controller;
 
 
 import lombok.RequiredArgsConstructor;
-import net.gaox.model.entity.Order;
+import net.gaox.domain.model.entity.Order;
 import net.gaox.model.service.OrderService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

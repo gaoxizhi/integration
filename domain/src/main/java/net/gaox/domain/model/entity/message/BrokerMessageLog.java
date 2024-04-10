@@ -1,4 +1,4 @@
-package net.gaox.model.entity.message;
+package net.gaox.domain.model.entity.message;
 
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.annotation.IdType;
@@ -9,8 +9,8 @@ import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
-import net.gaox.model.entity.Order;
-import net.gaox.model.enums.OrderSendStatusEnum;
+import net.gaox.domain.model.entity.Order;
+import net.gaox.domain.model.enums.OrderSendStatusEnum;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;

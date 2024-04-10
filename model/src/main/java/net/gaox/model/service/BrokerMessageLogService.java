@@ -1,7 +1,7 @@
 package net.gaox.model.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import net.gaox.model.entity.message.BrokerMessageLog;
+import net.gaox.domain.model.entity.message.BrokerMessageLog;
 
 /**
  * <p> 订单处理记录 </p>

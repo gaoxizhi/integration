@@ -1,7 +1,7 @@
 package net.gaox.model.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import net.gaox.model.entity.message.BrokerMessageLog;
+import net.gaox.domain.model.entity.message.BrokerMessageLog;
 
 /**
  * <p> 订单处理记录 </p>

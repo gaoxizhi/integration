@@ -56,8 +56,8 @@ spring:
 #mybatis-plus
 mybatis-plus:
   #实体扫描，多个package用逗号或者分号分隔
-  typeAliasesPackage: net.gaox.model
-  typeEnumsPackage: net.gaox.model.model.enums
+  typeAliasesPackage: net.gaox.domain.model
+  typeEnumsPackage: net.gaox.domain.model.entity.enums
   #  typeAliasesPackage: net.gaox.model.entity
   mapper-locations: classpath:/mybatis/**/*Mapper.xml
   configuration:

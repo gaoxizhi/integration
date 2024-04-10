@@ -1,9 +1,9 @@
 package net.gaox.model.task;
 
 import lombok.extern.slf4j.Slf4j;
-import net.gaox.model.entity.Order;
-import net.gaox.model.enums.EnumUtils;
-import net.gaox.model.enums.OrderSendStatusEnum;
+import net.gaox.domain.model.entity.Order;
+import net.gaox.domain.model.enums.OrderSendStatusEnum;
+import net.gaox.domain.util.EnumUtils;
 import net.gaox.model.events.OrderSendEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Async;

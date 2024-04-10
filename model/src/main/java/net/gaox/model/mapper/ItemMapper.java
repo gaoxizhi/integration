@@ -1,7 +1,7 @@
 package net.gaox.model.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import net.gaox.model.entity.Item;
+import net.gaox.domain.model.entity.Item;
 
 /**
  * <p> 商品表 Mapper 接口 </p>

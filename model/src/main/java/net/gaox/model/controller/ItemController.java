@@ -1,13 +1,10 @@
 package net.gaox.model.controller;
 
 
-import net.gaox.model.entity.Item;
+import net.gaox.domain.model.entity.Item;
 import net.gaox.model.service.ItemService;
 import org.springframework.util.Assert;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -24,14 +21,14 @@ public class ItemController {
     @Resource
     ItemService itemService;
 
-    @RequestMapping("")
+    @GetMapping
     public List<Item> list() {
         List<Item> list = itemService.list(null);
-        list.stream().forEach(s -> System.out.println(s.toString()));
+        list.forEach(s -> System.out.println(s.toString()));
         return list;
     }
 
-    @PostMapping()
+    @PostMapping
     public Item add(@RequestBody Item item) {
         Assert.notNull(item, "不能空啊！");
         System.out.println(item);

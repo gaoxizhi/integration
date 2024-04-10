@@ -8,7 +8,6 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.1.2.RELEASE</version>
-        <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>net.gaox</groupId>
     <artifactId>integration</artifactId>
@@ -34,11 +33,12 @@
 
     <!--子模块列表-->
     <modules>
+        <module>domain</module>
+        <module>util</module>
         <module>redis</module>
         <module>aliyun-oss</module>
         <module>thymeleaf</module>
         <module>excel</module>
-        <module>util</module>
         <module>mongodb</module>
         <module>springboot-jpa</module>
         <module>shiro-jwt</module>
@@ -98,7 +98,12 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>2.0.5</version>
+            <version>1.7.30</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.7.30</version>
         </dependency>
 
         <!-- *************** fastJson依赖 国内较为常用 ***************************************-->
@@ -113,16 +118,6 @@
             <artifactId>lombok</artifactId>
             <version>1.18.30</version>
             <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>1.7.30</version>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-            <version>1.7.30</version>
         </dependency>
 
     </dependencies>

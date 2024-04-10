@@ -1,7 +1,7 @@
 package net.gaox.model.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import net.gaox.model.entity.SysUser;
+import net.gaox.domain.model.entity.SysUser;
 import net.gaox.model.mapper.SysUserMapper;
 import net.gaox.model.service.SysUserService;
 import org.springframework.stereotype.Service;

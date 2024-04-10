@@ -1,8 +1,9 @@
 package net.gaox.model.controller;
 
 
-import net.gaox.model.entity.SysUser;
+import net.gaox.domain.model.entity.SysUser;
 import net.gaox.model.service.SysUserService;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,10 +23,12 @@ public class SysUserController {
     public SysUserController(SysUserService userService) {
         this.userService = userService;
     }
-    @RequestMapping()
+
+    @GetMapping
     public List<SysUser> list() {
         List<SysUser> list = userService.list(null);
         list.forEach(s -> System.out.println(s.toString()));
         return list;
     }
+
 }

@@ -1,7 +1,7 @@
 package net.gaox.model.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import net.gaox.model.entity.message.BrokerMessageLog;
+import net.gaox.domain.model.entity.message.BrokerMessageLog;
 import net.gaox.model.mapper.BrokerMessageLogMapper;
 import net.gaox.model.service.BrokerMessageLogService;
 import org.springframework.stereotype.Service;

@@ -1,7 +1,7 @@
 package net.gaox.model.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import net.gaox.model.entity.Item;
+import net.gaox.domain.model.entity.Item;
 import net.gaox.model.mapper.ItemMapper;
 import net.gaox.model.service.ItemService;
 import org.springframework.stereotype.Service;
