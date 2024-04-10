@@ -37,3 +37,4 @@ springboot、redis、mybatis、mybatisplus、MongoDB...技术整合项目
 | producer            | 12530 |
 | minio               | 12531 |
 | es-search           | 12532 |
+| kafka               | 12533 |

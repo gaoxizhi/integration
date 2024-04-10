@@ -41,6 +41,7 @@ web/.settings/
 
 .DS_Store
 *.log
+*.log.*
 tmp/
 logs/
 

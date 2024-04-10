@@ -60,6 +60,7 @@
         <module>minio</module>
         <module>disperse</module>
         <module>es-search</module>
+        <module>kafka</module>
     </modules>
 
     <!--依赖管理-->
