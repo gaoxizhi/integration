@@ -8,6 +8,7 @@ import org.apache.kafka.clients.producer.ProducerConfig;
 import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
+import org.springframework.kafka.support.ProducerListener;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
@@ -31,7 +32,8 @@ public class MessageSender {
      * @param kafkaConfig     kafka 配置
      * @param producerFactory 生产者工厂
      */
-    public MessageSender(KafkaConfig kafkaConfig, ProducerFactory<String, String> producerFactory) {
+    public MessageSender(KafkaConfig kafkaConfig, ProducerFactory<String, String> producerFactory,
+                         ProducerListener kafkaSendResultHandler) {
         this.kafkaConfig = kafkaConfig;
 
         // 创建一个新的 producer factory，不设置 transaction.id.prefix
@@ -46,6 +48,7 @@ public class MessageSender {
 
         // 创建非事务性的 KafkaTemplate
         this.kafkaTemplate = new KafkaTemplate<>(nonTransactionalProducerFactory);
+        this.kafkaTemplate.setProducerListener(kafkaSendResultHandler);
     }
 
 

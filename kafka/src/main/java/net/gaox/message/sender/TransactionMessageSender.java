@@ -3,6 +3,7 @@ package net.gaox.message.sender;
 import com.alibaba.fastjson.JSON;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import net.gaox.conf.KafkaConfig;
 import net.gaox.domain.model.entity.Order;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
@@ -19,6 +20,7 @@ import java.util.List;
 @Component
 @RequiredArgsConstructor
 public class TransactionMessageSender {
+    private final KafkaConfig kafkaConfig;
     private final KafkaTemplate<String, String> kafkaTemplate;
 
     /**
@@ -29,7 +31,7 @@ public class TransactionMessageSender {
     public void sendMessageInTransaction(List<Order> orders) {
         kafkaTemplate.executeInTransaction(t -> {
             for (Order order : orders) {
-                t.send("topic", JSON.toJSONString(order));
+                t.send(kafkaConfig.getTopic(), JSON.toJSONString(order));
             }
             return true;
         });
