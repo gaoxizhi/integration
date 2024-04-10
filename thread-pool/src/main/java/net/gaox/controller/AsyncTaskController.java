@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.gaox.response.BaseResponse;
 import net.gaox.service.AsyncService;
+import net.gaox.util.HttpUtil;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,6 +41,8 @@ public class AsyncTaskController {
     @ApiOperation(value = "异步任务控制器", notes = "异步任务控制器")
     public BaseResponse<String> taskExecute() {
         long startTime = System.currentTimeMillis();
+        HttpUtil.lookHttpScopeAttribute();
+
         try {
             Future<BaseResponse> r1 = asyncService.doTaskOne();
             Future<BaseResponse> r2 = asyncService.doTaskTwo();

@@ -3,6 +3,7 @@ package net.gaox.relation.config.mybatis;
 import net.gaox.relation.model.enums.ICodeEnum;
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
+import org.apache.ibatis.type.TypeException;
 
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
@@ -27,25 +28,41 @@ public class EnumCodeTypeHandler<E extends Enum<E> & ICodeEnum> extends BaseType
 
     @Override
     public void setNonNullParameter(PreparedStatement ps, int i, E parameter, JdbcType jdbcType) throws SQLException {
+        if (null == parameter) {
+            try {
+                ps.setNull(i, jdbcType.TYPE_CODE);
+            } catch (SQLException e) {
+                throw new TypeException("Error setting null for parameter #" + i + " with JdbcType " + jdbcType + " . "
+                        + "Try setting a different JdbcType for this parameter or a different jdbcTypeForNull configuration property. "
+                        + "Cause: " + e, e);
+            }
+        }
         ps.setInt(i, parameter.getCode());
     }
 
     @Override
     public E getNullableResult(ResultSet rs, String columnName) throws SQLException {
-        int code = rs.getInt(columnName);
-        return getEnum(code);
+        // 处理null值枚举，默认映射到枚举值0
+        if (null == rs.getObject(columnName)) {
+            return null;
+        }
+        return getEnum(rs.getInt(columnName));
     }
 
     @Override
     public E getNullableResult(ResultSet rs, int columnIndex) throws SQLException {
-        int code = rs.getInt(columnIndex);
-        return getEnum(code);
+        if (null == rs.getObject(columnIndex)) {
+            return null;
+        }
+        return getEnum(rs.getInt(columnIndex));
     }
 
     @Override
     public E getNullableResult(CallableStatement cs, int columnIndex) throws SQLException {
-        int code = cs.getInt(columnIndex);
-        return getEnum(code);
+        if (null == cs.getObject(columnIndex)) {
+            return null;
+        }
+        return getEnum(cs.getInt(columnIndex));
     }
 
     private E getEnum(int code) {

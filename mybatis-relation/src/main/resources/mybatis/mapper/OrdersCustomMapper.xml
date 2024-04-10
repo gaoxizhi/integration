@@ -15,7 +15,8 @@
         <result column="note" property="note"/>
         <result column="create_time" property="createTime"/>
         <result column="update_time" property="updateTime"/>
-        <result column="del_flag" property="delFlag"/>
+        <result column="del_flag" property="delFlag"
+                typeHandler="net.gaox.relation.config.mybatis.EnumCodeTypeHandler"/>
         <result column="user_name" property="userName"/>
         <result column="sex" property="sex" typeHandler="net.gaox.relation.config.mybatis.EnumCodeTypeHandler"/>
         <result column="address" property="address"/>
@@ -60,7 +61,7 @@
     <!-- 查询订单，关联查询用户信息,使用resultMap实现 -->
     <select id="findOrderUserResultMap" resultMap="orderUserResultMap">
         SELECT o.*,
-               u.`user_name` AS userName,
+               u.`user_name`,
                u.`sex`,
                u.`address`
         FROM `order` AS o,

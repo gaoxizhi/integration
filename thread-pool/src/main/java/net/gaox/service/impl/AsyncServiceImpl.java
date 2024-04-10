@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import net.gaox.holder.RequestHolder;
 import net.gaox.response.BaseResponse;
 import net.gaox.service.AsyncService;
+import net.gaox.util.HttpUtil;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
@@ -49,6 +50,8 @@ public class AsyncServiceImpl implements AsyncService {
     public void doTaskThree() {
         log.info("开始做任务三（睡眠5s）");
         HttpServletRequest request = RequestHolder.getRequest();
+        HttpUtil.lookHttpScopeAttribute();
+
         // 提前获取到，执行 sleep 后，request 内容被清空了
         String name = Thread.currentThread().getName();
         String method = request.getMethod();

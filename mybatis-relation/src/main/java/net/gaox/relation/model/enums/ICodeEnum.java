@@ -8,4 +8,7 @@ package net.gaox.relation.model.enums;
  */
 public interface ICodeEnum {
     Integer getCode();
+
+    String getDescription();
+
 }
