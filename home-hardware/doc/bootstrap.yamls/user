@@ -1,0 +1,19 @@
+server: 
+  port: 12606
+  servlet: 
+    context-path: /
+mybatis-plus:
+  typeAliasesPackage: net.gaox.domain.entity
+  mapper-locations: classpath:/mybatis/**/*Mapper.xml
+  configuration:
+    map-underscore-to-camel-case: true
+logging:
+  level.net.gaox.base: debug
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: root
+    url: jdbc:mysql://localhost:3306/iot?serverTimezone=GMT%2B8&characterEncoding=utf-8&useSSL=false&useUnicode=true
+  cloud:
+    nacos.discovery.ephemeral: false

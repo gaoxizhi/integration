@@ -7,8 +7,7 @@ spring:
     nacos:
       config:
         server-addr: 127.0.0.1:8848
+        namespace: gaox
         group: home
-        # 配置配置文件前缀
-        # prefix:
-        # 配置配置文件格式
-        # file-extension: yaml
+        enable-remote-sync-config: true
+        file-extension: yaml

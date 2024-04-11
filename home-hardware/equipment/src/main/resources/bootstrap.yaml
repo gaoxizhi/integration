@@ -1,5 +1,5 @@
 server:
-  port: 12607
+  port: 12605
   servlet:
     context-path: /
 
@@ -7,7 +7,7 @@ spring:
   main:
     allow-bean-definition-overriding: true
   application:
-    name: notify
+    name: equipment
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -20,6 +20,8 @@ spring:
         server-addr: 127.0.0.1:8848
         namespace: gaox
         group: home
+        enable-remote-sync-config: true
+        file-extension: yaml
 
 mybatis-plus:
   typeAliasesPackage: net.gaox.domain.entity
