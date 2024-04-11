@@ -8,8 +8,7 @@ import java.util.TimerTask;
  * @author gaox·Eric
  * @date 2020/3/9 12:30
  */
-public
-class MonitorThread extends TimerTask {
+public class MonitorThread extends TimerTask {
     private LittleThread mt;
 
     public MonitorThread(LittleThread mt) {

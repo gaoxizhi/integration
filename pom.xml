@@ -42,18 +42,22 @@
         <module>mongodb</module>
         <module>springboot-jpa</module>
         <module>shiro-jwt</module>
-        <module>log4j2-designation</module>
-        <module>ip</module>
-        <module>model</module>
         <module>page</module>
         <module>mybatis-relation</module>
         <module>live-chat-netty</module>
         <module>file-server</module>
-        <module>explore</module>
+        <module>ip</module>
         <module>mqtt</module>
+        <module>log4j2-designation</module>
+        <module>ws</module>
+        <module>drools</module>
+        <module>model</module>
+        <module>explore</module>
         <module>redis-share-session</module>
+        <module>restart-spring</module>
         <module>test</module>
         <module>similar-text</module>
+        <module>init-database</module>
         <module>thread-pool</module>
         <module>jedis-connect</module>
         <module>lettuce-redis-connect</module>
@@ -61,6 +65,7 @@
         <module>disperse</module>
         <module>es-search</module>
         <module>kafka</module>
+        <module>java-mail</module>
     </modules>
 
     <!--依赖管理-->

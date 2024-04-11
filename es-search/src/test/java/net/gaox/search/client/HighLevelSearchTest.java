@@ -89,6 +89,10 @@ public class HighLevelSearchTest {
         MatchQueryBuilder matchQuery = QueryBuilders.matchQuery("name", "汽车");
         // 条件查询，多字段匹配
         // MultiMatchQueryBuilder multiMatchQuery = QueryBuilders.multiMatchQuery("汽车", "name");
+        // 单字段匹配多条件
+        BoolQueryBuilder boolQuery = QueryBuilders.boolQuery()
+                .should(QueryBuilders.matchQuery("name", "汽车"))
+                .should(QueryBuilders.matchQuery("name", "卡车"));
 
         // 区间查询条件 range构造器
         RangeQueryBuilder rangeQuery = QueryBuilders.rangeQuery("price").gt(100).lte(200);

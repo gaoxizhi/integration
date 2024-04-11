@@ -1,10 +1,10 @@
 # 设置服务器端口
 server:
-  port: 8080
+  port: 12522
 
 spring:
   application:
-    name: restart-test
+    name: restart-spring
 
 # log
 logging:

@@ -30,6 +30,7 @@ springboot、redis、mybatis、mybatisplus、MongoDB...技术整合项目
 | redis-share-session | 12521 |
 | restart-spring      | 12522 |
 | similar-text        | 12523 |
+| init-database       | 12525 |
 | thread-pool         | 12526 |
 | jedis-connect       | 12527 |
 | lettuce-connect     | 12528 |

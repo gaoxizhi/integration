@@ -1,12 +1,5 @@
 package net.gaox.search.client;
 
-/**
- * <p>  </p>
- *
- * @author gaox·Eric
- * @date 2024-02-21 19:42
- */
-
 import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import net.gaox.search.constant.Constants;
