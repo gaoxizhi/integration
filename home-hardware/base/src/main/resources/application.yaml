@@ -1,0 +1,14 @@
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  application:
+    name: base
+  cloud:
+    nacos:
+      config:
+        server-addr: 127.0.0.1:8848
+        group: gaox
+        # 配置配置文件前缀
+        # prefix:
+        # 配置配置文件格式
+        # file-extension: yaml

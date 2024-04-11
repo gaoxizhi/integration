@@ -66,6 +66,7 @@
         <module>es-search</module>
         <module>kafka</module>
         <module>java-mail</module>
+        <module>home-hardware</module>
     </modules>
 
     <!--依赖管理-->
