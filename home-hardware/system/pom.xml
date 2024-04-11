@@ -12,11 +12,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>system</name>
     <description>system</description>
-    <properties>
-        <spring-cloud.version>2.1.2.RELEASE</spring-cloud.version>
-        <spring-cloud-dependency.version>Finchley.RELEASE</spring-cloud-dependency.version>
-        <spring-cloud-alibaba.version>2.1.2.RELEASE</spring-cloud-alibaba.version>
-    </properties>
+
     <dependencies>
         <dependency>
             <groupId>net.gaox</groupId>
@@ -54,8 +50,8 @@
         </dependency>
         <!-- 引入 Feign, 可以以声明的方式调用微服务 -->
         <dependency>
-        <groupId>org.springframework.cloud</groupId>
-        <artifactId>spring-cloud-starter-openfeign</artifactId>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
             <version>${spring-cloud.version}</version>
         </dependency>
 

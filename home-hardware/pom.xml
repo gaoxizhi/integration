@@ -16,10 +16,17 @@
     <modules>
         <module>home-domain</module>
         <module>base</module>
+        <module>user</module>
+        <module>home</module>
+        <module>equipment</module>
         <module>system</module>
+        <module>notify</module>
     </modules>
 
     <properties>
+        <spring-cloud.version>2.1.2.RELEASE</spring-cloud.version>
+        <spring-cloud-dependency.version>Finchley.RELEASE</spring-cloud-dependency.version>
+        <spring-cloud-alibaba.version>2.1.2.RELEASE</spring-cloud-alibaba.version>
     </properties>
 
     <dependencies>

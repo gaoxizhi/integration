@@ -8,10 +8,13 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>base</artifactId>
+    <artifactId>equipment</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>base</name>
-    <description>base</description>
+    <name>equipment</name>
+    <description>equipment</description>
+
+    <properties>
+    </properties>
 
     <dependencies>
         <dependency>
@@ -54,7 +57,8 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
             <version>${spring-cloud.version}</version>
-        </dependency>    </dependencies>
+        </dependency>
+    </dependencies>
 
     <dependencyManagement>
         <dependencies>
