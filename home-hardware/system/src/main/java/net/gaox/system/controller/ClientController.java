@@ -2,6 +2,7 @@ package net.gaox.system.controller;
 
 import lombok.RequiredArgsConstructor;
 import net.gaox.domain.entity.SysKv;
+import net.gaox.system.config.DataSourceConfig;
 import net.gaox.system.feign.KvFeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,6 +27,8 @@ import java.util.Optional;
 public class ClientController {
     private final RestTemplate restTemplate;
     private final KvFeignClient kvFeignClient;
+    private final DataSourceConfig dataSourceConfig;
+
     private final String baseUrl = "http://base/kv";
 
     @GetMapping(value = "/kv/{key}")
@@ -84,4 +87,10 @@ public class ClientController {
         String echo = kvFeignClient.echo(str);
         return echo;
     }
+
+    @GetMapping("/get/config/username")
+    public String getDataSourceConfig() {
+        return dataSourceConfig.getUsername();
+    }
+
 }
