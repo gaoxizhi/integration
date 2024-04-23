@@ -2,10 +2,10 @@ package net.gaox.controller;
 
 import lombok.RequiredArgsConstructor;
 import net.gaox.domain.model.entity.Order;
+import net.gaox.message.fixed.KafkaRedoMessages;
 import net.gaox.message.sender.MessageSender;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import net.gaox.model.dto.RedoDTO;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -23,6 +23,7 @@ import java.util.UUID;
 public class TestController {
 
     private final MessageSender messageSender;
+    private final KafkaRedoMessages kafkaRedoMessages;
 
     @GetMapping("/send")
     public Order send() {
@@ -35,6 +36,11 @@ public class TestController {
         order.setUpdateTime(LocalDateTime.now());
         messageSender.sender(order);
         return order;
+    }
+
+    @PostMapping("/redo")
+    public void redo(@RequestBody RedoDTO redo) {
+        kafkaRedoMessages.redoMessages(redo.getTopics(), redo.getStartTime(), redo.getEndTime());
     }
 
 }
