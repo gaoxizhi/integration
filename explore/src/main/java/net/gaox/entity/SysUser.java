@@ -5,11 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import net.gaox.enums.EnumDel;
-import org.hibernate.validator.constraints.Length;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Null;
 import java.time.LocalDateTime;
 
 /**
@@ -26,22 +22,15 @@ public class SysUser {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "id")
-    @NotNull(groups = {Update.class}, message = "修改用户无id信息请检查")
-    @Null(groups = Add.class, message = "你怎么会有呢？")
     private Long id;
 
     @ApiModelProperty(value = "登录名")
-    @Length(groups = Default.class, min = 4, max = 16, message = "登录名在4~16位")
     private String userName;
 
     @ApiModelProperty(value = "真实姓名")
-    @NotEmpty(message = "真实姓名不能为空")
-    @Length(groups = Default.class, min = 4, max = 16)
     private String realName;
 
     @ApiModelProperty(value = "密码")
-    @Length(groups = Add.class, min = 8, max = 32, message = "密码在6~32位之间！")
-    //正则校验强度
     private String passWord;
 
     @ApiModelProperty(value = "随机盐")
