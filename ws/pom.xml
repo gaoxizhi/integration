@@ -7,7 +7,6 @@
         <artifactId>integration</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <groupId>net.gaox</groupId>
     <artifactId>ws</artifactId>
     <version>0.1</version>
     <name>ws</name>

@@ -8,7 +8,6 @@
         <artifactId>integration</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <groupId>net.gaox</groupId>
     <artifactId>domain</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>domain</name>

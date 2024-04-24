@@ -8,7 +8,6 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <groupId>net.gaox</groupId>
     <artifactId>disperse</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>disperse</name>

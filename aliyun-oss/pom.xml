@@ -6,9 +6,7 @@
         <groupId>net.gaox</groupId>
         <artifactId>integration</artifactId>
         <version>0.0.1-SNAPSHOT</version>
-        <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>net.gaox</groupId>
     <artifactId>aliyun-oss</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>aliyun-oss</name>

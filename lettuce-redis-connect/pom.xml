@@ -7,7 +7,6 @@
         <artifactId>integration</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <groupId>net.gaox</groupId>
     <artifactId>lettuce-redis-connect</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>lettuce-redis-connect</name>
