@@ -12,7 +12,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <artifactId>home-hardware</artifactId>
     <packaging>pom</packaging>
-    <description>分布式系统版本</description>
+    <description>智能家居-分布式系统版本</description>
     <modules>
         <module>home-domain</module>
         <module>base</module>
