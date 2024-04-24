@@ -67,6 +67,7 @@
         <module>kafka</module>
         <module>java-mail</module>
         <module>home-hardware</module>
+        <module>tools</module>
     </modules>
 
     <!--依赖管理-->

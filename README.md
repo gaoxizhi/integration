@@ -39,6 +39,7 @@ springboot、redis、mybatis、mybatisplus、MongoDB...技术整合项目
 | minio               | 12531 |
 | es-search           | 12532 |
 | kafka               | 12533 |
+| tools               | 12535 |
 | home-nacos          | 12600 |
 | home-base           | 12601 |
 | home-system         | 12602 |
