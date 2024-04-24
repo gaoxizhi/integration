@@ -9,56 +9,20 @@ spring:
   application:
     name: notify
 
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    username: root
-    password: root
-    url: jdbc:mysql://localhost:3306/iot?serverTimezone=GMT%2B8&characterEncoding=utf-8&useSSL=false&useUnicode=true
   cloud:
     nacos:
+      # 配置中心
       config:
         server-addr: 127.0.0.1:8848
         namespace: gaox
         group: home
         enable-remote-sync-config: true
         file-extension: yaml
-  # es 集群配置方式
-  elasticsearch:
-    rest:
-      uris: http://localhost:9200
-      username: admin
-      password: password
-  # 配置Redis
-  redis:
-    # 服务器地址
-    host: 127.0.0.1
-    # 服务器端口
-    port: 6379
-    # Redis密码
-    password: pass
-    # 连接超时时间
-    timeout: 60s
-    # 连接池最大连接数（使用负值表示没有限制）
-    lettuce:
-      pool:
-        max-active: 50
-        # 连接池中的最小空闲连接
-        min-idle: 5
-        # 连接池中的最大空闲连接
-        max-idle: 50
-        # 连接池最大阻塞等待时间（使用负值表示没有限制）
-        max-wait: 5000
-
-canal:
-  #canal的地址
-  server: 127.0.0.1:11111
-  #数据同步的目的地
-  destination: iot
-
-mybatis-plus:
-  typeAliasesPackage: net.gaox.domain.entity
-  mapper-locations: classpath:/mybatis/**/*Mapper.xml
-  configuration:
-    map-underscore-to-camel-case: true
-logging:
-  level.net.gaox.base: debug
+        cluster-name: gaoxizhi
+      # 服务注册中心
+      discovery:
+        server-addr: 127.0.0.1:8848
+        namespace: ${spring.cloud.nacos.config.namespace}
+        group: ${spring.cloud.nacos.config.group}
+        cluster-name: ${spring.cloud.nacos.config.cluster-name}
+        enabled: true

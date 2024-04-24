@@ -9,24 +9,20 @@ spring:
   application:
     name: equipment
 
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    username: root
-    password: root
-    url: jdbc:mysql://localhost:3306/iot?serverTimezone=GMT%2B8&characterEncoding=utf-8&useSSL=false&useUnicode=true
   cloud:
     nacos:
+      # 配置中心
       config:
         server-addr: 127.0.0.1:8848
         namespace: gaox
         group: home
         enable-remote-sync-config: true
         file-extension: yaml
-
-mybatis-plus:
-  typeAliasesPackage: net.gaox.domain.entity
-  mapper-locations: classpath:/mybatis/**/*Mapper.xml
-  configuration:
-    map-underscore-to-camel-case: true
-logging:
-  level.net.gaox.base: debug
+        cluster-name: gaoxizhi
+      # 服务注册中心
+      discovery:
+        server-addr: 127.0.0.1:8848
+        namespace: ${spring.cloud.nacos.config.namespace}
+        group: ${spring.cloud.nacos.config.group}
+        cluster-name: ${spring.cloud.nacos.config.cluster-name}
+        enabled: true
