@@ -3,6 +3,7 @@ package net.gaox.system.service.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import net.gaox.domain.entity.SystemEquipment;
 import net.gaox.system.mapper.EquipmentMapper;
+import net.gaox.system.service.EquipmentService;
 import org.springframework.stereotype.Service;
 
 /**
@@ -12,6 +13,6 @@ import org.springframework.stereotype.Service;
  * @since 2024-04-11
  */
 @Service
-public class EquipmentServiceImpl extends ServiceImpl<EquipmentMapper, SystemEquipment> {
+public class EquipmentServiceImpl extends ServiceImpl<EquipmentMapper, SystemEquipment> implements EquipmentService {
 
 }

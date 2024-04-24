@@ -18,7 +18,7 @@ import org.springframework.web.client.RestTemplate;
  */
 @SpringBootApplication
 @EnableDiscoveryClient
-@EnableFeignClients
+@EnableFeignClients(basePackages = "net.gaox.system.feign")
 @MapperScan({"net.gaox.system.mapper"})
 public class SystemApplication {
 
@@ -32,4 +32,5 @@ public class SystemApplication {
         restTemplate.setErrorHandler(new DefaultResponseErrorHandler());
         return restTemplate;
     }
+
 }

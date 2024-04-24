@@ -42,3 +42,7 @@ springboot、redis、mybatis、mybatisplus、MongoDB...技术整合项目
 | home-nacos          | 12600 |
 | home-base           | 12601 |
 | home-system         | 12602 |
+| home-home           | 12603 |
+| home-equipment      | 12605 |
+| home-user           | 12606 |
+| home-notify         | 12607 |

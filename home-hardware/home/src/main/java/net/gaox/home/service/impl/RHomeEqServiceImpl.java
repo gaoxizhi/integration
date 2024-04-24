@@ -3,6 +3,7 @@ package net.gaox.home.service.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import net.gaox.domain.entity.RHomeEq;
 import net.gaox.home.mapper.RHomeEqMapper;
+import net.gaox.home.service.RHomeEqService;
 import org.springframework.stereotype.Service;
 
 /**
@@ -12,6 +13,6 @@ import org.springframework.stereotype.Service;
  * @since 2024-04-11
  */
 @Service
-public class RHomeEqServiceImpl extends ServiceImpl<RHomeEqMapper, RHomeEq> {
+public class RHomeEqServiceImpl extends ServiceImpl<RHomeEqMapper, RHomeEq> implements RHomeEqService {
 
 }

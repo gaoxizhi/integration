@@ -2,6 +2,7 @@ package net.gaox.system.config;
 
 import com.alibaba.nacos.api.config.annotation.NacosValue;
 import lombok.Data;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Component;
 
 /**
@@ -12,13 +13,15 @@ import org.springframework.stereotype.Component;
  */
 @Data
 @Component
-public class DataSourceConfig {
+@RefreshScope
+public class NacosConfig {
 
     /**
      * 从nacos同步配置信息，配置动态刷新
      * Value注解同样可以，但是需要配置 spring.cloud.nacos.config.enabled=true
+     * 也可以在类上加注解RefreshScope
      */
-    @NacosValue(value = "${spring.datasource.username}", autoRefreshed = true)
-    public String username = "admin";
+    @NacosValue(value = "${spring.datasource.username:admin}", autoRefreshed = true)
+    public String username;
 
 }
