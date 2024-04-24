@@ -68,6 +68,7 @@
         <module>java-mail</module>
         <module>home-hardware</module>
         <module>tools</module>
+        <module>yaml</module>
     </modules>
 
     <!--依赖管理-->

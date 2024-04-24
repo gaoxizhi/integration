@@ -1,6 +1,12 @@
 package net.gaox.yaml;
 
-import java.io.*;
+import lombok.extern.slf4j.Slf4j;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 
 /**
  * <p> 使用一些MarkDown软件写博客时大都会设置图片自动上传，这样只需要复制一遍MarkDown文本即可粘贴到多个平台发布，
@@ -24,7 +30,7 @@ import java.io.*;
  * 可以追加参数 path=xxx 指定扫描xxx目录
  */
 
-
+@Slf4j
 public class MarkDownImg {
 
     public static void main(String[] args) throws IOException {
@@ -38,11 +44,11 @@ public class MarkDownImg {
         if (path == null) {
             path = System.getProperty("user.dir");
         }
-        System.out.println("--开始扫描目录：" + path);
+        log.info("--开始扫描目录：{}", path);
         File file = new File(path);
         File[] list = file.listFiles();
         if (list == null) {
-            System.out.println("--空目录");
+            log.info("--空目录");
             return;
         }
         //创建输出目录
@@ -56,9 +62,10 @@ public class MarkDownImg {
             if (!md) {
                 continue;
             }
-            System.out.println("--" + value.getName());
-            try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(value)));
-                 BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(out + name))))
+            log.info("--{}", value.getName());
+            try (
+                    BufferedReader reader = Files.newBufferedReader(value.toPath());
+                    BufferedWriter writer = Files.newBufferedWriter(new File(out + name).toPath())
             ) {
                 String line;
                 while ((line = reader.readLine()) != null) {
@@ -68,8 +75,9 @@ public class MarkDownImg {
                 writer.flush();
             }
         }
-        System.out.println("--结束");
+        log.info("--结束");
     }
+
     /**
      * 提取img的src
      */
