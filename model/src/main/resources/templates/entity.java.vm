@@ -52,7 +52,7 @@ public class ${entity} implements Serializable {
 #if("$!field.comment" != "")
     #if(${swagger2})
 @ApiModelProperty(value = "${field.comment}")
-    #else
+#else
     /**
      * ${field.comment}
      */
@@ -118,12 +118,11 @@ public class ${entity} implements Serializable {
 #if(${entityColumnConstant})
 #foreach($field in ${table.fields})
     public static final String ${field.name.toUpperCase()} = "${field.name}";
-
 #end
 #end
 #if(${activeRecord})
     @Override
-    protected Serializable pkVal() {
+    public Serializable pkVal() {
 #if(${keyPropertyName})
         return this.${keyPropertyName};
 #else
