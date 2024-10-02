@@ -1,10 +1,8 @@
 package net.gaox.lambda;
 
 import com.google.common.collect.Lists;
-import net.gaox.entity.ManageSort;
+import lombok.extern.slf4j.Slf4j;
 
-import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -17,6 +15,7 @@ import static java.util.Arrays.asList;
  * @author gaox·Eric
  * @date 2019/8/8 22:09
  */
+@Slf4j
 public class LambdaTest2 {
 
 
@@ -36,18 +35,6 @@ public class LambdaTest2 {
         newThread.start();
 
         List<String> strings = asList("asd", "tgh", "oks", "lkc", "qae");
-        //排序 匿名内部方式
-        Collections.sort(strings, new Comparator<String>() {
-            @Override
-            public int compare(String o1, String o2) {
-                return o1.compareTo(o2);
-            }
-        });
-
-        //排序 使用String中的compareTo方法
-        Collections.sort(strings, (o1, o2) -> o1.compareTo(o2));
-        Collections.sort(strings, String::compareTo);
-        strings.sort(String::compareTo);
 
         //对strings转大写
         List<String> peekUpper = strings.stream().map((s) -> {
@@ -112,9 +99,16 @@ public class LambdaTest2 {
          */
         List<Integer> numsWithoutNull2 = nums.stream().filter(Objects::nonNull)
                 .collect(ArrayList::new, ArrayList::add, ArrayList::addAll);
-        System.out.println("ints sum is:" + numsWithoutNull.stream().reduce((sum, item) -> sum + item).get());
-        System.out.printf("ints sum is:%d%n", numsWithoutNull.stream().reduce(Integer::sum).get());
-        System.out.printf("ints sum is:%d%n", nums.stream().reduce(0, Integer::sum));
+        Integer reduce1 = null;
+        try {
+            reduce1 = nums.stream().reduce(0, Integer::sum);
+        } catch (Exception e) {
+            log.error("reduce1 error", e);
+        }
+        Integer reduce2 = numsWithoutNull.stream().reduce(0, Integer::sum);
+        Integer reduce3 = numsWithoutNull2.stream().reduce(0, Integer::sum);
+        log.info("reduce1 = {}, reduce2 = {}, reduce3 = {}", reduce1, reduce2, reduce3);
+
         /*
          * – allMatch：是不是Stream中的所有元素都满足给定的匹配条件
          * – anyMatch：Stream中是否存在任何一个元素满足匹配条件
@@ -127,36 +121,5 @@ public class LambdaTest2 {
         System.out.println(ints.stream().allMatch(item -> item < 5));
         ints.stream().max((o1, o2) -> o1.compareTo(o2)).ifPresent(System.out::println);
         ints.stream().max(Integer::compareTo).ifPresent(System.out::println);
-        final LocalDate beginTime = LocalDate.of(2019, 5, 1);
-
-        //最终列表
-        ArrayList<ManageSort> list = new ArrayList<>();
-        final LocalDate toDay = LocalDate.now();
-
-        Random random2 = new Random(1000000);
-        for (int i = 0; i <= beginTime.until(toDay, ChronoUnit.DAYS); i++) {
-            ManageSort manageSort = new ManageSort().setTime(beginTime.plusDays(i)).setType("type" + i)
-                    .setDateTime(new Date(System.currentTimeMillis() + random2.nextLong()));
-            list.add(manageSort);
-        }
-
-        //自定义排序规则：包含大小相等条件，日期（后-->前）
-        list.sort((o1, o2) -> o1.getTime().isBefore(o2.getTime()) ? 1 : (o1.getTime().isAfter(o2.getTime()) ? -1 : 0));
-
-        // 时间1排序
-        Comparator<ManageSort> dateTimeComparator = (o1, o2) -> (int) (o1.getDateTime().getTime() - o2.getDateTime().getTime());
-        // 时间2排序
-        Comparator<ManageSort> dateComparator = Comparator.comparing(ManageSort::getTime);
-        // type排序
-        Comparator<ManageSort> typeComparator = Comparator.comparing(ManageSort::getType);
-        // 时间1排序 逆序，时间2排序，type排序
-        list.sort(dateTimeComparator.reversed().thenComparing(dateComparator).thenComparing(typeComparator));
-
-        list.sort((o1, o2) -> {
-            int compare1 = o2.getTime().isBefore(o1.getTime()) ? 1 : (o1.getTime().isAfter(o2.getTime()) ? -1 : 0);
-            int compare2 = o1.getTime().compareTo(o2.getTime());
-            int compare3 = o1.getType().compareTo(o2.getType());
-            return -compare1 == 0 ? (compare2 == 0 ? (compare3 == 0 ? 0 : compare3) : compare2) : -compare1;
-        });
     }
 }
