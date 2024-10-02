@@ -3,13 +3,11 @@ package net.gaox.util;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.stereotype.Component;
 import redis.clients.jedis.Jedis;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -24,6 +22,7 @@ import java.util.concurrent.TimeUnit;
 public class RedisUtils {
 
     private final RedisTemplate<String, Object> redisTemplate;
+    private final RedisTemplate<String, String> redisStringTemplate;
 
     // 设置带过期时间的缓存
     public Boolean set(String key, Object value, long time) {
@@ -105,6 +104,35 @@ public class RedisUtils {
 
         log.debug("result = {}", result);
         return result;
+    }
+
+    private static final String SCRIPT =
+            "redis.call('SADD', KEYS[1], ARGV[1]) " +
+                    "if redis.call('SCARD', KEYS[1]) > tonumber(ARGV[2]) then " +
+                    "    redis.call('SREM', KEYS[1], ARGV[1]) " +
+                    "    return 0 " +
+                    "else " +
+                    "    return 1 " +
+                    "end";
+
+    /**
+     * 最多添加指定个元素到set集合
+     *
+     * @param key     set集合的key
+     * @param value   元素
+     * @param maxSize 最大元素个数
+     * @return 是否添加成功
+     */
+    public boolean addStringToSet(String key, String value, Integer maxSize) {
+        DefaultRedisScript<Long> redisScript = new DefaultRedisScript<>();
+        redisScript.setScriptText(SCRIPT);
+        redisScript.setResultType(Long.class);
+        // tonumber 转换为数字类型时，不指定为string时，传入值是带（"）的，解析报错
+        Object result = redisStringTemplate.execute(redisScript, Collections.singletonList(key), value, String.valueOf(maxSize));
+        if (result instanceof Long) {
+            return Long.valueOf(1L).equals(result);
+        }
+        return false;
     }
 
 }
