@@ -8,21 +8,6 @@
 spring:
   application:
     name: es-search
-
-  # es 配置
-  data:
-    elasticsearch:
-      cluster-name: es01
-      cluster-nodes: localhost:9200
-      properties:
-        transport:
-          tcp:
-            connect_timeout: 30s
-        recovery:
-          initial_shards: quorum
-      repositories:
-        enabled: true
-
   # es 集群配置方式
   elasticsearch:
     rest:

@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpHost;
 import org.elasticsearch.client.RestClient;
 import org.elasticsearch.client.RestHighLevelClient;
-import org.springframework.boot.autoconfigure.elasticsearch.rest.RestClientProperties;
+import org.springframework.boot.autoconfigure.elasticsearch.ElasticsearchRestClientProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -23,7 +23,7 @@ import java.net.URISyntaxException;
 @RequiredArgsConstructor
 public class ElasticSearchClientConfig {
 
-    private final RestClientProperties clientProperties;
+    private final ElasticsearchRestClientProperties clientProperties;
 
     @Bean
     public RestHighLevelClient restHighLevelClient() throws URISyntaxException {

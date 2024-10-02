@@ -10,7 +10,7 @@ import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestClient;
 import org.elasticsearch.client.RestHighLevelClient;
-import org.elasticsearch.common.xcontent.XContentType;
+import org.elasticsearch.xcontent.XContentType;
 import org.springframework.util.CollectionUtils;
 
 import java.util.List;
@@ -46,8 +46,6 @@ public class TestESBatchInsert {
             log.info("第 {} 批{}条数据, ", i + 1, products.size());
             batchInsert(products);
         }
-
-        client.close();
     }
 
     private static void batchInsert(List<Product> productList) throws Exception {
@@ -59,7 +57,12 @@ public class TestESBatchInsert {
                     .source(JSONObject.toJSONString(pro), XContentType.JSON);
             request.add(indexRequest);
         });
-        client.bulk(request, RequestOptions.DEFAULT);
+        try {
+            client.bulk(request, RequestOptions.DEFAULT);
+        } catch (Exception e) {
+            log.error("批量插入失败", e);
+            return;
+        }
         log.info("批量插入完成");
     }
 

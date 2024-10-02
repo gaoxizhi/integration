@@ -15,6 +15,8 @@ import org.elasticsearch.search.aggregations.Aggregation;
 import org.elasticsearch.search.aggregations.AggregationBuilder;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
 import org.elasticsearch.search.aggregations.Aggregations;
+import org.elasticsearch.search.aggregations.bucket.filter.FiltersAggregationBuilder;
+import org.elasticsearch.search.aggregations.bucket.filter.FiltersAggregator;
 import org.elasticsearch.search.aggregations.bucket.terms.Terms;
 import org.elasticsearch.search.aggregations.metrics.*;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
@@ -56,6 +58,7 @@ public class HighLevelSearchTest {
         // 根据ids，同理可以 通过id获取单条
         String[] ids = new String[]{"10127", "10128"};
         TermsQueryBuilder idsTermsQuery = QueryBuilders.termsQuery("_id", ids);
+        IdsQueryBuilder idsQueryBuilder = QueryBuilders.idsQuery().addIds(ids);
 
         // 多条件查询，对多个字段
         TermsQueryBuilder unionSetQuery = QueryBuilders.termsQuery("name", "汽车", "轮胎");
@@ -200,6 +203,13 @@ public class HighLevelSearchTest {
         AggregationBuilders.min("min_price").field("price");
         builder.aggregation(AggregationBuilders.count("count_price").field("price"));
 
+        // 构建 filters 聚合 for "from" field
+        FiltersAggregationBuilder fromAgg = AggregationBuilders.filters("from_term_count",
+                new FiltersAggregator.KeyedFilter("term1", QueryBuilders.termQuery("from", "term1")),
+                new FiltersAggregator.KeyedFilter("term2", QueryBuilders.termQuery("from", "term2")),
+                new FiltersAggregator.KeyedFilter("term3", QueryBuilders.termQuery("from", "term3")));
+
+
         //不输出原始数据
         builder.size(0);
         searchAndPrintRequest(builder);
@@ -215,9 +225,9 @@ public class HighLevelSearchTest {
         // 创建请求
         SearchSourceBuilder builder = new SearchSourceBuilder();
         //条件搜索
-        builder.query(QueryBuilders.fuzzyQuery("name", "摄像机器"));
+        builder.query(QueryBuilders.matchQuery("name", "摄像").operator(Operator.AND));
         //聚合查询
-        AggregationBuilder aggregation = AggregationBuilders.terms("place_term").field("place")
+        AggregationBuilder aggregation = AggregationBuilders.terms("place_term").field("place.keyword")
                 .subAggregation(AggregationBuilders.sum("sum_price").field("price"))
                 .subAggregation(AggregationBuilders.avg("avg_price").field("price"))
                 .subAggregation(AggregationBuilders.max("max_price").field("price"))
@@ -234,6 +244,7 @@ public class HighLevelSearchTest {
     private void searchAndPrintRequest(SearchSourceBuilder builder) throws IOException {
         SearchRequest searchRequest = new SearchRequest(Constants.INDEX_NAME);
         searchRequest.source(builder);
+        log.info("search query = {}", builder);
         // 执行请求
         SearchResponse response = client.search(searchRequest, RequestOptions.DEFAULT);
 
@@ -252,7 +263,11 @@ public class HighLevelSearchTest {
                     product.getId(), s.getIndex(), s.getScore(), product);
         });
 
-        Optional.ofNullable(response.getAggregations()).map(Aggregations::getAsMap)
+        printAggregationsByString(response.getAggregations());
+    }
+
+    private static void printAggregationsByType(Aggregations aggregations) {
+        Optional.ofNullable(aggregations).map(Aggregations::getAsMap)
                 .ifPresent(map -> map.forEach((aggregationName, v) -> {
                     String aggregationContent;
                     if (v instanceof Terms) {
@@ -288,6 +303,17 @@ public class HighLevelSearchTest {
                 }));
     }
 
+    private static void printAggregationsByString(Aggregations aggregations) {
+        Optional.ofNullable(aggregations).ifPresent(s ->
+                s.asMap().keySet().forEach(t ->
+                        ((Terms) s.get(t)).getBuckets().forEach(r -> {
+                            String content = r.getAggregations().asMap().entrySet().stream()
+                                    .map(e -> e.getKey() + "=" + getNumberValue(e.getValue()))
+                                    .collect(Collectors.joining(", ", "{", "}"));
+                            log.info("聚合单元[{}]: {}", r.getKey(), content);
+                        })));
+    }
+
     /**
      * 获取聚合单元的数值
      *
@@ -314,11 +340,12 @@ public class HighLevelSearchTest {
             log.error("没有匹配的[{}]", aggregation.getClass());
         }
         if (null != value) {
-            if ((value instanceof Float) && (((Float) value).isNaN() || ((Float) value).isInfinite())) {
-                return value.toString();
-            }
-            if (value instanceof Double && (((Double) value).isNaN() || ((Double) value).isInfinite())) {
-                return value.toString();
+            // Float 类型的对象，Java 会自动将其提升为 Double 类型
+            if (value instanceof Double) {
+                double doubleValue = value.doubleValue();
+                if (Double.isNaN(doubleValue) || Double.isInfinite(doubleValue)) {
+                    return value.toString();
+                }
             }
             return String.format("%.02f", value.doubleValue());
         }

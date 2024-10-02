@@ -1,5 +1,6 @@
 package net.gaox.search.client;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import net.gaox.search.constant.Constants;
@@ -25,12 +26,16 @@ import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.client.indices.CreateIndexRequest;
 import org.elasticsearch.client.indices.CreateIndexResponse;
 import org.elasticsearch.client.indices.GetIndexRequest;
-import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.rest.RestStatus;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
+import org.elasticsearch.search.suggest.Suggest;
+import org.elasticsearch.search.suggest.SuggestBuilder;
+import org.elasticsearch.search.suggest.SuggestBuilders;
+import org.elasticsearch.search.suggest.completion.CompletionSuggestion;
+import org.elasticsearch.xcontent.XContentType;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +45,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * <p> Client 测试 </p>
@@ -55,7 +63,7 @@ public class ElasticsearchApplicationTests {
 
     @Autowired
     private RestHighLevelClient client;
-    private static final String indexName = Constants.TEST_INDEX_NAME;
+    private static final String indexName = Constants.INDEX_NAME;
 
     @Test
     public void testCreateIndex() throws IOException {
@@ -129,16 +137,10 @@ public class ElasticsearchApplicationTests {
         // 创建请求,指定索引、文档id
         String id = "1";
         UpdateRequest request = new UpdateRequest(indexName, id);
-        Product product = Product.builder()
-                .id(1)
-                .name("连衣裙")
-                .category("女装")
-                .price(new BigDecimal("129"))
-                .place("浙江杭州")
-                .code("690212131012")
-                .build();
-        // 将创建的对象放入文档中
-        request.doc(JSONValue.toJSONString(product), XContentType.JSON);
+        Product product = new Product().setPlace("山东曹县");
+        // 将创建的对象放入文档中，注意json格式化后，null也会被更新，需要合理配置格式化器
+        String json = JSON.toJSONString(product);
+        request.doc(json, XContentType.JSON);
 
         UpdateResponse updateResponse = client.update(request, RequestOptions.DEFAULT);
         // 更新成功返回OK
@@ -197,7 +199,10 @@ public class ElasticsearchApplicationTests {
 
         // 6.给指定字段加上指定高亮样式
         HighlightBuilder highlightBuilder = new HighlightBuilder();
-        highlightBuilder.field("name").preTags("<span style='color:red;'>").postTags("</span>");
+        // 自定义高亮样式
+        highlightBuilder.preTags("<span style='color:red;'>").postTags("</span>");
+        // 指定字段，并设置匹配所有查找到的内容
+        highlightBuilder.field("name").numOfFragments(0);
         sourceBuilder.highlighter(highlightBuilder);
 
         searchRequest.source(sourceBuilder);
@@ -213,6 +218,82 @@ public class ElasticsearchApplicationTests {
             log.info("找到商品id={}, 在索引={},匹配度={}, 商品详情[{}].",
                     product.getId(), s.getIndex(), s.getScore(), product);
         });
+    }
+
+    @Test
+    public void testSuggest() throws IOException {
+        SearchRequest searchRequest = new SearchRequest("test2");
+        SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
+        sourceBuilder.suggest(new SuggestBuilder().addSuggestion("title_suggest",
+                SuggestBuilders.completionSuggestion("title").prefix("r").size(10)));
+        searchRequest.source(sourceBuilder);
+        SearchResponse searchResponse = client.search(searchRequest, RequestOptions.DEFAULT);
+        Suggest suggest = searchResponse.getSuggest();
+        CompletionSuggestion titleSuggest = suggest.getSuggestion("title_suggest");
+        List<String> suggestTextList = titleSuggest.getOptions().stream().map(s -> s.getText().string())
+                .collect(Collectors.toList());
+
+        // 如果推荐列表不足 10 条，根据 weight 排序并补全
+        if (suggestTextList.size() < 10) {
+            Map<String, Integer> suggestionMap = new HashMap<>();
+            // 遍历 source map，提取输入值和权重
+            titleSuggest.getOptions().forEach(option -> option.getHit().getSourceAsMap().forEach((k, v) -> {
+                if ("title".equals(k)) {
+                    processSuggestionInput(v, suggestionMap);
+                }
+            }));
+
+            List<Map.Entry<String, Integer>> sortedSuggestions = suggestionMap.entrySet().stream()
+                    .filter(e -> !suggestTextList.contains(e.getKey()))
+                    // 按 weight 降序排序
+                    .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
+                    // 获取补充的建议数量
+                    .limit(10 - suggestTextList.size()).collect(Collectors.toList());
+            // 补全剩余的建议文本
+            suggestTextList.addAll(sortedSuggestions.stream().map(Map.Entry::getKey).collect(Collectors.toList()));
+        }
+        // 输出最终的推荐结果
+        log.info("Suggested Texts: {}", String.join(", ", suggestTextList));
+    }
+
+    /**
+     * 处理建议的输入值，并将其添加到 suggestionMap 中
+     */
+    private void processSuggestionInput(Object inputObj, Map<String, Integer> suggestionMap) {
+        if (inputObj instanceof List) {
+            // 处理为 List 的情况
+            for (Object obj : (List<?>) inputObj) {
+                if (obj instanceof Map) {
+                    processInputMap((Map<String, Object>) obj, suggestionMap);
+                } else if (obj instanceof String) {
+                    suggestionMap.put((String) obj, 1);
+                }
+            }
+        } else if (inputObj instanceof Map) {
+            // 处理为 Map 的情况
+            processInputMap((Map<String, Object>) inputObj, suggestionMap);
+        } else if (inputObj instanceof String) {
+            // 处理单个字符串的情况
+            suggestionMap.put((String) inputObj, 1);
+        }
+    }
+
+    /**
+     * 处理 Map 类型的输入值，提取 input 和 weight
+     */
+    private void processInputMap(Map<String, Object> inputMap, Map<String, Integer> suggestionMap) {
+        Object input = inputMap.get("input");
+        Integer weight = (Integer) inputMap.getOrDefault("weight", 1);
+
+        if (input instanceof List) {
+            // 处理 input 是 List 的情况
+            for (String value : (List<String>) input) {
+                suggestionMap.put(value, weight);
+            }
+        } else if (input instanceof String) {
+            // 处理 input 是单个字符串的情况
+            suggestionMap.put((String) input, weight);
+        }
     }
 
 }
