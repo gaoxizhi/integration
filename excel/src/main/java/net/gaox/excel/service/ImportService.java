@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.concurrent.Executor;
 
 
@@ -27,11 +28,19 @@ public class ImportService {
     @Qualifier("task")
     private final Executor taskExecutor;
     private final SalaryListener salaryListener;
+    private final SalaryService salaryService;
 
     public void importExcel(MultipartFile file) throws IOException {
-        EasyExcel.read(file.getInputStream(), Salary.class, salaryListener).doReadAll();
+        // EasyExcel.read(file.getInputStream(), Salary.class, salaryListener).doReadAll();
+        List<Salary> salaries = EasyExcel.read(file.getInputStream()).head(Salary.class)
+                .sheet().headRowNumber(1).doReadSync();
+        boolean saveBatch = salaryService.saveBatch(salaries, 1000);
+        if (saveBatch) {
+            log.info("导入成功");
+        } else {
+            log.info("导入失败");
+        }
     }
-
 
     public void importExcelAsync(MultipartFile file) {
         // 开20个线程分别处理20个sheet，假设最多的sheet页数

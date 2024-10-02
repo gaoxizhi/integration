@@ -76,6 +76,7 @@ public class ExportService {
                 List<Salary> salaryList = salaries.stream()
                         .skip(skipNumber).limit(pageSizeList.get(i))
                         .collect(Collectors.toList());
+                // salaryMapper.insertBatch(salaryList);
                 excelWriter.write(salaryList, writeSheet);
             });
         }

@@ -2,12 +2,10 @@ package net.gaox.excel.listener;
 
 import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.read.listener.ReadListener;
-import com.baomidou.mybatisplus.extension.service.IService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.gaox.excel.entity.Salary;
-import net.gaox.excel.mapper.SalaryMapper;
+import net.gaox.excel.service.SalaryService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,11 +24,11 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class SalaryListener extends ServiceImpl<SalaryMapper, Salary> implements ReadListener<Salary>, IService<Salary> {
+public class SalaryListener implements ReadListener<Salary> {
 
     @Qualifier("task")
     private final Executor taskExecutor;
-    private final SalaryMapper salaryMapper;
+    private final SalaryService salaryService;
 
     private ThreadLocal<ArrayList<Salary>> salariesList = ThreadLocal.withInitial(ArrayList::new);
     private static AtomicInteger count = new AtomicInteger(1);
@@ -47,8 +45,8 @@ public class SalaryListener extends ServiceImpl<SalaryMapper, Salary> implements
 
     public void saveData() {
         if (!salariesList.get().isEmpty()) {
-            saveBatch(salariesList.get(), salariesList.get().size());
-            log.info("第" + count.getAndAdd(1) + "次插入" + salariesList.get().size() + "条数据");
+            salaryService.saveBatch(salariesList.get());
+            log.info("第{}次插入{}条数据", count.getAndAdd(1), salariesList.get().size());
             salariesList.get().clear();
         }
     }
@@ -56,7 +54,7 @@ public class SalaryListener extends ServiceImpl<SalaryMapper, Salary> implements
     public void asyncSaveData() {
         if (!salariesList.get().isEmpty()) {
             ArrayList<Salary> salaries = (ArrayList<Salary>) salariesList.get().clone();
-            taskExecutor.execute(new SaveTask(salaries, salaryMapper));
+            taskExecutor.execute(new SaveTask(salaries, salaryService));
             salariesList.get().clear();
         }
     }
@@ -73,17 +71,17 @@ public class SalaryListener extends ServiceImpl<SalaryMapper, Salary> implements
     static class SaveTask implements Runnable {
 
         private List<Salary> salariesList;
-        private SalaryMapper salaryMapper;
+        private SalaryService salaryService;
 
-        public SaveTask(List<Salary> salariesList, SalaryMapper salaryMapper) {
+        public SaveTask(List<Salary> salariesList, SalaryService salaryService) {
             this.salariesList = salariesList;
-            this.salaryMapper = salaryMapper;
+            this.salaryService = salaryService;
         }
 
         @Override
         public void run() {
-            salaryMapper.insertBatch(salariesList);
-            log.info("第" + count.getAndAdd(1) + "次插入" + salariesList.size() + "条数据");
+            salaryService.saveBatch(salariesList);
+            log.info("第{}次插入{}条数据", count.getAndAdd(1), salariesList.size());
         }
     }
 

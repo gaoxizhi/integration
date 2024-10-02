@@ -28,20 +28,20 @@ import java.time.LocalDate;
 @TableName("salary")
 public class Salary {
 
-    @ExcelProperty(value = "工号", index = 1)
+    @ExcelProperty(value = "工号")
     private String empNo;
 
-    @ExcelProperty(value = "工资", index = 2)
+    @ExcelProperty(value = "工资")
     private BigDecimal salary;
 
     @TableField("from_date")
-    @ExcelProperty(value = "开始时间", index = 3, converter = LocalDateConverter.class)
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    @ExcelProperty(value = "开始时间", converter = LocalDateConverter.class)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate fromDate;
 
     @TableField("to_date")
-    @ExcelProperty(value = "结束时间", index = 4, converter = LocalDateConverter.class)
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    @ExcelProperty(value = "结束时间", converter = LocalDateConverter.class)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate toDate;
 
 }
