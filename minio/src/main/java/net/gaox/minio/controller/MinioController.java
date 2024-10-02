@@ -13,9 +13,12 @@ import org.apache.commons.compress.utils.IOUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.ServletInputStream;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
@@ -70,6 +73,38 @@ public class MinioController {
             list.add(info);
         }
         return ApiResponse.success(list);
+    }
+
+    /**
+     * 上传流式文件，可以在不暴露minio的情况下使用
+     *
+     * @param request  请求
+     * @param userId   用户id
+     * @param fileName 文件名
+     * @param fileSize 文件大小
+     * @param id       文件id
+     * @return 上传结果
+     */
+    @PostMapping(value = "/upload/stream", headers = "content-type=application/octet-stream;charset=utf-8")
+    public ApiResponse upload(HttpServletRequest request,
+                              @RequestHeader("userId") String userId,
+                              @RequestHeader("fileName") String fileName,
+                              @RequestHeader("fileSize") Long fileSize,
+                              @RequestHeader("dirId") String id) {
+        log.info("user id = {}, file name = {}, file size = {}, file id = {}", userId, fileName, fileSize, id);
+
+        try (ServletInputStream inputStream = request.getInputStream()) {
+            // 设置对象的 MIME 类型
+            String contentType = URLConnection.guessContentTypeFromStream(inputStream);
+            if (contentType == null) {
+                contentType = "application/octet-stream";
+            }
+            minioUtils.putInputStreamWithSize(minioProperties.getBucket(), fileName, inputStream, fileSize, contentType);
+            log.info("end");
+            return ApiResponse.success();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @GetMapping("/download/{fileName}")

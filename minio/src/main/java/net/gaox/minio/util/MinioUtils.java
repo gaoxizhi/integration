@@ -417,6 +417,46 @@ public class MinioUtils {
     }
 
     /**
+     * 上传可变 InputStream 通用方法
+     *
+     * @param bucketName 桶名称
+     * @param objectName 文件名
+     * @param stream     文件流
+     */
+    public void putInputStreamWithSize(String bucketName, String objectName, InputStream stream, Long size, String contentType) {
+        try {
+            // String fileName= "/Users/gaox/Downloads/"+objectName;
+            // File file=new File(fileName);
+            // if(!file.exists()){
+            //     file.createNewFile();
+            // }
+            // BufferedInputStream in;
+            // BufferedOutputStream out;
+            // in=new BufferedInputStream(stream);
+            // out=new BufferedOutputStream(new FileOutputStream(fileName));
+            // int len=-1;
+            // byte[] b=new byte[1024];
+            // while((len=in.read(b))!=-1){
+            //     out.write(b,0,len);
+            // }
+            // in.close();
+            // out.close();
+            //
+            // log.info("start read file");
+            // String localFileName = "/Users/gaox/Movies/勇敢的心.rmvb";
+            // stream = Files.newInputStream(Paths.get(localFileName));
+            // size = new File(localFileName).length();
+            // log.info("read file end");
+            PutObjectArgs putObjectArgs = PutObjectArgs.builder()
+                    .bucket(bucketName).object(objectName).contentType(contentType)
+                    .stream(stream, size, 1024 * 1024 * 5).build();
+            minioClient.putObject(putObjectArgs);
+        } catch (Exception e) {
+            throw new RuntimeException("文件流上传错误", e);
+        }
+    }
+
+    /**
      * 上传bytes文件
      *
      * @param objectName  文件名
