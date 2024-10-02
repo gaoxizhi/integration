@@ -3,6 +3,7 @@ package net.gaox.ip.entry;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * <p>  </p>
@@ -52,4 +53,52 @@ public class Addresses {
      */
     private String isp;
     private String ispId;
+
+    /**
+     * 解析 ip信息
+     *
+     * @param context 格式文本
+     * @return ip信息
+     */
+    public static Addresses parserByContext(String context) {
+        if (StringUtils.isBlank(context)) {
+            return null;
+        }
+        String[] split = context.split("\\|");
+        Addresses ipInfo = new Addresses();
+
+        if (!"0".equals(split[0])) {
+            ipInfo.setCountry(split[0]);
+        }
+        if (!"0".equals(split[1])) {
+            ipInfo.setArea(split[1]);
+        }
+        if (!"0".equals(split[2])) {
+            ipInfo.setRegion(split[2]);
+        }
+        if (!"0".equals(split[3])) {
+            ipInfo.setCity(split[3]);
+        }
+        if (!"0".equals(split[4])) {
+            ipInfo.setIsp(split[4]);
+        }
+        return ipInfo;
+    }
+
+    public static Addresses parserByContext(String context, String ip) {
+
+        Addresses ipInfo = parserByContext(context);
+        if (null == ipInfo) {
+            return null;
+        }
+        if (StringUtils.isNotBlank(ip)) {
+            return ipInfo.setIp(ip);
+        }
+        return ipInfo;
+    }
+
+    public String getInfo() {
+        return "ip: " + ip + ", 国家: " + country + ", 省份: " + region + ", 城市: " + city + ", 县: " + county + ", 运营商: " + isp;
+    }
+
 }

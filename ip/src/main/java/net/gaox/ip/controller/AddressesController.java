@@ -5,7 +5,6 @@ import net.gaox.ip.annotation.MonitorIP;
 import net.gaox.ip.entry.Addresses;
 import net.gaox.ip.model.AddressesXmlVO;
 import net.gaox.ip.util.AddressUtil;
-import net.gaox.ip.util.HttpContextUtil;
 import net.gaox.ip.util.IpUtil;
 import net.gaox.ip.util.XmlUtil;
 import org.springframework.beans.BeanUtils;
@@ -52,12 +51,13 @@ public class AddressesController {
     }
 
     @GetMapping("/ip")
-    public String getCityInfo() {
-        HttpServletRequest request = HttpContextUtil.getHttpServletRequest();
-        String ip = IpUtil.getIpAddress(request);
-        String cityInfo = AddressUtil.getCityInfo(ip);
-        log.info(MessageFormat.format("当前IP为:[{0}]；当前IP地址解析出来的地址为:[{1}]", ip, cityInfo));
-        return cityInfo;
+    public String getCityInfo(String ip) {
+        Addresses addresses = AddressUtil.getAddresses(ip);
+        if (null == addresses) {
+            return "ip: " + ip + ", 未解析到位置信息.";
+        }
+        log.info(MessageFormat.format("当前IP为:[{0}]；当前IP地址解析出来的地址为:[{1}]", ip, addresses));
+        return addresses.getInfo();
     }
 
 }

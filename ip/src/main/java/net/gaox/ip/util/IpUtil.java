@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Enumeration;
 
 /**
  * <p>  </p>
@@ -36,6 +37,7 @@ public class IpUtil {
 
     /**
      * 获取指定ip的地理位置信息
+     * https://whois.pconline.com.cn/ipJson.jsp?json=true&ip=239.197.206.19
      *
      * @param content  请求的参数 格式为：name=xxx&pwd=xxx
      * @param encoding 服务器端请求编码。如GBK,UTF-8等
@@ -44,10 +46,34 @@ public class IpUtil {
     public static Addresses getAddresses(String content, String encoding) {
 
         // 这里调用淘宝API，取得IP所在的省市区信息
-        String urlStr = "http://ip.taobao.com/service/getIpInfo2.php";
+        String urlStr = "https://ip.taobao.com/outGetIpInfo";
         String returnStr = getResult(urlStr, "ip=" + content, encoding);
         if (null != returnStr) {
             return JSONObject.parseObject(decodeUnicode(returnStr)).getObject("data", Addresses.class);
+        }
+        return null;
+    }
+
+    /**
+     * 获取指定ip的地理位置信息
+     *
+     * @param ip ip地址
+     * @return Addr对象
+     */
+    public static Addresses getAddressesByPconline(String ip) {
+
+        // 这里调用淘宝API，取得IP所在的省市区信息
+        String urlStr = "https://whois.pconline.com.cn/ipJson.jsp";
+        String returnStr = getResult(urlStr, "json=true&ip=" + ip, "gbk");
+        if (null != returnStr) {
+            JSONObject json = JSONObject.parseObject(decodeUnicode(returnStr));
+            Addresses addresses = new Addresses().setIp(ip)
+                    .setRegion(json.getString("pro"))
+                    .setRegionId(json.getString("proCode"))
+                    .setCity(json.getString("city"))
+                    .setCityId(json.getString("cityCode"))
+                    .setIsp(json.getString("addr"));
+            return addresses;
         }
         return null;
     }
@@ -169,6 +195,12 @@ public class IpUtil {
         if (request == null) {
             return "0:0:0:0:0:0:0:1";
         }
+        Enumeration<String> headerNames = request.getHeaderNames();
+        while (headerNames.hasMoreElements()) {
+            String headerName = headerNames.nextElement();
+            String headerValue = request.getHeader(headerName);
+            System.out.println("Header Name: " + headerName + ", Header Value: " + headerValue);
+        }
         String ip = request.getHeader("x-forwarded-for");
         if (ip == null || ip.isEmpty() || UNKNOWN.equalsIgnoreCase(ip)) {
             ip = request.getHeader("Proxy-Client-IP");
@@ -190,14 +222,11 @@ public class IpUtil {
     public static void main(String[] args) {
         final long l = System.currentTimeMillis();
         String ip = "115.220.200.21";
-        Addresses address = getAddresses(ip);
+        Addresses address = getAddressesByPconline(ip);
         System.out.println(String.format("耗时：%sms", System.currentTimeMillis() - l));
         System.out.println(address.getCountry());
         System.out.println(address.getRegion());
         System.out.println(address.getCity());
         System.out.println(address.getIsp());
-        System.out.println(address);
-
-        System.out.println(XmlUtil.convertToXml(address));
     }
 }
